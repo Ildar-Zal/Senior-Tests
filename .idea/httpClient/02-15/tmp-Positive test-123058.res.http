@@ -1,0 +1,26 @@
+// Status: 201, time: 219ms, size: 144 B
+### Positive test
+POST http://localhost:4111/api/v1/admin/users HTTP/1.1
+authorization: Basic a2F0ZTE5OTc6S2F0ZTE5OTch
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+content-type: application/json
+date: Sun, 15 Feb 2026 09:30:58 GMT
+expires: 0
+pragma: no-cache
+transfer-encoding: chunked
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-xss-protection: 0
+
+{
+  "id": 3,
+  "username": "kate1997",
+  "password": "$2a$10$Wch2Az.iZilvZiDtgcV0x.YnizfaJiWb8w4crydNfUEU3UPduZUyO",
+  "name": null,
+  "role": "USER",
+  "accounts": []
+}
+>> C:\Users\Ildar\IdeaProjects\nbank-tests\.idea\httpClient\02-15\Positive test\2026-02-15T123058.json

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requests/iteration_1.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requests/utils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/BaseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/CreateAccoutTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/CreateUserTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/LoginUserTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="39hRgUL1F6liUOkWsSV4iDGaHkF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HttpClient.Get auth token for admin.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Get auth token for user.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Get auth token.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.HTTP Request ▏#1.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Negative test Admin cannot create new user with blank username.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Negative test Create user that already exist by admin.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Positive test Admin can create new user with correct data.executor&quot;: &quot;Run&quot;,
+    &quot;HttpClient.Positive test create user by admin.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Positive test.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Posivite test Authorized user can create account.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;JUnit.CreateAccoutTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateAccoutTest.userCanCreateAccountTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanCreateUserTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanCreateUserTest (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanCreateUserTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanGenerateTokenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.userCanGenerateAuthToken.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.userCanLoginTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.userCantLoginTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ildar/IdeaProjects/nbank-tests&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.1150748&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RunManager" selected="JUnit.CreateAccoutTest">
+    <configuration name="CreateAccoutTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration1" />
+      <option name="MAIN_CLASS_NAME" value="iteration1.CreateAccoutTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateAccoutTest.userCanCreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration1" />
+      <option name="MAIN_CLASS_NAME" value="iteration1.CreateAccoutTest" />
+      <option name="METHOD_NAME" value="userCanCreateAccountTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CreateUserTest.adminCanCreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration1" />
+      <option name="MAIN_CLASS_NAME" value="iteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="adminCanCreateUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginUserTest.userCanLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration1" />
+      <option name="MAIN_CLASS_NAME" value="iteration1.LoginUserTest" />
+      <option name="METHOD_NAME" value="userCanLoginTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginUserTest.userCantLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration1" />
+      <option name="MAIN_CLASS_NAME" value="iteration1.LoginUserTest" />
+      <option name="METHOD_NAME" value="userCantLoginTest(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Get auth token for admin" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Get auth token for user" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Get auth token" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="HTTP Request ▏#1" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Negative test Admin cannot create new user with blank username" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Negative test Create user that already exist by admin" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Positive test Admin can create new user with correct data" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Positive test create user by admin" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Positive test" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <configuration name="Posivite test Authorized user can create account" type="intellijHttpClient" activateToolWindowBeforeRun="false">
+      <env />
+      <httpFilePath>$PROJECT_DIR$/requests/iteration_1.http</httpFilePath>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CreateAccoutTest" />
+        <item itemvalue="JUnit.CreateAccoutTest.userCanCreateAccountTest" />
+        <item itemvalue="JUnit.LoginUserTest.userCantLoginTest" />
+        <item itemvalue="JUnit.LoginUserTest.userCanLoginTest" />
+        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="" />
+      <created>1771146432061</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771146432061</updated>
+    </task>
+    <servers />
+  </component>
+</project>

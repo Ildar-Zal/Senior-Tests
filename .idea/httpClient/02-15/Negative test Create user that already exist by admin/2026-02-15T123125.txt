@@ -1,0 +1,1 @@
+Error: Username 'kate1998' already exists.
