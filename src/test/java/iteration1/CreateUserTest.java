@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import requests.LoginUserRequester;
+import specs.RequestSpecs;
 
 import java.util.stream.Stream;
 
@@ -16,19 +18,7 @@ public class CreateUserTest extends BaseTest{
 
     @Test
     public void adminCanGenerateTokenTest() {
-        given()
-                .contentType("application/json")
-                .body("""
-                        {
-                          "username": "admin",
-                          "password": "admin"
-                        }
-                        """)
-                .when()
-                .post("http://localhost:4111/api/v1/auth/login")
-                .then()
-                .log().all()
-                .statusCode(HttpStatus.SC_OK);
+        new LoginUserRequester(RequestSpecs.unauthSpec(),)
     }
 
     @Test
