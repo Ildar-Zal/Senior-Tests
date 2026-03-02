@@ -33,38 +33,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HttpClient.Get auth token for admin.executor": "httpExecutor",
-    "HttpClient.Get auth token for user.executor": "httpExecutor",
-    "HttpClient.Get auth token.executor": "httpExecutor",
-    "HttpClient.HTTP Request ▏#1.executor": "httpExecutor",
-    "HttpClient.Negative test Admin cannot create new user with blank username.executor": "httpExecutor",
-    "HttpClient.Negative test Create user that already exist by admin.executor": "httpExecutor",
-    "HttpClient.Positive test Admin can create new user with correct data.executor": "Run",
-    "HttpClient.Positive test create user by admin.executor": "httpExecutor",
-    "HttpClient.Positive test.executor": "httpExecutor",
-    "HttpClient.Posivite test Authorized user can create account.executor": "httpExecutor",
-    "JUnit.CreateAccoutTest.executor": "Run",
-    "JUnit.CreateAccoutTest.userCanCreateAccountTest.executor": "Run",
-    "JUnit.CreateUserTest.adminCanCreateUserTest (1).executor": "Run",
-    "JUnit.CreateUserTest.adminCanCreateUserTest (2).executor": "Run",
-    "JUnit.CreateUserTest.adminCanCreateUserTest.executor": "Run",
-    "JUnit.CreateUserTest.adminCanGenerateTokenTest.executor": "Run",
-    "JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor": "Run",
-    "JUnit.LoginUserTest.userCanGenerateAuthToken.executor": "Run",
-    "JUnit.LoginUserTest.userCanLoginTest.executor": "Run",
-    "JUnit.LoginUserTest.userCantLoginTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "improved-tests-again",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Ildar/IdeaProjects/detmir-autotests",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.1150748",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HttpClient.Get auth token for admin.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Get auth token for user.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Get auth token.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.HTTP Request ▏#1.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Negative test Admin cannot create new user with blank username.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Negative test Create user that already exist by admin.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Positive test Admin can create new user with correct data.executor&quot;: &quot;Run&quot;,
+    &quot;HttpClient.Positive test create user by admin.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Positive test.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;HttpClient.Posivite test Authorized user can create account.executor&quot;: &quot;httpExecutor&quot;,
+    &quot;JUnit.CreateAccoutTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateAccoutTest.userCanCreateAccountTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanCreateUserTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanCreateUserTest (2).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanCreateUserTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CreateUserTest.adminCanGenerateTokenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.userCanGenerateAuthToken.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.userCanLoginTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginUserTest.userCantLoginTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;improved-tests-again&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ildar/IdeaProjects/detmir-autotests&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.1150748&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="JUnit.CreateUserTest.adminCanGenerateTokenTest">
     <configuration name="CreateAccoutTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
