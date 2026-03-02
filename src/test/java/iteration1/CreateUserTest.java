@@ -1,5 +1,6 @@
 package iteration1;
 
+import models.CreateUserRequest;
 import models.LoginUserRequest;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
@@ -30,13 +31,18 @@ public class CreateUserTest extends BaseTest{
 
     @Test
     public void adminCanCreateUserTest() {
+        CreateUserRequest request = CreateUserRequest.builder()
+                .username()
+                .password()
+                .role()
+                .build();
        String username =  given()
                 .accept("*/*")
                 .contentType("application/json")
                 .header("Authorization", "Basic YWRtaW46YWRtaW4=")
                 .body("""
                         {
-                          "username": "kate1990",
+                          "username": "kate180",
                           "password": "verysTRongPassword33$",
                           "role": "USER"
                         }
@@ -45,6 +51,7 @@ public class CreateUserTest extends BaseTest{
                 .post("http://localhost:4111/api/v1/admin/users")
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
+               .log().all()
                 .extract()
                 .path("username");
 

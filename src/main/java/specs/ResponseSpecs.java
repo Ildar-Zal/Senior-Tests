@@ -20,4 +20,9 @@ public class ResponseSpecs {
         return defaultSpec().expectStatusCode(HttpStatus.SC_OK)
                 .build();
     }
+
+    public static ResponseSpecification isCreated() {
+        return defaultSpec().expectStatusCode(HttpStatus.SC_CREATED)
+                .build();
+    }
 }

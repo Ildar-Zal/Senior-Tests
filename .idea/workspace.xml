@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration1/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration1/BaseTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration1/CreateUserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +68,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.CreateUserTest.adminCanGenerateTokenTest">
+  <component name="RunManager" selected="JUnit.CreateUserTest.adminCanCreateUserTest">
     <configuration name="CreateAccoutTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
@@ -97,6 +100,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CreateUserTest.adminCanCreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration1" />
+      <option name="MAIN_CLASS_NAME" value="iteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="adminCanCreateUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CreateUserTest.adminCanGenerateTokenTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
@@ -108,22 +127,6 @@
       <option name="PACKAGE_NAME" value="iteration1" />
       <option name="MAIN_CLASS_NAME" value="iteration1.CreateUserTest" />
       <option name="METHOD_NAME" value="adminCanGenerateTokenTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoginUserTest.userCanLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="iteration1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="iteration1" />
-      <option name="MAIN_CLASS_NAME" value="iteration1.LoginUserTest" />
-      <option name="METHOD_NAME" value="userCanLoginTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -197,11 +200,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserTest" />
         <item itemvalue="JUnit.CreateUserTest.adminCanGenerateTokenTest" />
         <item itemvalue="JUnit.CreateAccoutTest.userCanCreateAccountTest" />
         <item itemvalue="JUnit.CreateAccoutTest" />
         <item itemvalue="JUnit.LoginUserTest.userCantLoginTest" />
-        <item itemvalue="JUnit.LoginUserTest.userCanLoginTest" />
       </list>
     </recent_temporary>
   </component>
