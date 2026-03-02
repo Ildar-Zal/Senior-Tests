@@ -40,9 +40,13 @@ public class CreateUserTest extends BaseTest {
                 .password(RandomData.randomPassword())
                 .role(Role.USER)
                 .build();
+
         CreateUserResponse createUserResponse = new CreateUserRequester(RequestSpecs.adminSpec(),
                 ResponseSpecs.isCreated())
                 .post(request).extract().as(CreateUserResponse.class);
+
+
+
 
 
 
@@ -53,7 +57,8 @@ public class CreateUserTest extends BaseTest {
                 .get("http://localhost:4111/api/v1/admin/users")
                 .then()
                 .assertThat()
-                .body("username", Matchers.hasItem(username));
+                .log().all()
+                .body("username", Matchers.hasItem(createUserResponse.getUsername()));
     }
 
     public static Stream<Arguments> userInvalidData() {
