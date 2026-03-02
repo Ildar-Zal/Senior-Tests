@@ -1,5 +1,6 @@
 package iteration1;
 
+import models.LoginUserRequest;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import requests.LoginUserRequester;
 import specs.RequestSpecs;
+import specs.ResponseSpecs;
 
 import java.util.stream.Stream;
 
@@ -18,7 +20,12 @@ public class CreateUserTest extends BaseTest{
 
     @Test
     public void adminCanGenerateTokenTest() {
-        new LoginUserRequester(RequestSpecs.unauthSpec(),)
+        LoginUserRequest loginUserRequest = LoginUserRequest.builder()
+                .userName("admin")
+                .password("admin")
+                .build();
+        new LoginUserRequester(RequestSpecs.unauthSpec(), ResponseSpecs.isOk())
+                .post(loginUserRequest);
     }
 
     @Test
