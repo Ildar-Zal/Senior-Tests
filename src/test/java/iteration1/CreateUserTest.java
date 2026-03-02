@@ -1,6 +1,9 @@
 package iteration1;
 
+import enums.Role;
+import generators.RandomData;
 import models.CreateUserRequest;
+import models.CreateUserResponse;
 import models.LoginUserRequest;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
@@ -8,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import requests.CreateUserRequester;
 import requests.LoginUserRequester;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
@@ -17,7 +21,7 @@ import java.util.stream.Stream;
 import static io.restassured.RestAssured.given;
 
 
-public class CreateUserTest extends BaseTest{
+public class CreateUserTest extends BaseTest {
 
     @Test
     public void adminCanGenerateTokenTest() {
@@ -32,28 +36,15 @@ public class CreateUserTest extends BaseTest{
     @Test
     public void adminCanCreateUserTest() {
         CreateUserRequest request = CreateUserRequest.builder()
-                .username()
-                .password()
-                .role()
+                .username(RandomData.randomUsername())
+                .password(RandomData.randomPassword())
+                .role(Role.USER)
                 .build();
-       String username =  given()
-                .accept("*/*")
-                .contentType("application/json")
-                .header("Authorization", "Basic YWRtaW46YWRtaW4=")
-                .body("""
-                        {
-                          "username": "kate180",
-                          "password": "verysTRongPassword33$",
-                          "role": "USER"
-                        }
-                        """)
-                .when()
-                .post("http://localhost:4111/api/v1/admin/users")
-                .then()
-                .statusCode(HttpStatus.SC_CREATED)
-               .log().all()
-                .extract()
-                .path("username");
+        CreateUserResponse createUserResponse = new CreateUserRequester(RequestSpecs.adminSpec(),
+                ResponseSpecs.isCreated())
+                .post(request).extract().as(CreateUserResponse.class);
+
+
 
         given()
                 .contentType("application/json")
@@ -62,7 +53,7 @@ public class CreateUserTest extends BaseTest{
                 .get("http://localhost:4111/api/v1/admin/users")
                 .then()
                 .assertThat()
-                .body("username",Matchers.hasItem(username));
+                .body("username", Matchers.hasItem(username));
     }
 
     public static Stream<Arguments> userInvalidData() {
