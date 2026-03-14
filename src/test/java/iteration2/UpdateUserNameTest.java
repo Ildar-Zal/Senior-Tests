@@ -51,8 +51,9 @@ public class UpdateUserNameTest {
                 Arguments.of("asdc123123 acvxc", "Name must contain two words with letters only"),
                 Arguments.of("123123 adsasd", "Name must contain two words with letters only"),
                 Arguments.of("ADASD #@$@#$@$#", "Name must contain two words with letters only"),
-                Arguments.of(" adasdasd", "Name must contain two words with letters only"),
-                Arguments.of("adasdasd ", "Name must contain two words with letters only"),
+                Arguments.of("asdasd asdasd adasdasd", "Name must contain two words with letters only"),
+                Arguments.of("adasdasd   ", "Name must contain two words with letters only"),
+                Arguments.of("   adasdasd", "Name must contain two words with letters only"),
                 Arguments.of("фвыфв фывфыв ", "Name must contain two words with letters only")
         );
     }
