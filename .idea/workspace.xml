@@ -5,47 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/generators/GeneratingRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/generators/RandomModelGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/AccountResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/DepositAccountRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/TransferAccountRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/TransferAccountResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/UpdateCustomerProfileResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/UserResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/comparison/ModelAssertions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/comparison/ModelComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/comparison/ModelComparisonConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/Endpoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/HttpRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/interfaces/Crud.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/CrudRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/ValidatableCrudRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/AdminSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/requests/steps/UserSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/base/BaseTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/CreateAccountTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositAccountTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/MoneyTransferTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/UpdateUserNameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/enums/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/generators/RandomData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CreateUserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/CreateUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/UpdateCustomerProfileRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/LoginUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/LoginUserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/LoginUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/LoginUserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/requests/CreateUserRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/CreateUserRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/RequestSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/specs/ResponseSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/iteration1/BaseTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/iteration1/CreateAccoutTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/iteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration1/CreateUserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/iteration1/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration1/LoginUserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
