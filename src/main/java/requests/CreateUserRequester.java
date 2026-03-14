@@ -7,7 +7,8 @@ import models.CreateUserRequest;
 
 import static io.restassured.RestAssured.given;
 
-public class CreateUserRequester extends Request<CreateUserRequest>{
+public class CreateUserRequester extends Request<CreateUserRequest> {
+
     public CreateUserRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         super(requestSpecification, responseSpecification);
     }
