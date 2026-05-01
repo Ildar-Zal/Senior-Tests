@@ -21,7 +21,7 @@ public class RequestSpecs {
 
     private static final Map<String, String> authHeaders = new HashMap<>(Map.of("admin", "Basic YWRtaW46YWRtaW4="));
 
-    private RequestSpecs() {}
+    private RequestSpecs() { }
 
     private static RequestSpecBuilder defaultSpec() {
         return new RequestSpecBuilder()
