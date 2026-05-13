@@ -78,4 +78,12 @@ public class UserSteps {
                 .getList("", AccountResponse.class);
     }
 
+    public UserResponse getUserProfile() {
+        return new ValidatableCrudRequester<UserResponse>
+                (userSpec,
+                        Endpoint.GET_CUSTOMER_PROFILE,
+                        ResponseSpecs.isOk())
+                .get(null);
+    }
+
 }

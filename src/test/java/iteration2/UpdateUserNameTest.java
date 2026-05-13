@@ -1,5 +1,6 @@
 package iteration2;
 
+import base.BaseTest;
 import generators.RandomModelGenerator;
 import models.CreateUserRequest;
 import models.UpdateCustomerProfileRequest;
@@ -14,35 +15,40 @@ import requests.skelethon.Endpoint;
 import requests.skelethon.requesters.CrudRequester;
 import requests.skelethon.requesters.ValidatableCrudRequester;
 import requests.steps.AdminSteps;
+import requests.steps.UserSteps;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
 import java.util.stream.Stream;
 
-public class UpdateUserNameTest {
+public class UpdateUserNameTest extends BaseTest {
 
     @Test
-    public void UserCanChangeNameTest() {
+    public void userCanChangeNameTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
+        var user = new UserSteps(userRequest);
+        var nameBeforeUpdate = user.getUserProfile().getName();
 
         UpdateCustomerProfileRequest updateRequest = RandomModelGenerator.generate(UpdateCustomerProfileRequest.class);
 
-        var expectedProfileState =
+        var expectedName =
                 new ValidatableCrudRequester<UpdateCustomerProfileResponse>
                         (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                                 Endpoint.UPDATE_CUSTOMER_PROFILE,
                                 ResponseSpecs.isOk())
                         .put(null, updateRequest)
-                        .getCustomer();
+                        .getCustomer().getName();
 
-        var actualProfileAfterUpdate =
+        var actualName =
                 new ValidatableCrudRequester<UserResponse>
                         (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                                 Endpoint.GET_CUSTOMER_PROFILE,
                                 ResponseSpecs.isOk())
-                        .get(null);
+                        .get(null).getName();
 
-        ModelAssertions.assertThatModels(actualProfileAfterUpdate, expectedProfileState).match();
+        softly.assertThat(nameBeforeUpdate).isNull();
+        softly.assertThat(nameBeforeUpdate).isNotEqualTo(actualName);
+        softly.assertThat(expectedName).isEqualTo(actualName);
     }
 
     public static Stream<Arguments> invalidData() {

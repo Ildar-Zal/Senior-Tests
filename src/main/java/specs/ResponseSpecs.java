@@ -33,14 +33,13 @@ public class ResponseSpecs {
                 .build();
     }
 
-    public static ResponseSpecification isForbidden(String errorKey, String errorMessage) {
+    public static ResponseSpecification isForbidden() {
         var spec = defaultSpec().expectStatusCode(HttpStatus.SC_FORBIDDEN);
 
-        if (errorKey == null || errorKey.isEmpty()) {
-            return spec.expectBody(Matchers.equalTo(errorMessage)).build();
-        } else {
-            return spec.expectBody(errorKey, Matchers.hasItem(errorMessage)).build();
-        }
+        return spec.expectBody(Matchers.equalTo("Unauthorized access to account")).build();
+
+
+
     }
 
     public static ResponseSpecification isBadRequest(String errorKey, String errorMessage) {
@@ -52,4 +51,6 @@ public class ResponseSpecs {
             return spec.expectBody(errorKey, Matchers.hasItem(errorMessage)).build();
         }
     }
+
+
 }

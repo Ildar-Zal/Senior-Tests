@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 public class MoneyTransferTest extends BaseTest {
 
     @Test
-    public void UserCanTransferMoneyDifferentUserTest() {
+    public void userCanTransferMoneyDifferentUserTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
         CreateUserRequest userRequest2 = AdminSteps.createUser();
         var sender = new UserSteps(userRequest1);
@@ -56,7 +56,7 @@ public class MoneyTransferTest extends BaseTest {
     }
 
     @Test
-    public void UserCanTransferMoneyYourselfTest() {
+    public void userCanTransferMoneyYourselfTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
         var user = new UserSteps(userRequest1);
         var sourceAcc = user.createAccount();
@@ -79,7 +79,7 @@ public class MoneyTransferTest extends BaseTest {
     }
 
     @Test
-    public void UserCanTransferMinSumTest() {
+    public void userCanTransferMinSumTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
         var user = new UserSteps(userRequest1);
         var sourceAcc = user.createAccount();
@@ -101,7 +101,7 @@ public class MoneyTransferTest extends BaseTest {
     }
 
     @Test
-    public void UserCanTransferMaxSumTest() {
+    public void userCanTransferMaxSumTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var sourceAcc = user.createAccount();

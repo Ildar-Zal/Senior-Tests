@@ -22,10 +22,11 @@ import java.util.stream.Stream;
 public class DepositAccountTest extends BaseTest {
 
     @Test
-    public void UserCanDepositAccountTest() {
+    public void userCanDepositAccountTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var account = user.createAccount();
+        var balanceBeforeDeposit = account.getBalance();
 
         DepositAccountRequest depositAccountRequest = RandomModelGenerator.generate(DepositAccountRequest.class);
         depositAccountRequest.setId(account.getId());
@@ -38,11 +39,12 @@ public class DepositAccountTest extends BaseTest {
 
         var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
 
+        softly.assertThat(balanceBeforeDeposit).isEqualTo(BigDecimal.valueOf(0.0));
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
 
     @Test
-    public void UserCanDepositMaxSumAccountTest() {
+    public void userCanDepositMaxSumAccountTest() {
         var userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var account = user.createAccount();
@@ -54,7 +56,7 @@ public class DepositAccountTest extends BaseTest {
     }
 
     @Test
-    public void UserCanDepositMinSumAccountTest() {
+    public void userCanDepositMinSumAccountTest() {
         var userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var account = user.createAccount();
@@ -73,7 +75,7 @@ public class DepositAccountTest extends BaseTest {
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_DEPOSIT,
-                ResponseSpecs.isForbidden(null, "Unauthorized access to account"))
+                ResponseSpecs.isForbidden())
                 .post(depositAccountRequest);
 
     }
@@ -90,7 +92,7 @@ public class DepositAccountTest extends BaseTest {
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_DEPOSIT,
-                ResponseSpecs.isForbidden(null, "Unauthorized access to account"))
+                ResponseSpecs.isForbidden())
                 .post(depositAccountRequest);
 
     }
