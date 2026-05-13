@@ -1,14 +1,14 @@
 package base;
 
-import models.UserResponse;
+import api.models.UserResponse;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import requests.skelethon.Endpoint;
-import requests.skelethon.requesters.CrudRequester;
-import specs.RequestSpecs;
-import specs.ResponseSpecs;
+import api.requests.skelethon.Endpoint;
+import api.requests.skelethon.requesters.CrudRequester;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
 
 public class BaseTest {
     protected SoftAssertions softly;
