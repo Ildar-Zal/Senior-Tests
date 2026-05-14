@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requests/iteration_1.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requests/utils.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/BaseTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/CreateAccoutTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/CreateUserTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration1/LoginUserTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/TransactionResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/models/enums/TransactionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/interfaces/Crud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/interfaces/Crud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/CrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/ValidatableCrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/ValidatableCrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/requests/steps/UserSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/requests/steps/UserSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/DepositAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/MoneyTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/MoneyTransferTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/UpdateUserNameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/UpdateUserNameTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +25,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -41,113 +43,149 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HttpClient.Get auth token for admin.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.Get auth token for user.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.Get auth token.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.HTTP Request ▏#1.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.Negative test Admin cannot create new user with blank username.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.Negative test Create user that already exist by admin.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.Positive test Admin can create new user with correct data.executor&quot;: &quot;Run&quot;,
-    &quot;HttpClient.Positive test create user by admin.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.Positive test.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;HttpClient.Posivite test Authorized user can create account.executor&quot;: &quot;httpExecutor&quot;,
-    &quot;JUnit.CreateAccoutTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateAccoutTest.userCanCreateAccountTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanCreateUserTest (1).executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanCreateUserTest (2).executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanCreateUserTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CreateUserTest.adminCanGenerateTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.userCanGenerateAuthToken.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.userCanLoginTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.LoginUserTest.userCantLoginTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ildar/IdeaProjects/nbank-tests&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.1150748&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HttpClient.Get auth token for admin.executor": "httpExecutor",
+    "HttpClient.Get auth token for user.executor": "httpExecutor",
+    "HttpClient.Get auth token.executor": "httpExecutor",
+    "HttpClient.HTTP Request ▏#1.executor": "httpExecutor",
+    "HttpClient.Negative test Admin cannot create new user with blank username.executor": "httpExecutor",
+    "HttpClient.Negative test Create user that already exist by admin.executor": "httpExecutor",
+    "HttpClient.Positive test Admin can create new user with correct data.executor": "Run",
+    "HttpClient.Positive test create user by admin.executor": "httpExecutor",
+    "HttpClient.Positive test.executor": "httpExecutor",
+    "HttpClient.Posivite test Authorized user can create account.executor": "httpExecutor",
+    "JUnit.CreateAccountTest.executor": "Run",
+    "JUnit.CreateAccountTest.userCanCreateAccountTest.executor": "Run",
+    "JUnit.CreateAccoutTest.executor": "Run",
+    "JUnit.CreateAccoutTest.userCanCreateAccountTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanCreateUserTest (1).executor": "Run",
+    "JUnit.CreateUserTest.adminCanCreateUserTest (2).executor": "Run",
+    "JUnit.CreateUserTest.adminCanCreateUserTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCanGenerateTokenTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCantCreateUserTest.executor": "Run",
+    "JUnit.CreateUserTest.executor": "Run",
+    "JUnit.DepositAccountTest.UserCanDepositAccountTest.executor": "Run",
+    "JUnit.DepositAccountTest.executor": "Run",
+    "JUnit.DepositAccountTest.userCantDepositAccountTest.executor": "Run",
+    "JUnit.DepositAccountTest.userCantDepositToDiffAccount.executor": "Run",
+    "JUnit.DepositAccountTest.userCantDepositToNonExistAccount.executor": "Run",
+    "JUnit.DepositMoneyTest.UserCanDepositAccountTest.executor": "Run",
+    "JUnit.DepositMoneyTest.UserCanDepositMaxSumAccountTest.executor": "Run",
+    "JUnit.DepositMoneyTest.UserCanDepositMinSumAccountTest.executor": "Run",
+    "JUnit.DepositMoneyTest.executor": "Run",
+    "JUnit.DepositMoneyTest.userCantDepositAccountTest (1).executor": "Run",
+    "JUnit.DepositMoneyTest.userCantDepositAccountTest (2).executor": "Run",
+    "JUnit.DepositMoneyTest.userCantDepositAccountTest.executor": "Run",
+    "JUnit.DepositMoneyTest.userCantDepositToDiffAccount.executor": "Run",
+    "JUnit.DepositMoneyTest.userCantDepositToNonExistAccount.executor": "Run",
+    "JUnit.LoginUserTest.adminCanGenerateAuthTokenTest.executor": "Run",
+    "JUnit.LoginUserTest.executor": "Run",
+    "JUnit.LoginUserTest.userCanGenerateAuthToken.executor": "Run",
+    "JUnit.LoginUserTest.userCanLoginTest.executor": "Run",
+    "JUnit.LoginUserTest.userCantLoginTest.executor": "Run",
+    "JUnit.MoneyTransferTest.UserCanTransferMaxSumTest.executor": "Run",
+    "JUnit.MoneyTransferTest.UserCanTransferMinSumTest.executor": "Run",
+    "JUnit.MoneyTransferTest.UserCanTransferMoneyDifferentUserTest.executor": "Run",
+    "JUnit.MoneyTransferTest.UserCanTransferMoneyUrselfTest.executor": "Run",
+    "JUnit.MoneyTransferTest.executor": "Run",
+    "JUnit.MoneyTransferTest.userCanTransferMoneyDifferentUserTest.executor": "Run",
+    "JUnit.MoneyTransferTest.userCantDepositAccountTest.executor": "Run",
+    "JUnit.MoneyTransferTest.userCantTrasferMoreThanTenTest.executor": "Run",
+    "JUnit.UpdateUserNameTest.UserCanChangeNameTest.executor": "Run",
+    "JUnit.UpdateUserNameTest.executor": "Run",
+    "JUnit.UpdateUserNameTest.negativeTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "#1 on super-tests",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Ildar/IdeaProjects/life-coding",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.1150748",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.CreateAccoutTest">
-    <configuration name="CreateAccoutTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="models" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.DepositAccountTest">
+    <configuration name="DepositAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="iteration1.*" />
+          <option name="PATTERN" value="iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="iteration1" />
-      <option name="MAIN_CLASS_NAME" value="iteration1.CreateAccoutTest" />
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.DepositAccountTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateAccoutTest.userCanCreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DepositAccountTest.userCantDepositAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="iteration1.*" />
+          <option name="PATTERN" value="iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="iteration1" />
-      <option name="MAIN_CLASS_NAME" value="iteration1.CreateAccoutTest" />
-      <option name="METHOD_NAME" value="userCanCreateAccountTest" />
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.DepositAccountTest" />
+      <option name="METHOD_NAME" value="userCantDepositAccountTest(java.lang.Double,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateUserTest.adminCanCreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoneyTransferTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="iteration1.*" />
+          <option name="PATTERN" value="iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="iteration1" />
-      <option name="MAIN_CLASS_NAME" value="iteration1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanCreateUserTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.MoneyTransferTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUserTest.userCanLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UpdateUserNameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="iteration1.*" />
+          <option name="PATTERN" value="iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="iteration1" />
-      <option name="MAIN_CLASS_NAME" value="iteration1.LoginUserTest" />
-      <option name="METHOD_NAME" value="userCanLoginTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.UpdateUserNameTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUserTest.userCantLoginTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UpdateUserNameTest.negativeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="iteration1.*" />
+          <option name="PATTERN" value="iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="iteration1" />
-      <option name="MAIN_CLASS_NAME" value="iteration1.LoginUserTest" />
-      <option name="METHOD_NAME" value="userCantLoginTest(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.UpdateUserNameTest" />
+      <option name="METHOD_NAME" value="negativeTest(java.lang.String,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -205,11 +243,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CreateAccoutTest" />
-        <item itemvalue="JUnit.CreateAccoutTest.userCanCreateAccountTest" />
-        <item itemvalue="JUnit.LoginUserTest.userCantLoginTest" />
-        <item itemvalue="JUnit.LoginUserTest.userCanLoginTest" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserTest" />
+        <item itemvalue="JUnit.DepositAccountTest" />
+        <item itemvalue="JUnit.MoneyTransferTest" />
+        <item itemvalue="JUnit.UpdateUserNameTest" />
+        <item itemvalue="JUnit.UpdateUserNameTest.negativeTest" />
+        <item itemvalue="JUnit.DepositAccountTest.userCantDepositAccountTest" />
       </list>
     </recent_temporary>
   </component>
@@ -223,5 +261,50 @@
       <updated>1771146432061</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/CrudRequester.java</url>
+          <line>36</line>
+          <properties class="requests.skelethon.requesters.CrudRequester" method="get">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/requests/skelethon/requesters/ValidatableCrudRequester.java</url>
+          <line>26</line>
+          <properties class="requests.skelethon.requesters.ValidatableCrudRequester" method="get">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/iteration2/UpdateUserNameTest.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/nbank_tests$DepositAccountTest_userCantDepositToDiffAccount.ic" NAME="DepositAccountTest.userCantDepositToDiffAccount Coverage Results" MODIFIED="1773498358616" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>iteration1.*</FILTER>
+    </SUITE>
   </component>
 </project>
