@@ -43,6 +43,8 @@ public class MoneyTransferTest extends BaseTest {
                 ResponseSpecs.isOk())
                 .post(transferRequest);
 
+
+
         var senderAccAfterTransfer = sender.getAccount(senderAcc.getId());
         var receiverAccAfterTransfer = receiver.getAccount(receiverAcc.getId());
 
