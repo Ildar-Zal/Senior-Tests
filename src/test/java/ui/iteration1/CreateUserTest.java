@@ -1,12 +1,12 @@
-package iteration1.ui;
+package ui.iteration1;
 
-import com.codeborne.selenide.*;
 import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.comparison.ModelAssertions;
 import common.annotations.AdminSession;
 import org.junit.jupiter.api.Test;
 import api.requests.steps.AdminSteps;
+import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.BankAlert;
 

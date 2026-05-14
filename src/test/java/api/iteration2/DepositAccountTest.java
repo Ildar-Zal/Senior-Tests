@@ -1,4 +1,4 @@
-package iteration2;
+package api.iteration2;
 
 import api.generators.RandomModelGenerator;
 import api.models.AccountResponse;
@@ -38,7 +38,7 @@ public class DepositAccountTest extends BaseTest {
                         ResponseSpecs.isOk())
                 .post(depositAccountRequest);
 
-        var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
+        var accountAfterDeposit = user.getAccount(expectedAccountState.getAccountNumber());
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
@@ -50,7 +50,7 @@ public class DepositAccountTest extends BaseTest {
         var account = user.createAccount();
 
         var expectedAccountState = user.depositAccount(account, 5000);
-        var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
+        var accountAfterDeposit = user.getAccount(expectedAccountState.getAccountNumber());
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
@@ -62,7 +62,7 @@ public class DepositAccountTest extends BaseTest {
         var account = user.createAccount();
 
         var expectedAccountState = user.depositAccount(account, 0.01);
-        var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
+        var accountAfterDeposit = user.getAccount(expectedAccountState.getAccountNumber());
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }

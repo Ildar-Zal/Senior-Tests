@@ -1,4 +1,4 @@
-package iteration1.api;
+package api.iteration1;
 
 import base.BaseTest;
 import api.models.AccountResponse;

@@ -1,4 +1,4 @@
-package iteration2;
+package api.iteration2;
 
 import api.models.CreateUserRequest;
 import api.models.TransferAccountRequest;
@@ -44,8 +44,8 @@ public class MoneyTransferTest extends BaseTest {
                 ResponseSpecs.isOk())
                 .post(transferRequest);
 
-        var senderAccAfterTransfer = sender.getAccount(senderAcc.getId());
-        var receiverAccAfterTransfer = receiver.getAccount(receiverAcc.getId());
+        var senderAccAfterTransfer = sender.getAccount(senderAcc.getAccountNumber());
+        var receiverAccAfterTransfer = receiver.getAccount(receiverAcc.getAccountNumber());
 
         softly.assertThat(senderAccAfterTransfer.getBalance())
                 .as("Баланс отправителя после перевода")
@@ -67,8 +67,8 @@ public class MoneyTransferTest extends BaseTest {
 
         user.transferMoney(sourceAcc, targetAcc, expectedTargetState.getBalance());
 
-        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getId());
-        var targetAccAfterTransfer = user.getAccount(targetAcc.getId());
+        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getAccountNumber());
+        var targetAccAfterTransfer = user.getAccount(targetAcc.getAccountNumber());
 
         softly.assertThat(sourceAccAfterTransfer.getBalance())
                 .as("Баланс отправителя после перевода")
@@ -90,8 +90,8 @@ public class MoneyTransferTest extends BaseTest {
 
         user.transferMoney(sourceAcc, targetAcc, expectedTargetState.getBalance());
 
-        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getId());
-        var targetAccAfterTransfer = user.getAccount(targetAcc.getId());
+        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getAccountNumber());
+        var targetAccAfterTransfer = user.getAccount(targetAcc.getAccountNumber());
 
         softly.assertThat(sourceAccAfterTransfer.getBalance())
                 .as("Баланс отправителя после перевода")
@@ -113,8 +113,8 @@ public class MoneyTransferTest extends BaseTest {
 
         user.transferMoney(sourceAcc, targetAcc, expectedTargetState.getBalance());
 
-        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getId());
-        var targetAccAfterTransfer = user.getAccount(targetAcc.getId());
+        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getAccountNumber());
+        var targetAccAfterTransfer = user.getAccount(targetAcc.getAccountNumber());
 
         softly.assertThat(sourceAccAfterTransfer.getBalance())
                 .as("Баланс отправителя после перевода")

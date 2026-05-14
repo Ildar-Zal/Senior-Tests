@@ -1,10 +1,11 @@
-package iteration1.ui;
+package ui.iteration1;
 
 import com.codeborne.selenide.*;
 import api.models.CreateUserRequest;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import api.requests.steps.AdminSteps;
+import ui.BaseUiTest;
 import ui.pages.AdminPanel;
 import ui.pages.LoginPage;
 import ui.pages.UserDashboard;
@@ -13,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LoginUserTest extends BaseUiTest{
+public class LoginUserTest extends BaseUiTest {
     @Test
     public void adminCanLoginWithCorrectDataTest() {
         CreateUserRequest admin = CreateUserRequest.getAdmin();
@@ -27,7 +28,8 @@ public class LoginUserTest extends BaseUiTest{
         CreateUserRequest user = AdminSteps.createUser();
         new LoginPage().open().login(user.getUsername(), user.getPassword())
                 .getPage(UserDashboard.class).getWelcomeText().shouldBe(Condition.visible)
-                .shouldHave(Condition.text("Welcome, noname"));
+                .shouldHave(Condition.text("Welcome, noname")).shouldHave(Condition.text("@" + user.getUsername()));
+
     }
 
     @Test

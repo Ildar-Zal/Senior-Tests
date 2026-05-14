@@ -21,6 +21,12 @@ public class AdminPanel extends BasePage<AdminPanel> {
         return "/admin";
     }
 
+    @Override
+    public AdminPanel waitForLoadPage() {
+        adminPanelText.shouldBe(Condition.visible);
+        return this;
+    }
+
     public AdminPanel createUser(String username, String password) {
         usernameInput.sendKeys(username);
         passwordInput.setValue(password);

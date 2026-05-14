@@ -22,9 +22,13 @@ public abstract class BasePage<T extends BasePage> {
 
     public abstract String url();
 
+    public abstract T waitForLoadPage();
+
     public T open() {
-        return Selenide.open(url(), (Class<T>) this.getClass());
+         Selenide.open(url());
+         return waitForLoadPage();
     }
+
 
     public <T extends BasePage> T getPage(Class<T> pageClass) {
         return Selenide.page(pageClass);
@@ -35,6 +39,11 @@ public abstract class BasePage<T extends BasePage> {
         assertThat(alert.getText()).contains(bankAlert);
         alert.accept();
         return (T) this;
+    }
+
+    public T checkAlertMessageAndAccept(BankAlert alert, Object... args) {
+        String formattedMessage = alert.format(args);
+        return checkAlertMessageAndAccept(formattedMessage);
     }
 
     public static void authAsUser(String username, String password) {

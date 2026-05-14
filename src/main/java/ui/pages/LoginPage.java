@@ -19,4 +19,9 @@ public class LoginPage extends BasePage<LoginPage> {
     public String url() {
         return "/login";
     }
+
+    @Override
+    public LoginPage waitForLoadPage() {
+        return null;
+    }
 }

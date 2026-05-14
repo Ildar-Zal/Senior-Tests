@@ -1,10 +1,7 @@
 package api.requests.steps;
 
 import api.generators.RandomModelGenerator;
-import api.models.AccountResponse;
-import api.models.CreateUserRequest;
-import api.models.DepositAccountRequest;
-import api.models.TransferAccountRequest;
+import api.models.*;
 import io.restassured.specification.RequestSpecification;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
@@ -44,13 +41,13 @@ public class UserSteps {
 
     }
 
-    public AccountResponse getAccount(Integer id) {
-        List<AccountResponse> userAccounts = getAccountsUser();
+    public AccountResponse getAccount(String accountNumber) {
+        List<AccountResponse> userAccounts = getAccounts();
         return userAccounts.stream()
-                .filter(a -> a.getId().equals(id))
+                .filter(a -> a.getAccountNumber().equals(accountNumber))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(
-                        String.format("Account with ID %d not found for user: %s", id, user.getUsername())
+                        String.format("Account with Account Number %d not found for user: %s", accountNumber, user.getUsername())
                 ));
     }
 
@@ -72,7 +69,7 @@ public class UserSteps {
     }
 
 
-    public List<AccountResponse> getAccountsUser() {
+    public List<AccountResponse> getAccounts() {
         return new CrudRequester
                 (userSpec, Endpoint.CUSTOMER_ACCOUNTS, ResponseSpecs.isOk())
                 .get(null)
@@ -81,4 +78,11 @@ public class UserSteps {
                 .getList("", AccountResponse.class);
     }
 
+    public UserResponse getUserProfile() {
+        return new ValidatableCrudRequester<UserResponse>
+                (userSpec,
+                        Endpoint.GET_CUSTOMER_PROFILE,
+                        ResponseSpecs.isOk())
+                .get(null);
+    }
 }
