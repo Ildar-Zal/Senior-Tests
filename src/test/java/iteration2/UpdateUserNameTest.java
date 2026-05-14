@@ -36,7 +36,7 @@ public class UpdateUserNameTest extends BaseTest {
                         (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                                 Endpoint.UPDATE_CUSTOMER_PROFILE,
                                 ResponseSpecs.isOk())
-                        .put(null, updateRequest)
+                        .put(updateRequest)
                         .getCustomer().getName();
 
         var actualName =
@@ -68,6 +68,7 @@ public class UpdateUserNameTest extends BaseTest {
     @ParameterizedTest(name = "Негативные тесты")
     public void negativeTest(String name, String error) {
         CreateUserRequest userRequest = AdminSteps.createUser();
+        var user = new UserSteps(userRequest);
 
         UpdateCustomerProfileRequest updateCustomerProfileRequest = UpdateCustomerProfileRequest.builder()
                 .name(name)
@@ -77,7 +78,13 @@ public class UpdateUserNameTest extends BaseTest {
                 (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                         Endpoint.UPDATE_CUSTOMER_PROFILE,
                         ResponseSpecs.isBadRequest(null,error))
-                .put(null, updateCustomerProfileRequest);
+                .put(updateCustomerProfileRequest);
+
+        var nameAfterUpdate  = user.getUserProfile().getName();
+
+        softly.assertThat(nameAfterUpdate)
+                .as("Имя не должно поменяться")
+                .isNull();
     }
 
 }

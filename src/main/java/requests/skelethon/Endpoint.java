@@ -47,9 +47,18 @@ public enum Endpoint {
             "/customer/profile",
             BaseModel.class,
             UserResponse.class
+    ),
+    ACCOUNTS_TRANSACTIONS(
+            "/accounts/{accountId}/transactions", // Используем плейсхолдер
+            BaseModel.class,
+            TransactionResponse.class
     );
 
     private final String url;
     private Class<? extends BaseModel> RequestModel;
     private Class<? extends BaseModel> ResponseModel;
+
+    public boolean isDynamic() {
+        return url.contains("{");
+    }
 }

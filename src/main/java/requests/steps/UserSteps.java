@@ -86,4 +86,11 @@ public class UserSteps {
                 .get(null);
     }
 
+    public List<TransactionResponse> getTransaction(Integer id) {
+        return new ValidatableCrudRequester<TransactionResponse>
+                (userSpec,
+                        Endpoint.ACCOUNTS_TRANSACTIONS,
+                        ResponseSpecs.isOk()).getList(id);
+    }
+
 }

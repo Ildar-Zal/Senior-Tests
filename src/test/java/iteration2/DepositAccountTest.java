@@ -95,6 +95,13 @@ public class DepositAccountTest extends BaseTest {
                 ResponseSpecs.isForbidden())
                 .post(depositAccountRequest);
 
+        var diffAccountAfterDeposit = user.getAccount(diffAccount.getId());
+
+        softly.assertThat(diffAccountAfterDeposit.getBalance())
+                .as("Чужой аккаунт не должен быть пополнен")
+                .isZero();
+
+
     }
 
     public static Stream<Arguments> invalidDepositData() {
@@ -121,5 +128,10 @@ public class DepositAccountTest extends BaseTest {
                 Endpoint.ACCOUNTS_DEPOSIT,
                 ResponseSpecs.isBadRequest(null, error))
                 .post(depositAccountRequest);
+
+        var accountAfterDeposit = user.getAccount(account.getId());
+        softly.assertThat(accountAfterDeposit.getBalance())
+                .as("Депозит не должен быть больше 5000 и меньше 0.01")
+                .isEqualTo(BigDecimal.valueOf(0.0));
     }
 }

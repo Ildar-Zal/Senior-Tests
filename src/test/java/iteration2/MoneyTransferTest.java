@@ -3,18 +3,21 @@ package iteration2;
 import base.BaseTest;
 import models.*;
 import models.comparison.ModelAssertions;
+import models.enums.TransactionType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import requests.skelethon.Endpoint;
 import requests.skelethon.requesters.CrudRequester;
+import requests.skelethon.requesters.ValidatableCrudRequester;
 import requests.steps.AdminSteps;
 import requests.steps.UserSteps;
 import specs.RequestSpecs;
 import specs.ResponseSpecs;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.stream.Stream;
 
 
@@ -29,12 +32,13 @@ public class MoneyTransferTest extends BaseTest {
         var senderAcc = sender.createAccount();
         var receiverAcc = receiver.createAccount();
 
-        var expectedReceiverState = sender.depositRandomMoneyToAccount(senderAcc);
+        var depositedAccount = sender.depositRandomMoneyToAccount(senderAcc);
+        var transferAmount = depositedAccount.getBalance();
 
         TransferAccountRequest transferRequest = TransferAccountRequest.builder()
                 .senderAccountId(senderAcc.getId())
                 .receiverAccountId(receiverAcc.getId())
-                .amount(expectedReceiverState.getBalance())
+                .amount(transferAmount)
                 .build();
 
         new CrudRequester(
@@ -44,18 +48,39 @@ public class MoneyTransferTest extends BaseTest {
                 .post(transferRequest);
 
 
+        var senderAccAfter = sender.getAccount(senderAcc.getId());
+        var receiverAccAfter = receiver.getAccount(receiverAcc.getId());
 
-        var senderAccAfterTransfer = sender.getAccount(senderAcc.getId());
-        var receiverAccAfterTransfer = receiver.getAccount(receiverAcc.getId());
+        var senderTransactions = sender.getTransaction(senderAcc.getId());
+        var receiverTransactions = receiver.getTransaction(receiverAcc.getId());
 
-        softly.assertThat(senderAccAfterTransfer.getBalance())
-                .as("Баланс отправителя после перевода")
+
+        softly.assertThat(senderAccAfter.getBalance())
+                .as("Баланс отправителя после перевода должен обнулиться")
                 .isZero();
 
-        ModelAssertions.assertThatModels(receiverAccAfterTransfer, expectedReceiverState)
+        softly.assertThat(receiverAccAfter.getBalance())
+                .as("Баланс получателя должен быть равен сумме перевода")
+                .isEqualByComparingTo(transferAmount);
+
+        softly.assertThat(senderTransactions)
+                .extracting(TransactionResponse::getType)
+                .as("История транзакций отправителя")
+                .contains(TransactionType.TRANSFER_OUT, TransactionType.DEPOSIT);
+
+        softly.assertThat(receiverTransactions)
+                .extracting(TransactionResponse::getType)
+                .as("История транзакций получателя")
+                .contains(TransactionType.TRANSFER_IN);
+
+        ModelAssertions.assertThatModels(receiverAccAfter, depositedAccount)
                 .ignoringFields("id", "accountNumber", "transactions")
                 .match();
+
+        assertTransferTransactions(senderTransactions, receiverTransactions);
+
     }
+
 
     @Test
     public void userCanTransferMoneyYourselfTest() {
@@ -64,20 +89,26 @@ public class MoneyTransferTest extends BaseTest {
         var sourceAcc = user.createAccount();
         var targetAcc = user.createAccount();
 
-        var expectedTargetState = user.depositRandomMoneyToAccount(sourceAcc);
+        var depositedAccount = user.depositRandomMoneyToAccount(sourceAcc);
+        var transferAmount = depositedAccount.getBalance();
 
-        user.transferMoney(sourceAcc, targetAcc, expectedTargetState.getBalance());
+        user.transferMoney(sourceAcc, targetAcc, transferAmount);
 
-        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getId());
-        var targetAccAfterTransfer = user.getAccount(targetAcc.getId());
+        var sourceAccAfter = user.getAccount(sourceAcc.getId());
+        var targetAccAfter = user.getAccount(targetAcc.getId());
 
-        softly.assertThat(sourceAccAfterTransfer.getBalance())
-                .as("Баланс отправителя после перевода")
+        var sourceTransactions = user.getTransaction(sourceAcc.getId());
+        var targetTransactions = user.getTransaction(targetAcc.getId());
+
+        softly.assertThat(sourceAccAfter.getBalance())
+                .as("Баланс счета-отправителя")
                 .isZero();
 
-        ModelAssertions.assertThatModels(targetAccAfterTransfer, expectedTargetState)
-                .ignoringFields("id", "accountNumber","transactions")
-                .match();
+        softly.assertThat(targetAccAfter.getBalance())
+                .as("Баланс счета-получателя")
+                .isEqualByComparingTo(transferAmount);
+
+        assertTransferTransactions(sourceTransactions, targetTransactions);
     }
 
     @Test
@@ -91,15 +122,22 @@ public class MoneyTransferTest extends BaseTest {
 
         user.transferMoney(sourceAcc, targetAcc, expectedTargetState.getBalance());
 
-        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getId());
-        var targetAccAfterTransfer = user.getAccount(targetAcc.getId());
+        var sourceAccAfter = user.getAccount(sourceAcc.getId());
+        var targetAccAfter = user.getAccount(targetAcc.getId());
 
-        softly.assertThat(sourceAccAfterTransfer.getBalance())
-                .as("Баланс отправителя после перевода")
+        var sourceTransactions = user.getTransaction(sourceAcc.getId());
+        var targetTransactions = user.getTransaction(targetAcc.getId());
+
+
+        softly.assertThat(sourceAccAfter.getBalance())
+                .as("Баланс отправителя после перевода минимальной суммы")
                 .isZero();
-        ModelAssertions.assertThatModels(targetAccAfterTransfer, expectedTargetState)
-                .ignoringFields("id", "accountNumber", "transactions")
-                .match();
+
+        softly.assertThat(targetAccAfter.getBalance())
+                .as("Баланс получателя после перевода минимальной суммы")
+                .isEqualByComparingTo("0.01"); // Четко фиксируем ожидаемые 1-ну копейку
+
+        assertTransferTransactions(sourceTransactions, targetTransactions);
     }
 
     @Test
@@ -114,16 +152,22 @@ public class MoneyTransferTest extends BaseTest {
 
         user.transferMoney(sourceAcc, targetAcc, expectedTargetState.getBalance());
 
-        var sourceAccAfterTransfer = user.getAccount(sourceAcc.getId());
-        var targetAccAfterTransfer = user.getAccount(targetAcc.getId());
+        var sourceAccAfter = user.getAccount(sourceAcc.getId());
+        var targetAccAfter = user.getAccount(targetAcc.getId());
 
-        softly.assertThat(sourceAccAfterTransfer.getBalance())
-                .as("Баланс отправителя после перевода")
+        var sourceTransactions = user.getTransaction(sourceAcc.getId());
+        var targetTransactions = user.getTransaction(targetAcc.getId());
+
+
+        softly.assertThat(sourceAccAfter.getBalance())
+                .as("Баланс отправителя после перевода максимальной суммы")
                 .isZero();
 
-        ModelAssertions.assertThatModels(targetAccAfterTransfer, expectedTargetState)
-                .ignoringFields("id", "accountNumber","transactions")
-                .match();
+        softly.assertThat(targetAccAfter.getBalance())
+                .as("Баланс получателя после перевода максимальной суммы")
+                .isEqualByComparingTo("10000");
+
+        assertTransferTransactions(sourceTransactions, targetTransactions);
 
     }
 
@@ -144,6 +188,7 @@ public class MoneyTransferTest extends BaseTest {
         var sourceAcc = user.createAccount();
         var targetAcc = user.createAccount();
 
+
         TransferAccountRequest transferAccountRequest = TransferAccountRequest.builder()
                 .senderAccountId(sourceAcc.getId())
                 .receiverAccountId(targetAcc.getId())
@@ -155,5 +200,34 @@ public class MoneyTransferTest extends BaseTest {
                 Endpoint.ACCOUNTS_TRANSFER,
                 ResponseSpecs.isBadRequest(null, error))
                 .post(transferAccountRequest);
+
+        var sourceAccAfter = user.getAccount(sourceAcc.getId());
+        var targetAccAfter = user.getAccount(targetAcc.getId());
+
+        softly.assertThat(sourceAccAfter.getBalance())
+                .as("Баланс отправителя не должен измениться после ошибки")
+                .isZero();
+
+        softly.assertThat(targetAccAfter.getBalance())
+                .as("Баланс получателя не должен измениться после ошибки")
+                .isZero();
+
+        // 4. Опционально: можно проверить, что история транзакций пустая
+        softly.assertThat(user.getTransaction(sourceAcc.getId()))
+                .as("У отправителя не должно появиться транзакций")
+                .isEmpty();
+
+    }
+
+    private void assertTransferTransactions(List<TransactionResponse> sourceTx, List<TransactionResponse> targetTx) {
+        softly.assertThat(sourceTx)
+                .extracting(TransactionResponse::getType)
+                .as("История транзакций счета-отправителя")
+                .contains(TransactionType.TRANSFER_OUT);
+
+        softly.assertThat(targetTx)
+                .extracting(TransactionResponse::getType)
+                .as("История транзакций счета-получателя")
+                .contains(TransactionType.TRANSFER_IN);
     }
 }

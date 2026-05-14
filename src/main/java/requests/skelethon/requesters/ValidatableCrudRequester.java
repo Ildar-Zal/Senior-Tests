@@ -7,6 +7,8 @@ import requests.skelethon.Endpoint;
 import requests.skelethon.HttpRequest;
 import requests.skelethon.interfaces.Crud;
 
+import java.util.List;
+
 public class ValidatableCrudRequester<T extends BaseModel> extends HttpRequest implements Crud {
 
     private CrudRequester crudRequester;
@@ -22,17 +24,26 @@ public class ValidatableCrudRequester<T extends BaseModel> extends HttpRequest i
     }
 
     @Override
-    public T get(Integer id) {
-        return (T) crudRequester.get(id).extract().as(endpoint.getResponseModel());
+    public T get(Object... pathParams) {
+        return (T) crudRequester.get(pathParams).extract().as(endpoint.getResponseModel());
     }
 
     @Override
-    public T put(Integer id, BaseModel model) {
-        return (T) crudRequester.put(id, model).extract().as(endpoint.getResponseModel());
+    public T put(BaseModel model, Object... pathParams) {
+        return (T) crudRequester.put(model, pathParams).extract().as(endpoint.getResponseModel());
     }
 
     @Override
     public T delete(Integer id) {
         return (T) crudRequester.delete(id).extract().as(endpoint.getRequestModel());
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<T> getList(Object... pathParams) {
+        return crudRequester.get(pathParams)
+                .extract()
+                .body()
+                .jsonPath()
+                .getList("", (Class<T>) endpoint.getResponseModel());
     }
 }
