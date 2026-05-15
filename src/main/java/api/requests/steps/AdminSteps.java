@@ -22,6 +22,7 @@ public class AdminSteps {
         return createUserRequest;
 
     }
+
     public static List<UserResponse> getAllUsers() {
         return new ValidatableCrudRequester<UserResponse>(
                 RequestSpecs.adminSpec(),

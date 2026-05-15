@@ -12,7 +12,7 @@ public abstract class BaseElement {
     }
 
     protected SelenideElement find(By selector) {
-       return element.find(selector);
+        return element.find(selector);
     }
 
     protected SelenideElement find(String cssSelector) {

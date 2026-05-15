@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class EditProfilePage extends BasePage<EditProfilePage> {
 
     private SelenideElement editProfileText = $(Selectors.byText("✏\uFE0F Edit Profile"));
-    private SelenideElement enterNewNameInput = $(Selectors.byAttribute("placeholder","Enter new name"));
+    private SelenideElement enterNewNameInput = $(Selectors.byAttribute("placeholder", "Enter new name"));
     private SelenideElement saveChangesButton = $(Selectors.byText("\uD83D\uDCBE Save Changes"));
 
 
@@ -27,9 +27,9 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
     }
 
     public EditProfilePage enterNewName(String name) {
-      enterNewNameInput.setValue(name);
-      saveChangesButton.click();
-      return this;
+        enterNewNameInput.setValue(name);
+        saveChangesButton.click();
+        return this;
     }
 
     public EditProfilePage clickSaveChanges() {

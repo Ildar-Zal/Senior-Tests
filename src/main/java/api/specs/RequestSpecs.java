@@ -55,7 +55,7 @@ public class RequestSpecs {
     }
 
     public static RequestSpecification userSpec(String username, String password) {
-        return defaultSpec().addHeader("Authorization", getUserAuthHeader(username,password)).build();
+        return defaultSpec().addHeader("Authorization", getUserAuthHeader(username, password)).build();
     }
 
 }

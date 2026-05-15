@@ -32,14 +32,4 @@ public class BaseUiTest extends BaseTest {
                 Map.of("enableVNC", true, "enableLog", true)
         );
     }
-
-//    public static void authAsUser(String username, String password) {
-//        Selenide.open("/");
-//        String userAuthHeader = RequestSpecs.getUserAuthHeader(username,password);
-//        executeJavaScript("localStorage.setItem('authToken', arguments[0]", userAuthHeader);
-//    }
-//
-//    public static void authAsUser(CreateUserRequest createUserRequest) {
-//        authAsUser(createUserRequest.getUsername(), createUserRequest.getPassword());
-//    }
 }

@@ -6,9 +6,9 @@ public interface Crud {
 
     public Object post(BaseModel model);
 
-    public Object get(Integer id);
+    public Object get(Object... pathParams);
 
-    public Object put(Integer id, BaseModel model);
+    public Object put(BaseModel model, Object... pathParams);
 
     public Object delete(Integer id);
 }

@@ -11,8 +11,7 @@ public class DepositPage extends BasePage<DepositPage> {
 
     ElementsCollection accounts = $(".form-control.account-selector").findAll("option");
     SelenideElement depositMoneyText = $(Selectors.byText("💰 Deposit Money"));
-//    SelenideElement selectAccountInput = $(Selectors.byClassName("form-control account-selector"));
-    SelenideElement enterAmountInput = $(Selectors.byAttribute("placeholder","Enter amount"));
+    SelenideElement enterAmountInput = $(Selectors.byAttribute("placeholder", "Enter amount"));
     SelenideElement depositButton = $(Selectors.byText("💵 Deposit"));
 
     @Override
@@ -27,19 +26,14 @@ public class DepositPage extends BasePage<DepositPage> {
     }
 
     public DepositPage depositMoney(String account, String amount) {
-      accounts.findBy(Condition.partialText(account)).click();
-      enterAmountInput.setValue(amount);
-      depositButton.click();
-      return this;
+        accounts.findBy(Condition.partialText(account)).click();
+        enterAmountInput.setValue(amount);
+        depositButton.click();
+        return this;
     }
 
     public DepositPage selectAccount(String account) {
         accounts.findBy(Condition.partialText(account)).click();
-        return this;
-    }
-
-    public DepositPage enterAmount(String amount) {
-        enterAmountInput.setValue(amount);
         return this;
     }
 

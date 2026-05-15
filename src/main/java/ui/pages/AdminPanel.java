@@ -34,12 +34,8 @@ public class AdminPanel extends BasePage<AdminPanel> {
         return this;
     }
 
-//    public ElementsCollection getUsersFromDashboard() {
-//        return usersFromDashboard;
-//    }
-
     public List<UserBage> getAllUsers() {
         ElementsCollection elementsCollection = $(byText("All users")).parent().findAll("li");
-       return generatePageElements(elementsCollection, UserBage::new);
+        return generatePageElements(elementsCollection, UserBage::new);
     }
 }

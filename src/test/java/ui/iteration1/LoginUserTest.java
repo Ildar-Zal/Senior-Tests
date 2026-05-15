@@ -41,9 +41,6 @@ public class LoginUserTest extends BaseUiTest {
         $("button").click();
         Alert alert = switchTo().alert();
         assertEquals(alert.getText(), "Invalid credentialsAxiosError: Request failed with status code 401");
-//        $(Selectors.byClassName("welcome-text")).shouldBe(Condition.visible).shouldHave(Condition.text("Welcome, noname"));
-//        $(Selectors.byClassName("user-username")).shouldBe(Condition.visible).shouldHave(Condition.text("@" + user.getUsername()));
-
     }
 
 }

@@ -6,6 +6,8 @@ import api.models.UpdateCustomerProfileRequest;
 import api.models.UpdateCustomerProfileResponse;
 import api.models.UserResponse;
 import api.models.comparison.ModelAssertions;
+import api.requests.steps.UserSteps;
+import base.BaseTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,30 +21,34 @@ import api.specs.ResponseSpecs;
 
 import java.util.stream.Stream;
 
-public class UpdateUserNameTest {
+public class UpdateUserNameTest extends BaseTest {
 
     @Test
-    public void UserCanChangeNameTest() {
+    public void userCanChangeNameTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
+        var user = new UserSteps(userRequest);
+        var nameBeforeUpdate = user.getUserProfile().getName();
 
         UpdateCustomerProfileRequest updateRequest = RandomModelGenerator.generate(UpdateCustomerProfileRequest.class);
 
-        var expectedProfileState =
+        var expectedName =
                 new ValidatableCrudRequester<UpdateCustomerProfileResponse>
                         (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                                 Endpoint.UPDATE_CUSTOMER_PROFILE,
                                 ResponseSpecs.isOk())
-                        .put(null, updateRequest)
-                        .getCustomer();
+                        .put(updateRequest)
+                        .getCustomer().getName();
 
-        var actualProfileAfterUpdate =
+        var actualName =
                 new ValidatableCrudRequester<UserResponse>
                         (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                                 Endpoint.GET_CUSTOMER_PROFILE,
                                 ResponseSpecs.isOk())
-                        .get(null);
+                        .get(null).getName();
 
-        ModelAssertions.assertThatModels(actualProfileAfterUpdate, expectedProfileState).match();
+        softly.assertThat(nameBeforeUpdate).isNull();
+        softly.assertThat(nameBeforeUpdate).isNotEqualTo(actualName);
+        softly.assertThat(expectedName).isEqualTo(actualName);
     }
 
     public static Stream<Arguments> invalidData() {
@@ -62,6 +68,7 @@ public class UpdateUserNameTest {
     @ParameterizedTest(name = "Негативные тесты")
     public void negativeTest(String name, String error) {
         CreateUserRequest userRequest = AdminSteps.createUser();
+        var user = new UserSteps(userRequest);
 
         UpdateCustomerProfileRequest updateCustomerProfileRequest = UpdateCustomerProfileRequest.builder()
                 .name(name)
@@ -70,8 +77,15 @@ public class UpdateUserNameTest {
         new CrudRequester
                 (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                         Endpoint.UPDATE_CUSTOMER_PROFILE,
-                        ResponseSpecs.isBadRequest(null,error))
-                .put(null, updateCustomerProfileRequest);
+                        ResponseSpecs.isBadRequest(null, error))
+                .put(updateCustomerProfileRequest);
+
+        var nameAfterUpdate = user.getUserProfile().getName();
+
+        softly.assertThat(nameAfterUpdate)
+                .as("Имя не должно поменяться")
+                .isNull();
     }
+
 
 }

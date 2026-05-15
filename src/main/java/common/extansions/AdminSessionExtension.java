@@ -10,7 +10,6 @@ public class AdminSessionExtension implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-       //Шаг 1: Проверка, есть ли у теста аннотация AdminSession
         AdminSession annotation = context.getRequiredTestMethod().getAnnotation(AdminSession.class);
         if (annotation != null) {
             BasePage.authAsUser(CreateUserRequest.getAdmin());

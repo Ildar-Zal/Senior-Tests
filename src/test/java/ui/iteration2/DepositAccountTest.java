@@ -18,27 +18,26 @@ public class DepositAccountTest extends BaseUiTest {
     @Test
     public void userCanDepositAccountTest() {
         var user = SessionStorage.getSteps();
-        var accountNumber = user.createAccount().getAccountNumber();
+        var createdAccount = user.createAccount();
         var depositAmount = RandomModelGenerator.generate(DepositAccountRequest.class).getBalance();
 
-        new UserDashboard().open().openDepositPage().depositMoney(accountNumber, depositAmount.toString());
-        var account = SessionStorage.getSteps().getAccount(accountNumber);
+        new UserDashboard().open().openDepositPage().depositMoney(createdAccount.getAccountNumber(), depositAmount.toString());
+        var account = SessionStorage.getSteps().getAccount(createdAccount.getId());
         new UserDashboard().checkAlertMessageAndAccept(BankAlert.SUCCESSFULLY_DEPOSITED,
-                account.getBalance().toString(), accountNumber);
+                account.getBalance(), createdAccount.getAccountNumber());
 
         assertThat(account.getBalance()).isEqualTo(depositAmount);
-
     }
 
     @UserSession
     @Test
     public void userCantDepositAccountWithoutAmountTest() {
         var user = SessionStorage.getSteps();
-        var accountNumber = user.createAccount().getAccountNumber();
+        var createdAccount = user.createAccount();
 
-        new DepositPage().selectAccount(accountNumber).clickDeposit()
+        new DepositPage().open().selectAccount(createdAccount.getAccountNumber()).clickDeposit()
                 .checkAlertMessageAndAccept(BankAlert.PLEASE_ENTER_AMOUNT.getMessage());
-        var account = SessionStorage.getSteps().getAccount(accountNumber);
+        var account = SessionStorage.getSteps().getAccount(createdAccount.getId());
 
         assertThat(account.getBalance()).isZero();
     }
@@ -47,11 +46,11 @@ public class DepositAccountTest extends BaseUiTest {
     @Test
     public void userCantDepositAccountWithoutAccountTest() {
         var user = SessionStorage.getSteps();
-        var accountNumber = user.createAccount().getAccountNumber();
+        var createdAccount = user.createAccount();
 
-        new DepositPage().selectAccount(accountNumber).clickDeposit()
+        new DepositPage().open().clickDeposit()
                 .checkAlertMessageAndAccept(BankAlert.PLEASE_SELECT_ACCOUNT.getMessage());
-        var account = SessionStorage.getSteps().getAccount(accountNumber);
+        var account = SessionStorage.getSteps().getAccount(createdAccount.getId());
 
         assertThat(account.getBalance()).isZero();
     }

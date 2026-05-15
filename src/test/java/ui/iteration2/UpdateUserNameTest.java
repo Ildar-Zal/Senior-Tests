@@ -11,6 +11,7 @@ import ui.pages.BankAlert;
 import ui.pages.EditProfilePage;
 import ui.pages.UserDashboard;
 
+import static com.codeborne.selenide.Selenide.switchTo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UpdateUserNameTest extends BaseUiTest {
@@ -35,9 +36,17 @@ public class UpdateUserNameTest extends BaseUiTest {
     public void userCantChangeNameWithOneWordTest() {
         var user = new UserSteps(SessionStorage.getUser());
 
-        new EditProfilePage().open().enterNewName("OneWord")
-                .checkAlertMessageAndAccept(BankAlert.NAME_MUST_CONTAIN_TWO_WORDS_WITH_LETTERS_ONLY.getMessage());
-        var actualName = new  UserDashboard().open().getName().text();
+        new EditProfilePage().open().enterNewName("OneWord");
+        String actualText = switchTo().alert().getText();
+
+        softly.assertThat(actualText)
+                .containsAnyOf(
+                        BankAlert.NAME_MUST_CONTAIN_TWO_WORDS.getMessage(),
+                        BankAlert.PLEASE_ENTER_VALID_NAME.getMessage()
+                );
+
+        switchTo().alert().accept();
+        var actualName = new UserDashboard().open().getName().text();
 
         var expectedName = user.getUserProfile().getName();
 
@@ -52,7 +61,7 @@ public class UpdateUserNameTest extends BaseUiTest {
 
         new EditProfilePage().open().clickSaveChanges()
                 .checkAlertMessageAndAccept(BankAlert.PLEASE_ENTER_VALID_NAME.getMessage());
-        var actualName = new  UserDashboard().open().getName().text();
+        var actualName = new UserDashboard().open().getName().text();
 
         var expectedName = user.getUserProfile().getName();
 

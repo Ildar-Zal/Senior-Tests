@@ -16,8 +16,7 @@ public class BrowserMatchExtension implements ExecutionCondition {
                 .map(el->el.getAnnotation(Browsers.class)).orElse(null);
 
         if (annotation == null) {
-            return ConditionEvaluationResult.enabled("Нет ограничений к браузере");
-
+            return ConditionEvaluationResult.enabled("Нет ограничений к браузерам");
         }
 
         String currentBrowser = Configuration.browser;

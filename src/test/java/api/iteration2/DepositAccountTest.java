@@ -24,10 +24,11 @@ import java.util.stream.Stream;
 public class DepositAccountTest extends BaseTest {
 
     @Test
-    public void UserCanDepositAccountTest() {
+    public void userCanDepositAccountTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var account = user.createAccount();
+        var balanceBeforeDeposit = account.getBalance();
 
         DepositAccountRequest depositAccountRequest = RandomModelGenerator.generate(DepositAccountRequest.class);
         depositAccountRequest.setId(account.getId());
@@ -38,31 +39,32 @@ public class DepositAccountTest extends BaseTest {
                         ResponseSpecs.isOk())
                 .post(depositAccountRequest);
 
-        var accountAfterDeposit = user.getAccount(expectedAccountState.getAccountNumber());
+        var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
 
+        softly.assertThat(balanceBeforeDeposit).isEqualTo(BigDecimal.valueOf(0.0));
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
 
     @Test
-    public void UserCanDepositMaxSumAccountTest() {
+    public void userCanDepositMaxSumAccountTest() {
         var userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var account = user.createAccount();
 
         var expectedAccountState = user.depositAccount(account, 5000);
-        var accountAfterDeposit = user.getAccount(expectedAccountState.getAccountNumber());
+        var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
 
     @Test
-    public void UserCanDepositMinSumAccountTest() {
+    public void userCanDepositMinSumAccountTest() {
         var userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var account = user.createAccount();
 
         var expectedAccountState = user.depositAccount(account, 0.01);
-        var accountAfterDeposit = user.getAccount(expectedAccountState.getAccountNumber());
+        var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
@@ -75,7 +77,7 @@ public class DepositAccountTest extends BaseTest {
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_DEPOSIT,
-                ResponseSpecs.isForbidden(null, "Unauthorized access to account"))
+                ResponseSpecs.isForbidden())
                 .post(depositAccountRequest);
 
     }
@@ -92,9 +94,14 @@ public class DepositAccountTest extends BaseTest {
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_DEPOSIT,
-                ResponseSpecs.isForbidden(null, "Unauthorized access to account"))
+                ResponseSpecs.isForbidden())
                 .post(depositAccountRequest);
 
+        var diffAccountAfterDeposit = user.getAccount(diffAccount.getId());
+
+        softly.assertThat(diffAccountAfterDeposit.getBalance())
+                .as("Чужой аккаунт не должен быть пополнен")
+                .isZero();
     }
 
     public static Stream<Arguments> invalidDepositData() {
@@ -121,5 +128,10 @@ public class DepositAccountTest extends BaseTest {
                 Endpoint.ACCOUNTS_DEPOSIT,
                 ResponseSpecs.isBadRequest(null, error))
                 .post(depositAccountRequest);
+
+        var accountAfterDeposit = user.getAccount(account.getId());
+        softly.assertThat(accountAfterDeposit.getBalance())
+                .as("Депозит не должен быть больше 5000 и меньше 0.01")
+                .isEqualTo(BigDecimal.valueOf(0.0));
     }
 }

@@ -41,13 +41,14 @@ public class UserSteps {
 
     }
 
-    public AccountResponse getAccount(String accountNumber) {
+
+    public AccountResponse getAccount(Integer id) {
         List<AccountResponse> userAccounts = getAccounts();
         return userAccounts.stream()
-                .filter(a -> a.getAccountNumber().equals(accountNumber))
+                .filter(a -> a.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(
-                        String.format("Account with Account Number %d not found for user: %s", accountNumber, user.getUsername())
+                        String.format("Account with Account id %d not found for user: %s", id, user.getUsername())
                 ));
     }
 
@@ -84,5 +85,12 @@ public class UserSteps {
                         Endpoint.GET_CUSTOMER_PROFILE,
                         ResponseSpecs.isOk())
                 .get(null);
+    }
+
+    public List<TransactionResponse> getTransaction(Integer id) {
+        return new ValidatableCrudRequester<TransactionResponse>
+                (userSpec,
+                        Endpoint.ACCOUNTS_TRANSACTIONS,
+                        ResponseSpecs.isOk()).getList(id);
     }
 }

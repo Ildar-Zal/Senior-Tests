@@ -1,5 +1,6 @@
 package common.SessionStorage;
 
+import api.models.AccountResponse;
 import api.models.CreateUserRequest;
 import api.requests.steps.UserSteps;
 
@@ -12,16 +13,17 @@ public class SessionStorage {
 
     private final LinkedHashMap<CreateUserRequest, UserSteps> userStepsMap = new LinkedHashMap<>();
 
-    private SessionStorage() {}
+    private SessionStorage() {
+    }
 
     public static void addUsers(List<CreateUserRequest> users) {
-        for (CreateUserRequest user: users) {
+        for (CreateUserRequest user : users) {
             INSTANCE.userStepsMap.put(user, new UserSteps(user));
         }
     }
 
     public static CreateUserRequest getUser(int number) {
-        return new ArrayList<>(INSTANCE.userStepsMap.keySet()).get(number-1);
+        return new ArrayList<>(INSTANCE.userStepsMap.keySet()).get(number - 1);
     }
 
     public static CreateUserRequest getUser() {
@@ -29,7 +31,7 @@ public class SessionStorage {
     }
 
     public static UserSteps getSteps(int number) {
-        return new ArrayList<>(INSTANCE.userStepsMap.values()).get(number-1);
+        return new ArrayList<>(INSTANCE.userStepsMap.values()).get(number - 1);
     }
 
     public static UserSteps getSteps() {
@@ -38,5 +40,14 @@ public class SessionStorage {
 
     public static void clear() {
         INSTANCE.userStepsMap.clear();
+    }
+
+    public static AccountResponse getAccount(int number) {
+        var user = getSteps(number);
+        return user.getAccounts().getFirst();
+    }
+
+    public static AccountResponse getAccount() {
+        return getAccount(1);
     }
 }

@@ -9,6 +9,10 @@ import api.requests.skelethon.HttpRequest;
 import api.requests.skelethon.interfaces.Crud;
 import api.requests.skelethon.interfaces.GetAllEndpointInterface;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
 import static io.restassured.RestAssured.given;
 
 public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointInterface {
@@ -31,26 +35,23 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
     }
 
     @Override
-    public ValidatableResponse get(Integer id) {
-        var url = id == null ? "" : "/" + id;
-        return given()
-                .spec(requestSpecification)
+    public ValidatableResponse get(Object... pathParams) {
+        return prepareRequest(pathParams)
                 .when()
-                .get(endpoint.getUrl() + url)
+                .get()
                 .then()
                 .assertThat()
                 .spec(responseSpecification);
     }
 
     @Override
-    public ValidatableResponse put(Integer id, BaseModel model) {
-        var url = id == null ? "" : "/" + id;
+    public ValidatableResponse put(BaseModel model, Object... pathParams) {
         var body = model == null ? "" : model;
-        return given()
-                .spec(requestSpecification)
+
+        return prepareRequest(pathParams) // подготавливает урл и подставляет path параметры
                 .body(body)
                 .when()
-                .put(endpoint.getUrl() + url)
+                .put() // путь уже сидит внутри request благодаря basePath
                 .then()
                 .assertThat()
                 .spec(responseSpecification);
@@ -66,6 +67,31 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
                 .then()
                 .assertThat()
                 .spec(responseSpecification);
+    }
+
+    private RequestSpecification prepareRequest(Object... params) {
+        var request = given().spec(requestSpecification);
+        String finalUrl = endpoint.getUrl();
+
+        if (params != null && params.length > 0) {
+            if (endpoint.isDynamic()) {
+                Map<String, Object> map = new HashMap<>();
+                var matcher = Pattern.compile("\\{([^}]+)\\}").matcher(finalUrl);
+                int i = 0;
+                while (matcher.find() && i < params.length) {
+                    map.put(matcher.group(1), params[i]);
+                    i++;
+                }
+                request.pathParams(map);
+                request.basePath(finalUrl);
+            } else {
+                request.basePath(finalUrl + "/" + params[0]);
+            }
+        } else {
+            request.basePath(finalUrl);
+        }
+
+        return request;
     }
 
     @Override
