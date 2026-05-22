@@ -13,22 +13,33 @@ import api.requests.skelethon.requesters.CrudRequester;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class RequestSpecs {
 
     private static final Map<String, String> authHeaders = new HashMap<>(Map.of("admin", "Basic YWRtaW46YWRtaW4="));
+//    private static final ThreadLocal<Boolean> useValidationFix = ThreadLocal.withInitial(() -> false);
+//
+//    // Поставщик URL который будет вычисляться в момент запроса
+//    private static final Supplier<String> BASE_URL_SUPPLIER = () ->
+//            (useValidationFix.get() ? Config.getProperty("with_validation_fix") : Config.getProperty("with_database"))
+//                    + Config.getProperty("apiVersion");
 
-    private RequestSpecs() {
-    }
-
+//    public static void setUseValidationFix(boolean use) {
+//        useValidationFix.set(use);
+//    }
+//
+//    public static void clearValidationFix() {
+//        useValidationFix.remove();
+//    }
 
     private static RequestSpecBuilder defaultSpec() {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
-                .addFilters(List.of(new RequestLoggingFilter(),
-                        new ResponseLoggingFilter()))
+                .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()))
                 .setBaseUri(Config.getProperty("apiBaseUrl") + Config.getProperty("apiVersion"));
+//                .setBaseUri(BASE_URL_SUPPLIER.get());  // URL берется в момент вызова
     }
 
     public static RequestSpecification unauthSpec() {

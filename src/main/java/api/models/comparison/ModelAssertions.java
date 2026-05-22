@@ -1,38 +1,40 @@
 package api.models.comparison;
 
-import org.assertj.core.api.Assertions;
+import org.assertj.core.api.AbstractAssert;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+public class ModelAssertions extends AbstractAssert<ModelAssertions, Object> {
 
-public class ModelAssertions<T> {
+    private final Object request;
+    private final Object response;
 
-    private final T actual;
-    private final T expected;
-    private final List<String> ignoredFields = new ArrayList<>();
-
-    private ModelAssertions(T actual, T expected) {
-        this.actual = actual;
-        this.expected = expected;
+    private ModelAssertions(Object request, Object response) {
+        super(request, ModelAssertions.class);
+        this.request = request;
+        this.response = response;
     }
 
-    // Статический метод для входа
-    public static <T> ModelAssertions<T> assertThatModels(T actual, T expected) {
-        return new ModelAssertions<>(actual, expected);
+    public static ModelAssertions assertThatModels(Object request, Object response) {
+        return new ModelAssertions(request, response);
     }
 
-    // Метод для накопления игнорируемых полей
-    public ModelAssertions<T> ignoringFields(String... fields) {
-        this.ignoredFields.addAll(Arrays.asList(fields));
+    public ModelAssertions match() {
+        ModelComparisonConfigLoader configLoader = new ModelComparisonConfigLoader("model-comparison.properties");
+        ModelComparisonConfigLoader.ComparisonRule rule = configLoader.getRuleFor(request.getClass());
+
+        if (rule != null) {
+            ModelComparator.ComparisonResult result = ModelComparator.compareFields(
+                    request,
+                    response,
+                    rule.getFieldMappings()
+            );
+
+            if (!result.isSuccess()) {
+                failWithMessage("Model comparison failed with mismatched fields:\n%s", result);
+            }
+        } else {
+            failWithMessage("No comparison rule found for class %s", request.getClass().getSimpleName());
+        }
+
         return this;
-    }
-
-    // Финальный метод сравнения
-    public void match() {
-        Assertions.assertThat(actual)
-                .usingRecursiveComparison() // Сравниваем поля объектов рекурсивно
-                .ignoringFields(ignoredFields.toArray(new String[0])) // Пропускаем ненужные
-                .isEqualTo(expected);
     }
 }

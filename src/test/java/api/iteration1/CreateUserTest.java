@@ -5,7 +5,16 @@ import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.UserResponse;
 import api.models.comparison.ModelAssertions;
+import common.annotations.WithValidationFix;
+//import common.extansions.ValidationFixExtension;
+import io.restassured.http.ContentType;
+import org.apache.http.HttpStatus;
+import org.apache.http.protocol.HTTP;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,6 +30,7 @@ import java.util.stream.Stream;
 
 public class CreateUserTest extends BaseTest {
 
+    @WithValidationFix
     @Test
     public void adminCanCreateUserTest() {
         CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);

@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UpdateCustomerProfileRequest extends BaseModel {
 
-    @GeneratingRule(regex = "[a-zA-Z]{3,10} s[a-zA-Z]{3,10}")
+    @GeneratingRule(regex = "[a-zA-Z]{3,10} [a-zA-Z]{3,10}")
     private String name;
 }

@@ -3,8 +3,9 @@ package ui.iteration2;
 import api.generators.RandomModelGenerator;
 import api.models.UpdateCustomerProfileRequest;
 import api.requests.steps.UserSteps;
-import common.SessionStorage.SessionStorage;
+import common.context.SessionStorage;
 import common.annotations.UserSession;
+import common.utils.ApiWait;
 import org.junit.jupiter.api.Test;
 import ui.BaseUiTest;
 import ui.pages.BankAlert;
@@ -18,15 +19,17 @@ public class UpdateUserNameTest extends BaseUiTest {
 
     @UserSession
     @Test
-    public void userCanChangeNameTest() {
+    public void userCanChangeNameTest() throws InterruptedException {
         var user = new UserSteps(SessionStorage.getUser());
         var newName = RandomModelGenerator.generate(UpdateCustomerProfileRequest.class).getName();
 
-        new UserDashboard().open().openEditProfilePage().enterNewName(newName)
+        var editProfilePage = new UserDashboard().open().openEditProfilePage();
+//        Thread.sleep(3000);
+        editProfilePage.enterNewName(newName)
                 .checkAlertMessageAndAccept(BankAlert.NAME_UPDATED_SUCCESSFULLY.getMessage());
 
         var actualName = new UserDashboard().open().getName().text();
-        var expectedName = user.getUserProfile().getName();
+        var expectedName = ApiWait.untilNotNull(() -> user.getUserProfile().getName());
 
         assertThat(expectedName).isEqualTo(actualName);
     }

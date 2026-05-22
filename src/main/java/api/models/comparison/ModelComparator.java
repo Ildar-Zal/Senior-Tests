@@ -26,19 +26,7 @@ public class ModelComparator {
         return new ComparisonResult(mismatches);
     }
 
-    private static Object getFieldValue(Object obj, String fieldPath) {
-        if (obj == null) return null;
-
-        Object current = obj;
-        // Разделяем путь по точкам: "customer.name" -> ["customer", "name"]
-        for (String part : fieldPath.split("\\.")) {
-            if (current == null) return null;
-            current = getSingleFieldValue(current, part);
-        }
-        return current;
-    }
-
-    private static Object getSingleFieldValue(Object obj, String fieldName) {
+    private static Object getFieldValue(Object obj, String fieldName) {
         Class<?> clazz = obj.getClass();
         while (clazz != null) {
             try {

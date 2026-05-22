@@ -1,7 +1,7 @@
 package ui.iteration2;
 
 import api.models.enums.TransactionType;
-import common.SessionStorage.SessionStorage;
+import common.context.SessionStorage;
 import common.annotations.AccountSession;
 import common.annotations.UserSession;
 import org.junit.jupiter.api.Test;
@@ -27,16 +27,17 @@ public class MoneyTransferTest extends BaseUiTest {
         var username2 = user2.getUserProfile().getUsername();
 
 
-        new UserDashboard().open().openTransferPage().sendTransfer(account1.getAccountNumber(), "",
-                        account2.getAccountNumber(), account1.getBalance().toString()).
-                checkAlertMessageAndAccept(BankAlert.SUCCESSFULLY_TRANSFERED, account1.getBalance(),
+        var transferPage = new UserDashboard().open().openTransferPage();
+                transferPage.sendTransfer(account1.getAccountNumber(), "",
+                        account2.getAccountNumber(), account1.getBalance().stripTrailingZeros().toString()).
+                checkAlertMessageAndAccept(BankAlert.SUCCESSFULLY_TRANSFERED, account1.getBalance().stripTrailingZeros(),
                         account2.getAccountNumber());
 
         var allTransactionUser1FromUi = new TransferPage().openTrasactionInfoPage().searchTransactions(username1).getAllTransactions();
         var allTransactionUser2FromUi = new TransactionInfoPage().searchTransactions(username2).getAllTransactions();
 
-        var allTransactionUser1FromApi = user1.getTransaction(account1.getId());
-        var allTransactionUser2FromApi = user2.getTransaction(account2.getId());
+        var allTransactionUser1FromApi =  user1.getTransaction(account1.getId());
+        var allTransactionUser2FromApi =  user2.getTransaction(account2.getId());
 
         allTransactionUser1FromUi.stream().forEach(uiTx -> {
                     var transactionApi = allTransactionUser1FromApi.stream().

@@ -45,6 +45,10 @@ public class TransferPage extends BasePage<TransferPage> {
         return this;
     }
 
+    public SelenideElement getSubmitButton() {
+        return sendTransferButton;
+    }
+
     public TransferPage clickTrasfetButton() {
         sendTransferButton.click();
         return this;

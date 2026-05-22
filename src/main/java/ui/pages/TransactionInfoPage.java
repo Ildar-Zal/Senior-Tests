@@ -4,10 +4,13 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import common.utils.RetryUtils;
 import org.openqa.selenium.By;
 import ui.elements.TransactionBage;
+import ui.elements.UserBage;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -35,9 +38,18 @@ public class TransactionInfoPage extends BasePage<TransactionInfoPage> {
         return this;
     }
 
-    public List<TransactionBage> getAllTransactions() {
+    private List<TransactionBage> getTransactions() {
         ElementsCollection elementsCollection = $(By.className("list-group")).findAll("li");
         return generatePageElements(elementsCollection, TransactionBage::new);
+    }
+
+    public List<TransactionBage> getAllTransactions() {
+        return  RetryUtils.retry(
+                this::getTransactions,
+                Objects::nonNull,
+                3,
+                1000
+        );
     }
 
 

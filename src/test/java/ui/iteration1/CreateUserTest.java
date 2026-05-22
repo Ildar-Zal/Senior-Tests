@@ -15,25 +15,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CreateUserTest extends BaseUiTest {
 
-
-    @Test
     @AdminSession
+    @Test
     public void adminCanCreateUserTest() {
         CreateUserRequest newUser = RandomModelGenerator.generate(CreateUserRequest.class);
 
-       assertTrue(new AdminPanel().open().createUser(newUser.getUsername(), newUser.getPassword())
+       var userBage = new AdminPanel().open().createUser(newUser.getUsername(), newUser.getPassword())
                 .checkAlertMessageAndAccept(BankAlert.USER_CREATED_SUCCESSFULLY.getMessage())
-                .getAllUsers().stream().anyMatch(userBage -> userBage.getUsername().equals(newUser.getUsername())));
+               .findUserByUsername(newUser.getUsername());
+
+       assertThat(userBage)
+               .as("UserBage should exist on Dashboard after user creation").isNotNull();
 
         var expectedUser = AdminSteps.getAllUsers().stream().filter(u -> u.getUsername().contains(newUser.getUsername())).findFirst().get();
 
-       ModelAssertions.assertThatModels(expectedUser,newUser).match();
+       ModelAssertions.assertThatModels(newUser,expectedUser).match();
 
 
 
 
     }
 
+    @AdminSession
     @Test
     public void adminCannotCreateUserWithInvalidData() {
 

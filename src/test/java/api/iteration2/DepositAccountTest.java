@@ -6,7 +6,11 @@ import api.models.CreateUserRequest;
 import api.models.DepositAccountRequest;
 import base.BaseTest;
 import api.models.comparison.ModelAssertions;
+import common.annotations.WithValidationFix;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,6 +27,7 @@ import java.util.stream.Stream;
 
 public class DepositAccountTest extends BaseTest {
 
+    @WithValidationFix
     @Test
     public void userCanDepositAccountTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
@@ -45,6 +50,7 @@ public class DepositAccountTest extends BaseTest {
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
 
+    @WithValidationFix
     @Test
     public void userCanDepositMaxSumAccountTest() {
         var userRequest = AdminSteps.createUser();
@@ -57,6 +63,7 @@ public class DepositAccountTest extends BaseTest {
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
     }
 
+    @WithValidationFix
     @Test
     public void userCanDepositMinSumAccountTest() {
         var userRequest = AdminSteps.createUser();
@@ -112,6 +119,7 @@ public class DepositAccountTest extends BaseTest {
         );
     }
 
+    @WithValidationFix
     @MethodSource("invalidDepositData")
     @ParameterizedTest(name = "Негативные тесты")
     public void userCantDepositAccountTest(Double balance, String error) {

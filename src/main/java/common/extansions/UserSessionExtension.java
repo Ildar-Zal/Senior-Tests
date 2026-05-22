@@ -2,7 +2,7 @@ package common.extansions;
 
 import api.models.CreateUserRequest;
 import api.requests.steps.AdminSteps;
-import common.SessionStorage.SessionStorage;
+import common.context.SessionStorage;
 import common.annotations.UserSession;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;

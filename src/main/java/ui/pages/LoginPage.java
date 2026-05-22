@@ -1,5 +1,7 @@
 package ui.pages;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -7,6 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class LoginPage extends BasePage<LoginPage> {
 
     private SelenideElement button = $("button");
+    private SelenideElement loginText = $(Selectors.byText("Login"));
 
     public LoginPage login(String username, String password) {
         usernameInput.setValue(username);
@@ -22,6 +25,7 @@ public class LoginPage extends BasePage<LoginPage> {
 
     @Override
     public LoginPage waitForLoadPage() {
-        return null;
+        loginText.shouldBe(Condition.visible);
+        return this;
     }
 }

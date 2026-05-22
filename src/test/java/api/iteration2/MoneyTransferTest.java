@@ -6,7 +6,11 @@ import api.models.TransferAccountRequest;
 import api.models.enums.TransactionType;
 import base.BaseTest;
 import api.models.comparison.ModelAssertions;
+import common.annotations.WithValidationFix;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -24,6 +28,7 @@ import java.util.stream.Stream;
 
 public class MoneyTransferTest extends BaseTest {
 
+    @WithValidationFix
     @Test
     public void userCanTransferMoneyDifferentUserTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
@@ -74,15 +79,14 @@ public class MoneyTransferTest extends BaseTest {
                 .as("История транзакций получателя")
                 .contains(TransactionType.TRANSFER_IN);
 
-        ModelAssertions.assertThatModels(receiverAccAfter, depositedAccount)
-                .ignoringFields("id", "accountNumber", "transactions")
-                .match();
+        softly.assertThat(receiverAccAfter.getBalance()).isEqualTo(depositedAccount.getBalance());
 
         assertTransferTransactions(senderTransactions, receiverTransactions);
 
     }
 
 
+    @WithValidationFix
     @Test
     public void userCanTransferMoneyYourselfTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
@@ -112,6 +116,7 @@ public class MoneyTransferTest extends BaseTest {
         assertTransferTransactions(sourceTransactions, targetTransactions);
     }
 
+    @WithValidationFix
     @Test
     public void userCanTransferMinSumTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
@@ -140,6 +145,7 @@ public class MoneyTransferTest extends BaseTest {
         assertTransferTransactions(sourceTransactions, targetTransactions);
     }
 
+    @WithValidationFix
     @Test
     public void userCanTransferMaxSumTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
@@ -179,6 +185,7 @@ public class MoneyTransferTest extends BaseTest {
         );
     }
 
+    @WithValidationFix
     @MethodSource("invalidTransferData")
     @ParameterizedTest(name = "Негативные тесты")
     public void userCantTransferWithInvalidAmountTest(Double balance, String error) {

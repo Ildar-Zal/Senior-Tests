@@ -2,13 +2,16 @@ package ui.iteration2;
 
 import api.generators.RandomModelGenerator;
 import api.models.DepositAccountRequest;
-import common.SessionStorage.SessionStorage;
+import common.context.SessionStorage;
 import common.annotations.UserSession;
+import common.utils.ApiWait;
 import org.junit.jupiter.api.Test;
 import ui.BaseUiTest;
 import ui.pages.BankAlert;
 import ui.pages.DepositPage;
 import ui.pages.UserDashboard;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,14 +22,15 @@ public class DepositAccountTest extends BaseUiTest {
     public void userCanDepositAccountTest() {
         var user = SessionStorage.getSteps();
         var createdAccount = user.createAccount();
-        var depositAmount = RandomModelGenerator.generate(DepositAccountRequest.class).getBalance();
+        BigDecimal depositAmount = RandomModelGenerator.generate(DepositAccountRequest.class).getBalance().stripTrailingZeros();
 
         new UserDashboard().open().openDepositPage().depositMoney(createdAccount.getAccountNumber(), depositAmount.toString());
-        var account = SessionStorage.getSteps().getAccount(createdAccount.getId());
+        var balance = ApiWait.untilNotNull(() -> SessionStorage.getSteps().getAccounts().getFirst().getBalance());
         new UserDashboard().checkAlertMessageAndAccept(BankAlert.SUCCESSFULLY_DEPOSITED,
-                account.getBalance(), createdAccount.getAccountNumber());
+                balance, createdAccount.getAccountNumber());
 
-        assertThat(account.getBalance()).isEqualTo(depositAmount);
+
+        assertThat(balance).isEqualByComparingTo(depositAmount);
     }
 
     @UserSession

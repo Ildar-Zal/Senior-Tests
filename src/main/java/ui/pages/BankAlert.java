@@ -3,6 +3,8 @@ package ui.pages;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -34,17 +36,18 @@ public enum BankAlert {
      *
      * @param args переменные, которые нужно подставить вместо %s
      */
-    public String format(Object... args) {
-        Object[] formattedArgs = Arrays.stream(args)
-                .map(arg -> {
-                    // Если аргумент — число, форматируем его до 2 знаков с точкой
-                    if (arg instanceof Double || arg instanceof Float || arg instanceof BigDecimal) {
-                        return String.format(Locale.US, "%.2f", ((Number) arg).doubleValue());
-                    }
-                    return arg;
-                })
-                .toArray();
+        public String format(Object... args) {
+            Object[] formattedArgs = Arrays.stream(args)
+                    .map(arg -> {
+                        if (arg instanceof java.math.BigDecimal) {
+                            // stripTrailingZeros() убирает нули, дополненные базой данных (.80 -> .8)
+                            // toPlainString() гарантирует, что число не превратится в 1E+2
+                            return ((java.math.BigDecimal) arg).stripTrailingZeros().toPlainString();
+                        }
+                        return arg;
+                    })
+                    .toArray();
 
-        return String.format(this.message, formattedArgs);
+            return String.format(this.message, formattedArgs);
     }
 }

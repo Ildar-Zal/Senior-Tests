@@ -27,13 +27,19 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
     }
 
     public EditProfilePage enterNewName(String name) {
-        enterNewNameInput.setValue(name);
-        saveChangesButton.click();
+        enterNewNameInput.shouldBe(Condition.visible).shouldBe(Condition.enabled).setValue(name);
+        enterNewNameInput.shouldHave(Condition.exactValue(name));
+        saveChangesButton.shouldBe(Condition.visible).shouldBe(Condition.enabled).click();
+
         return this;
     }
 
     public EditProfilePage clickSaveChanges() {
         saveChangesButton.click();
         return this;
+    }
+
+    public  SelenideElement getSubmitButton() {
+        return saveChangesButton;
     }
 }
