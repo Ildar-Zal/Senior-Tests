@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: api.iteration2.DepositAccountTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.941 s -- in api.iteration2.DepositAccountTest

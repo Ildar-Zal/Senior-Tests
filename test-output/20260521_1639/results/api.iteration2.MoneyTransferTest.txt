@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: api.iteration2.MoneyTransferTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 78.23 s -- in api.iteration2.MoneyTransferTest
