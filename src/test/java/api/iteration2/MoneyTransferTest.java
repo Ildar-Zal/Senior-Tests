@@ -1,12 +1,13 @@
 package api.iteration2;
 
+import api.dao.comparison.DaoAndModelAssertions;
 import api.models.CreateUserRequest;
 import api.models.TransactionResponse;
 import api.models.TransferAccountRequest;
 import api.models.enums.TransactionType;
+import api.requests.steps.DataBaseSteps;
 import base.BaseTest;
 import api.models.comparison.ModelAssertions;
-import common.annotations.WithValidationFix;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
@@ -28,7 +29,6 @@ import java.util.stream.Stream;
 
 public class MoneyTransferTest extends BaseTest {
 
-    @WithValidationFix
     @Test
     public void userCanTransferMoneyDifferentUserTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
@@ -69,24 +69,15 @@ public class MoneyTransferTest extends BaseTest {
                 .as("Баланс получателя должен быть равен сумме перевода")
                 .isEqualByComparingTo(transferAmount);
 
-        softly.assertThat(senderTransactions)
-                .extracting(TransactionResponse::getType)
-                .as("История транзакций отправителя")
-                .contains(TransactionType.TRANSFER_OUT, TransactionType.DEPOSIT);
-
-        softly.assertThat(receiverTransactions)
-                .extracting(TransactionResponse::getType)
-                .as("История транзакций получателя")
-                .contains(TransactionType.TRANSFER_IN);
-
-        softly.assertThat(receiverAccAfter.getBalance()).isEqualTo(depositedAccount.getBalance());
+        softly.assertThat(receiverAccAfter.getBalance()).isEqualByComparingTo(depositedAccount.getBalance());
 
         assertTransferTransactions(senderTransactions, receiverTransactions);
 
+        assertApiDaoTransferTransactions(senderAcc.getId(), senderTransactions);
+        assertApiDaoTransferTransactions(receiverAcc.getId(), receiverTransactions);
+
     }
 
-
-    @WithValidationFix
     @Test
     public void userCanTransferMoneyYourselfTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
@@ -114,9 +105,11 @@ public class MoneyTransferTest extends BaseTest {
                 .isEqualByComparingTo(transferAmount);
 
         assertTransferTransactions(sourceTransactions, targetTransactions);
+
+        assertApiDaoTransferTransactions(sourceAcc.getId(), sourceTransactions);
+        assertApiDaoTransferTransactions(targetAcc.getId(), targetTransactions);
     }
 
-    @WithValidationFix
     @Test
     public void userCanTransferMinSumTest() {
         CreateUserRequest userRequest1 = AdminSteps.createUser();
@@ -143,9 +136,12 @@ public class MoneyTransferTest extends BaseTest {
                 .isEqualByComparingTo("0.01");
 
         assertTransferTransactions(sourceTransactions, targetTransactions);
+
+        assertApiDaoTransferTransactions(sourceAcc.getId(), sourceTransactions);
+        assertApiDaoTransferTransactions(targetAcc.getId(), targetTransactions);
+
     }
 
-    @WithValidationFix
     @Test
     public void userCanTransferMaxSumTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
@@ -174,18 +170,20 @@ public class MoneyTransferTest extends BaseTest {
 
         assertTransferTransactions(sourceTransactions, targetTransactions);
 
+        assertApiDaoTransferTransactions(sourceAcc.getId(), sourceTransactions);
+        assertApiDaoTransferTransactions(targetAcc.getId(), targetTransactions);
+
     }
 
     public static Stream<Arguments> invalidTransferData() {
         return Stream.of(
-                Arguments.of(0.0, "Transfer amount must be at least 0.01"),
-                Arguments.of(-0.01, "Transfer amount must be at least 0.01"),
+                Arguments.of(0.0, "Invalid transfer: insufficient funds or invalid accounts"),
+                Arguments.of(-0.01, "Invalid transfer: insufficient funds or invalid accounts"),
                 Arguments.of(10000.01, "Transfer amount cannot exceed 10000"),
                 Arguments.of(200.00, "Invalid transfer: insufficient funds or invalid accounts")
         );
     }
 
-    @WithValidationFix
     @MethodSource("invalidTransferData")
     @ParameterizedTest(name = "Негативные тесты")
     public void userCantTransferWithInvalidAmountTest(Double balance, String error) {
@@ -222,17 +220,34 @@ public class MoneyTransferTest extends BaseTest {
                 .as("У отправителя не должно появиться транзакций")
                 .isEmpty();
 
+        softly.assertThat(user.getTransaction(targetAcc.getId()))
+                .as("У получателя не должно появиться транзакций")
+                .isEmpty();
+
+        softly.assertThat(DataBaseSteps.getTransactionByAccountId(sourceAcc.getId()))
+                .as("У отправителя не должно появится транзакций в бд")
+                .isEmpty();
+
+        softly.assertThat(DataBaseSteps.getTransactionByAccountId(targetAcc.getId()))
+                .as("У получателя не должно появится транзакций в бд")
+                .isEmpty();
+
     }
 
     private void assertTransferTransactions(List<TransactionResponse> sourceTx, List<TransactionResponse> targetTx) {
         softly.assertThat(sourceTx)
                 .extracting(TransactionResponse::getType)
                 .as("История транзакций счета-отправителя")
-                .contains(TransactionType.TRANSFER_OUT);
+                .contains(TransactionType.TRANSFER_OUT, TransactionType.DEPOSIT);
 
         softly.assertThat(targetTx)
                 .extracting(TransactionResponse::getType)
                 .as("История транзакций счета-получателя")
                 .contains(TransactionType.TRANSFER_IN);
+    }
+
+    private void assertApiDaoTransferTransactions(Integer accountId, List<TransactionResponse> apitransactions) {
+        var sourceTransactionsDao = DataBaseSteps.getTransactionByAccountId(accountId);
+        DaoAndModelAssertions.assertThat(apitransactions, sourceTransactionsDao).match();
     }
 }

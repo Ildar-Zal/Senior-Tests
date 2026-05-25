@@ -18,6 +18,11 @@ public class ResponseSpecs {
         return new ResponseSpecBuilder();
     }
 
+    public static ResponseSpecification anyStatus() {
+        // Просто собираем дефолтную спецификацию, НЕ накладывая ограничений на expectStatusCode
+        return defaultSpec().build();
+    }
+
     public static ResponseSpecification isOk() {
         return defaultSpec().expectStatusCode(HttpStatus.SC_OK)
                 .build();

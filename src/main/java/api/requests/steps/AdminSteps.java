@@ -10,6 +10,7 @@ import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class AdminSteps {
 
@@ -28,5 +29,13 @@ public class AdminSteps {
                 RequestSpecs.adminSpec(),
                 Endpoint.ADMIN_USERS,
                 ResponseSpecs.isOk()).getAll(UserResponse.class);
+    }
+
+    public static UserResponse getUser(CreateUserRequest user) {
+        var allUsers = getAllUsers();
+        return allUsers.stream()
+                .filter(u -> user.getUsername().equals(u.getUsername()))
+                .findFirst().
+                orElseThrow(() -> new NoSuchElementException("User not found: " + user.getUsername()));
     }
 }

@@ -1,4 +1,4 @@
-package api.config;
+package api.configs;
 
 import java.io.IOException;
 import java.io.InputStream;

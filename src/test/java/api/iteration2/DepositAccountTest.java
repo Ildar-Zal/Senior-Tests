@@ -1,12 +1,14 @@
 package api.iteration2;
 
+import api.dao.AccountDao;
+import api.dao.comparison.DaoAndModelAssertions;
 import api.generators.RandomModelGenerator;
 import api.models.AccountResponse;
 import api.models.CreateUserRequest;
 import api.models.DepositAccountRequest;
+import api.requests.steps.DataBaseSteps;
 import base.BaseTest;
 import api.models.comparison.ModelAssertions;
-import common.annotations.WithValidationFix;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
@@ -27,7 +29,6 @@ import java.util.stream.Stream;
 
 public class DepositAccountTest extends BaseTest {
 
-    @WithValidationFix
     @Test
     public void userCanDepositAccountTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
@@ -46,11 +47,13 @@ public class DepositAccountTest extends BaseTest {
 
         var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
 
-        softly.assertThat(balanceBeforeDeposit).isEqualTo(BigDecimal.valueOf(0.0));
+        softly.assertThat(balanceBeforeDeposit).isEqualByComparingTo(BigDecimal.valueOf(0.0));
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
+
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
+
     }
 
-    @WithValidationFix
     @Test
     public void userCanDepositMaxSumAccountTest() {
         var userRequest = AdminSteps.createUser();
@@ -61,9 +64,11 @@ public class DepositAccountTest extends BaseTest {
         var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
+
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
+
     }
 
-    @WithValidationFix
     @Test
     public void userCanDepositMinSumAccountTest() {
         var userRequest = AdminSteps.createUser();
@@ -74,6 +79,8 @@ public class DepositAccountTest extends BaseTest {
         var accountAfterDeposit = user.getAccount(expectedAccountState.getId());
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
+
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
     }
 
     @Test
@@ -86,6 +93,10 @@ public class DepositAccountTest extends BaseTest {
                 Endpoint.ACCOUNTS_DEPOSIT,
                 ResponseSpecs.isForbidden())
                 .post(depositAccountRequest);
+
+        softly.assertThat(DataBaseSteps.getAccountByAccountNumber(String.valueOf(123123132)))
+                .as("Аккаунт должен отсутствовать в БД")
+                .isNull();
 
     }
 
@@ -109,17 +120,19 @@ public class DepositAccountTest extends BaseTest {
         softly.assertThat(diffAccountAfterDeposit.getBalance())
                 .as("Чужой аккаунт не должен быть пополнен")
                 .isZero();
+
+        assertApiDaoAccountDeposit(diffAccountAfterDeposit.getAccountNumber(),diffAccountAfterDeposit);
+
     }
 
     public static Stream<Arguments> invalidDepositData() {
         return Stream.of(
-                Arguments.of(5000.01, "Deposit amount cannot exceed 5000"),
-                Arguments.of(0.0, "Deposit amount must be at least 0.01"),
-                Arguments.of(-0.01, "Deposit amount must be at least 0.01")
+                Arguments.of(5000.01, "Deposit amount exceeds the 5000 limit"),
+                Arguments.of(0.0, "Invalid account or amount"),
+                Arguments.of(-0.01, "Invalid account or amount")
         );
     }
 
-    @WithValidationFix
     @MethodSource("invalidDepositData")
     @ParameterizedTest(name = "Негативные тесты")
     public void userCantDepositAccountTest(Double balance, String error) {
@@ -138,8 +151,16 @@ public class DepositAccountTest extends BaseTest {
                 .post(depositAccountRequest);
 
         var accountAfterDeposit = user.getAccount(account.getId());
+
         softly.assertThat(accountAfterDeposit.getBalance())
                 .as("Депозит не должен быть больше 5000 и меньше 0.01")
                 .isEqualTo(BigDecimal.valueOf(0.0));
+
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
+    }
+
+    private void assertApiDaoAccountDeposit(String accountId,AccountResponse accountApi) {
+        AccountDao accountDao = DataBaseSteps.getAccountByAccountNumber(accountId);
+        DaoAndModelAssertions.assertThat(accountApi, accountDao).match();
     }
 }

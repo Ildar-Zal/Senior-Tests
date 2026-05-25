@@ -1,6 +1,6 @@
 package api.specs;
 
-import api.config.Config;
+import api.configs.Config;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -13,7 +13,6 @@ import api.requests.skelethon.requesters.CrudRequester;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class RequestSpecs {
 

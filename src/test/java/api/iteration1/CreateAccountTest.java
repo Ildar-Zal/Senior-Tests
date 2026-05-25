@@ -1,10 +1,12 @@
 package api.iteration1;
 
+import api.dao.AccountDao;
+import api.dao.comparison.DaoAndModelAssertions;
+import api.requests.steps.DataBaseSteps;
 import base.BaseTest;
 import api.models.AccountResponse;
 import api.models.CreateUserRequest;
 import api.models.comparison.ModelAssertions;
-import common.annotations.WithValidationFix;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import api.requests.skelethon.Endpoint;
@@ -18,7 +20,6 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 
 public class CreateAccountTest extends BaseTest {
 
-    @WithValidationFix
     @Test
     public void userCanCreateAccountTest() {
         CreateUserRequest userRequest = AdminSteps.createUser();
@@ -40,5 +41,9 @@ public class CreateAccountTest extends BaseTest {
 
         var foundAccount = accounts.stream().filter(a -> a.getId().equals(createdAccount.getId())).findFirst().orElseThrow();
         ModelAssertions.assertThatModels(createdAccount, foundAccount).match();
+
+        AccountDao accountDao = DataBaseSteps.getAccountByAccountNumber(foundAccount.getAccountNumber());
+
+        DaoAndModelAssertions.assertThat(foundAccount, accountDao).match();
     }
 }

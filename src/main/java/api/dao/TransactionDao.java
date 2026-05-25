@@ -1,8 +1,6 @@
-package api.models;
-
+package api.dao;
 
 import api.models.enums.TransactionType;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,15 +9,13 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class TransactionResponse extends BaseModel {
-
+public class TransactionDao {
     private Integer id;
     private BigDecimal amount;
     private TransactionType type;
-    private String timestamp;
+    private Integer accountId;
     private Integer relatedAccountId;
 }

@@ -5,7 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/infra/docker_compose/init-scripts/01-init-db.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/AccountDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/TransactionDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/comparison/DaoAndModelAssertions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/comparison/DaoComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/comparison/DaoComparisonConfigLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/database/Condition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/database/DBRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/DataBaseSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/common/helpers/StepLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/dao-comparison.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker_compose/config/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/config/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker_compose/run-tests-with-docker-compose.sh" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/run-tests-with-docker-compose.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/CreateUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/CreateUserRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/TransactionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/TransactionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/comparison/ModelComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/comparison/ModelComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/annotations/WithValidationFix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/annotations/WithValidationFix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/extansions/ValidationFixExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/extansions/ValidationFixExtension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/UpdateUserNameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/UpdateUserNameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/base/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/base/BaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BaseUiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BaseUiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/zzz/ZZZDatabaseCleanupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/zzz/ZZZDatabaseCleanupTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +61,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="super2-ui-tests" />
+        <entry key="$PROJECT_DIR$" value="docker-compose" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -71,6 +107,7 @@
     "HttpClient.Positive test create user by admin.executor": "httpExecutor",
     "HttpClient.Positive test.executor": "httpExecutor",
     "HttpClient.Posivite test Authorized user can create account.executor": "httpExecutor",
+    "JUnit.CreateAccountTest (1).executor": "Run",
     "JUnit.CreateAccountTest.executor": "Run",
     "JUnit.CreateAccountTest.userCanCreateAccountTest.executor": "Run",
     "JUnit.CreateAccoutTest.executor": "Run",
@@ -80,6 +117,7 @@
     "JUnit.CreateUserTest.adminCanCreateUserTest (2).executor": "Run",
     "JUnit.CreateUserTest.adminCanCreateUserTest.executor": "Run",
     "JUnit.CreateUserTest.adminCanGenerateTokenTest.executor": "Run",
+    "JUnit.CreateUserTest.adminCannotCreateUserWithInvalidData.executor": "Run",
     "JUnit.CreateUserTest.adminCantCreateUserTest.executor": "Run",
     "JUnit.CreateUserTest.executor": "Run",
     "JUnit.DepositAccountTest.UserCanDepositAccountTest.executor": "Run",
@@ -112,7 +150,8 @@
     "JUnit.MoneyTransferTest.UserCanTransferMinSumTest.executor": "Run",
     "JUnit.MoneyTransferTest.UserCanTransferMoneyDifferentUserTest.executor": "Run",
     "JUnit.MoneyTransferTest.UserCanTransferMoneyUrselfTest.executor": "Run",
-    "JUnit.MoneyTransferTest.executor": "Debug",
+    "JUnit.MoneyTransferTest.executor": "Run",
+    "JUnit.MoneyTransferTest.userCanTransferMoneyDifferentUserTest.executor": "Run",
     "JUnit.MoneyTransferTest.userCanTransferMoneyTest.executor": "Run",
     "JUnit.MoneyTransferTest.userCantDepositAccountTest.executor": "Run",
     "JUnit.MoneyTransferTest.userCantTransferMoneyTest.executor": "Run",
@@ -120,11 +159,15 @@
     "JUnit.MoneyTransferTest.userCantTrasferMoreThanTenTest.executor": "Run",
     "JUnit.MoneyTransferTest.userNotFoundWithAccountTest.executor": "Debug",
     "JUnit.UpdateUserNameTest.UserCanChangeNameTest.executor": "Run",
-    "JUnit.UpdateUserNameTest.executor": "Run",
+    "JUnit.UpdateUserNameTest.executor": "Debug",
     "JUnit.UpdateUserNameTest.negativeTest.executor": "Debug",
     "JUnit.UpdateUserNameTest.userCanChangeNameTest.executor": "Run",
     "JUnit.UpdateUserNameTest.userCantChangeNameTest.executor": "Debug",
+    "JUnit.ZZZDatabaseCleanupTest.executor": "Run",
+    "JUnit.ZZZDatabaseCleanupTest.tearDownBackendData.executor": "Run",
     "JUnit.api in nbank-tests.executor": "Run",
+    "JUnit.iteration1 in nbank-tests (1).executor": "Run",
+    "JUnit.iteration1 in nbank-tests.executor": "Run",
     "JUnit.iteration2 in nbank-tests.executor": "Run",
     "JUnit.ui in nbank-tests.executor": "Run",
     "Maven.nbank-tests [-DskipTest=true...].executor": "Run",
@@ -133,7 +176,7 @@
     "Maven.nbank-tests [clean].executor": "Run",
     "Maven.nbank-tests [test,-P,api].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "docker-compose",
+    "git-widget-placeholder": "database-tests",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Ildar/IdeaProjects/nbank-tests",
     "project.structure.last.edited": "Libraries",
@@ -167,23 +210,8 @@
       <command value="mvn clean test" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DepositAccountTest">
-    <configuration name="CreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ui.iteration1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration1" />
-      <option name="MAIN_CLASS_NAME" value="ui.iteration1.CreateAccountTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CreateUserTest.adminCanCreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.MoneyTransferTest">
+    <configuration name="CreateAccountTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -192,24 +220,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="api.iteration1" />
-      <option name="MAIN_CLASS_NAME" value="api.iteration1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCanCreateUserTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="api.iteration1.CreateAccountTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepositAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CreateAccountTest.userCanCreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.iteration2.*" />
+          <option name="PATTERN" value="api.iteration1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="ui.iteration2.DepositAccountTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="api.iteration1" />
+      <option name="MAIN_CLASS_NAME" value="api.iteration1.CreateAccountTest" />
+      <option name="METHOD_NAME" value="userCanCreateAccountTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -218,21 +246,37 @@
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.iteration2.*" />
+          <option name="PATTERN" value="api.iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="ui.iteration2.MoneyTransferTest" />
+      <option name="PACKAGE_NAME" value="api.iteration2" />
+      <option name="MAIN_CLASS_NAME" value="api.iteration2.MoneyTransferTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="api in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ZZZDatabaseCleanupTest.tearDownBackendData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.zzz.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui.zzz" />
+      <option name="MAIN_CLASS_NAME" value="ui.zzz.ZZZDatabaseCleanupTest" />
+      <option name="METHOD_NAME" value="tearDownBackendData" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="iteration2 in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/src/test/java/api" />
+      <dir value="$PROJECT_DIR$/src/test/java/api/iteration2" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -289,11 +333,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DepositAccountTest" />
-        <item itemvalue="JUnit.CreateAccountTest" />
-        <item itemvalue="JUnit.api in nbank-tests" />
-        <item itemvalue="JUnit.CreateUserTest.adminCanCreateUserTest" />
         <item itemvalue="JUnit.MoneyTransferTest" />
+        <item itemvalue="JUnit.ZZZDatabaseCleanupTest.tearDownBackendData" />
+        <item itemvalue="JUnit.iteration2 in nbank-tests" />
+        <item itemvalue="JUnit.CreateAccountTest (1)" />
+        <item itemvalue="JUnit.CreateAccountTest.userCanCreateAccountTest" />
       </list>
     </recent_temporary>
   </component>
@@ -399,13 +443,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/common/extansions/ValidationFixExtension.java</url>
-          <line>21</line>
+          <line>12</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/DepositAccountTest.java</url>
           <line>17</line>
           <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration1/CreateAccountTest.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java</url>
+          <line>41</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="117" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

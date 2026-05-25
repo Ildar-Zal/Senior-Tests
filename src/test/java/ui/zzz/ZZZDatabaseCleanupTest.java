@@ -16,11 +16,14 @@ public class ZZZDatabaseCleanupTest {
     public void tearDownBackendData() {
         System.out.println("[INFO] >>> Финальное удаление пользователей...");
         try {
-            var allUsers = new CrudRequester(RequestSpecs.adminSpec(), Endpoint.ADMIN_USERS, isOk())
+            var allUsers = new CrudRequester(RequestSpecs.adminSpec(), Endpoint.ADMIN_USERS, anyStatus())
                     .get(null).extract().jsonPath().getList("", UserResponse.class);
 
             if (allUsers != null) {
                 allUsers.forEach(user -> {
+                    if ("admin".equals(user.getUsername())) {
+                        return; // Не даем удалять админа!
+                    }
                     try {
                         new CrudRequester(RequestSpecs.adminSpec(), Endpoint.ADMIN_USERS, ResponseSpecs.isOk())
                                 .delete(user.getId());

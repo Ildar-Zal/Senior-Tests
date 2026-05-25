@@ -1,31 +1,64 @@
+version: '3.8'
+
 services:
+#  backend:
+#    image: nobugsme/nbank:with_deletion
+#    ports:
+#      - "4112:4111"
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/nbank
+#      - SPRING_DATASOURCE_USERNAME=postgres
+#      - SPRING_DATASOURCE_PASSWORD=postgres
+#      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    networks:
+#      - nbank-network
+
   backend:
-    image: nobugsme/nbank:with_deletion
+    image: nobugsme/nbank:with_database_with_fix
     ports:
       - "4111:4111"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/nbank
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - nbank-network
+
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=nbank
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - nbank-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d nbank" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   frontend:
-    image: nobugsme/nbank-ui:latest
-    expose: # не открываем порт наружу, а даем доступ контейнерам в сети
-      - "80"
+    image: nobugsme/nbank-ui:with_nginx
+    ports:
+      - "3000:80"
     depends_on:
       - backend
     networks:
       - nbank-network
 
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - backend
-      - frontend
-    networks:
-      - nbank-network
 
   selenoid:
     image: aerokube/selenoid:1.11.3
@@ -49,6 +82,10 @@ services:
       - selenoid
     networks:
       - nbank-network
+
+volumes:
+  postgres_data:
+    driver: local
 
 networks:
   nbank-network:

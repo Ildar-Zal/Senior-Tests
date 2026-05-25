@@ -18,7 +18,17 @@ public class ModelComparator {
             Object value1 = getFieldValue(request, requestField);
             Object value2 = getFieldValue(response, responseField);
 
-            if (!Objects.equals(String.valueOf(value1), String.valueOf(value2))) {
+            boolean isMatch;
+
+            // ИСПРАВЛЕНИЕ: Специальная обработка для точного сравнения денег
+            if (value1 instanceof java.math.BigDecimal && value2 instanceof java.math.BigDecimal) {
+                isMatch = ((java.math.BigDecimal) value1).compareTo((java.math.BigDecimal) value2) == 0;
+            } else {
+                // Для всех остальных типов оставляем старую логику через String.valueOf
+                isMatch = Objects.equals(String.valueOf(value1), String.valueOf(value2));
+            }
+
+            if (!isMatch) {
                 mismatches.add(new Mismatch(requestField + " -> " + responseField, value1, value2));
             }
         }
