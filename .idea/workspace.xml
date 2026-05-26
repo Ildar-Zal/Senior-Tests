@@ -5,43 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/infra/docker_compose/init-scripts/01-init-db.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/AccountDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/TransactionDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/UserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/comparison/DaoAndModelAssertions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/comparison/DaoComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/dao/comparison/DaoComparisonConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/database/Condition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/database/DBRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/DataBaseSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/common/helpers/StepLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/dao-comparison.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker_compose/config/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/config/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker_compose/run-tests-with-docker-compose.sh" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/run-tests-with-docker-compose.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/configs/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/CreateUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/CreateUserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/TransactionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/TransactionResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/comparison/ModelComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/comparison/ModelComparator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/steps/AdminSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/annotations/WithValidationFix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/annotations/WithValidationFix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/common/extansions/ValidationFixExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/extansions/ValidationFixExtension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateUserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/UpdateUserNameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/UpdateUserNameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/base/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/base/BaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/BaseUiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/BaseUiTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ui/zzz/ZZZDatabaseCleanupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/zzz/ZZZDatabaseCleanupTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
