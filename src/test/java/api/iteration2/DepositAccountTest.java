@@ -37,7 +37,7 @@ public class DepositAccountTest extends BaseTest {
         var balanceBeforeDeposit = account.getBalance();
 
         DepositAccountRequest depositAccountRequest = RandomModelGenerator.generate(DepositAccountRequest.class);
-        depositAccountRequest.setId(account.getId());
+        depositAccountRequest.setAccountId(account.getId());
 
         var expectedAccountState = new ValidatableCrudRequester<AccountResponse>
                 (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
@@ -87,7 +87,7 @@ public class DepositAccountTest extends BaseTest {
     public void userCantDepositToNonExistAccount() {
         CreateUserRequest userRequest = AdminSteps.createUser();
         DepositAccountRequest depositAccountRequest = RandomModelGenerator.generate(DepositAccountRequest.class);
-        depositAccountRequest.setId(123123132);
+        depositAccountRequest.setAccountId(123123132);
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_DEPOSIT,
@@ -108,7 +108,7 @@ public class DepositAccountTest extends BaseTest {
         var diffAccount = user.createAccount();
 
         DepositAccountRequest depositAccountRequest = RandomModelGenerator.generate(DepositAccountRequest.class);
-        depositAccountRequest.setId(diffAccount.getId());
+        depositAccountRequest.setAccountId(diffAccount.getId());
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_DEPOSIT,
@@ -141,8 +141,8 @@ public class DepositAccountTest extends BaseTest {
         var account = user.createAccount();
 
         DepositAccountRequest depositAccountRequest = DepositAccountRequest.builder()
-                .balance(BigDecimal.valueOf(balance))
-                .id(account.getId())
+                .amount(BigDecimal.valueOf(balance))
+                .accountId(account.getId())
                 .build();
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),

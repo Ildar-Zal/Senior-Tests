@@ -1,6 +1,6 @@
 package common.annotations;
 
-import common.extansions.AccountSessionExtension;
+import common.extensions.AccountSessionExtension;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 

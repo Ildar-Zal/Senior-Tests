@@ -1,6 +1,6 @@
 package common.annotations;
 
-import common.extansions.UserSessionExtension;
+import common.extensions.UserSessionExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.ElementType;

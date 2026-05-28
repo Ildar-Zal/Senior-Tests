@@ -1,4 +1,4 @@
-package common.extansions;
+package common.extensions;
 
 import com.codeborne.selenide.Configuration;
 import common.annotations.Browsers;

@@ -1,4 +1,4 @@
-package common.extansions;
+package common.extensions;
 
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;

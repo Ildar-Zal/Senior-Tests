@@ -1,4 +1,4 @@
-package common.extansions;
+package common.extensions;
 
 import api.models.CreateUserRequest;
 import api.requests.steps.AdminSteps;
@@ -28,9 +28,10 @@ public class UserSessionExtension implements BeforeEachCallback {
             }
             SessionStorage.addUsers(users);
 
-            int authAsUser = annotation.auth();
-
-            BasePage.authAsUser(SessionStorage.getUser(authAsUser));
+            if (annotation.auth() != 0) {
+                int authAsUser = annotation.auth();
+                BasePage.authAsUser(SessionStorage.getUser(authAsUser));
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package api.requests.steps;
 
 import api.generators.RandomModelGenerator;
 import api.models.*;
+import common.helpers.StepLogger;
 import io.restassured.specification.RequestSpecification;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
@@ -31,8 +32,8 @@ public class UserSteps {
     public AccountResponse depositAccount(AccountResponse account, double balance) {
         DepositAccountRequest depositAccountRequest = DepositAccountRequest
                 .builder()
-                .balance(BigDecimal.valueOf(balance))
-                .id(account.getId())
+                .amount(BigDecimal.valueOf(balance))
+                .accountId(account.getId())
                 .build();
 
         return new ValidatableCrudRequester<AccountResponse>
@@ -54,7 +55,7 @@ public class UserSteps {
 
     public AccountResponse depositRandomMoneyToAccount(AccountResponse account) {
         DepositAccountRequest randomRequest = RandomModelGenerator.generate(DepositAccountRequest.class);
-        return depositAccount(account, randomRequest.getBalance().doubleValue());
+        return depositAccount(account, randomRequest.getAmount().doubleValue());
     }
 
     public void transferMoney(AccountResponse sourceAcc, AccountResponse targetAcc, BigDecimal money) {
@@ -92,5 +93,21 @@ public class UserSteps {
                 (userSpec,
                         Endpoint.ACCOUNTS_TRANSACTIONS,
                         ResponseSpecs.isOk()).getList(id);
+    }
+
+    public TransferResponse transferWithFraudCheck(Integer senderAccountId, Integer receiverAccountId, BigDecimal amount) {
+        return StepLogger.log("User " + user.getUsername() + " transfers " + amount + " to " + receiverAccountId + " with fraud check", () -> {
+            TransferRequest transferRequest = TransferRequest.builder()
+                    .senderAccountId(senderAccountId)
+                    .receiverAccountId(receiverAccountId)
+                    .amount(amount)
+                    .description("Test transfer with fraud check")
+                    .build();
+
+            return new ValidatableCrudRequester<TransferResponse>(
+                    RequestSpecs.userSpec(user.getUsername(), user.getPassword()),
+                    Endpoint.TRANSFER_WITH_FRAUD_CHECK,
+                    ResponseSpecs.isOk()).post(transferRequest);
+        });
     }
 }

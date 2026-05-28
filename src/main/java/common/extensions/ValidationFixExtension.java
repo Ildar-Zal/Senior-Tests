@@ -1,4 +1,4 @@
-package common.extansions;
+package common.extensions;
 
 //
 //public class ValidationFixExtension implements BeforeEachCallback, AfterEachCallback {

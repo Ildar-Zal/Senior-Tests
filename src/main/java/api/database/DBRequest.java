@@ -1,13 +1,12 @@
 package api.database;
 
 import api.configs.Config;
-import api.dao.TransactionDao;
-import api.dao.UserDao;
-import api.dao.AccountDao;
-import api.models.enums.TransactionType;
 import lombok.Builder;
 import lombok.Data;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +33,71 @@ public class DBRequest {
         return executeQueryForList(clazz);
     }
 
+    private <T> T mapSingleRow(ResultSet resultSet, Class<T> clazz) {
+        try {
+            // 1. Создаем экземпляр класса через конструктор по умолчанию
+            T dto = clazz.getDeclaredConstructor().newInstance();
+
+            // 2. Получаем список всех колонок из ResultSet один раз для текущей строки
+            List<String> dbColumns = new ArrayList<>();
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                dbColumns.add(metaData.getColumnLabel(i).toLowerCase());
+            }
+
+            // 3. Идем по всем полям класса (включая private)
+            for (Field field : clazz.getDeclaredFields()) {
+                // Пропускаем статические и синтетические (сгенерированные компилятором) поля
+                if (Modifier.isStatic(field.getModifiers()) || field.isSynthetic()) {
+                    continue;
+                }
+
+                field.setAccessible(true);
+
+                // Конвертируем имя поля camelCase -> snake_case (например: accountNumber -> account_number)
+                String columnName = camelToSnake(field.getName());
+
+                // Проверяем, есть ли колонка в нашей выборке из БД
+                if (dbColumns.contains(columnName)) {
+                    Object value = resultSet.getObject(columnName);
+
+                    if (value != null) {
+                        // Обработка специфичных типов (Enum, BigDecimal, касты чисел)
+                        if (field.getType().isEnum()) {
+                            Class<Enum> enumType = (Class<Enum>) field.getType();
+                            value = Enum.valueOf(enumType, value.toString());
+                        }
+                        else if (field.getType() == BigDecimal.class && !(value instanceof BigDecimal)) {
+                            value = new BigDecimal(value.toString());
+                        }
+                        else if (field.getType() == Long.class || field.getType() == long.class) {
+                            value = ((Number) value).longValue();
+                        }
+                        else if (field.getType() == Integer.class || field.getType() == int.class) {
+                            value = ((Number) value).intValue();
+                        }
+
+                        // Записываем значение в поле объекта
+                        field.set(dto, value);
+                    }
+                }
+            }
+            return dto;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to map ResultSet to class: " + clazz.getSimpleName(), e);
+        }
+    }
+
+    private String camelToSnake(String str) {
+        return str.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+    }
+
     private <T> T executeQuery(Class<T> clazz) {
         String sql = buildSQL();
 
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            // Set parameters for conditions
             if (conditions != null) {
                 for (int i = 0; i < conditions.size(); i++) {
                     statement.setObject(i + 1, conditions.get(i).getValue());
@@ -48,17 +105,10 @@ public class DBRequest {
             }
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (clazz == UserDao.class) {
-                    return (T) mapToUserDao(resultSet);
+                if (resultSet.next()) {
+                    return mapSingleRow(resultSet, clazz);
                 }
-                if (clazz == AccountDao.class) {
-                    return (T) mapToAccountDao(resultSet);
-                }
-                if (clazz == TransactionDao.class) {
-                    return (T) mapToTransactionDao(resultSet);
-                }
-                // Add more mappings as needed
-                throw new UnsupportedOperationException("Mapping for " + clazz.getSimpleName() + " not implemented");
+                return null;
             }
         } catch (SQLException e) {
             throw new RuntimeException("Database query failed", e);
@@ -79,79 +129,14 @@ public class DBRequest {
             }
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                // В цикле читаем ВСЕ строки из базы данных
                 while (resultSet.next()) {
-                    if (clazz == UserDao.class) {
-                        resultList.add((T) mapSingleUser(resultSet)); // ИСПОЛЬЗУЕМ ОДИНОЧНЫЙ МАППЕР
-                    } else if (clazz == AccountDao.class) {
-                        resultList.add((T) mapSingleAccount(resultSet)); // ИСПОЛЬЗУЕМ ОДИНОЧНЫЙ МАППЕР
-                    } else if (clazz == TransactionDao.class) {
-                        resultList.add((T) mapSingleTransaction(resultSet)); // ИСПОЛЬЗУЕМ ОДИНОЧНЫЙ МАППЕР
-                    } else {
-                        throw new UnsupportedOperationException("Mapping for " + clazz.getSimpleName() + " not implemented");
-                    }
+                    resultList.add(mapSingleRow(resultSet, clazz));
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Database query failed", e);
         }
         return resultList;
-    }
-
-    // НОВЫЕ МЕТОДЫ: Просто маппят текущую позицию курсора (БЕЗ resultSet.next())
-    private UserDao mapSingleUser(ResultSet resultSet) throws SQLException {
-        return UserDao.builder()
-                .id(resultSet.getLong("id"))
-                .username(resultSet.getString("username"))
-                .password(resultSet.getString("password"))
-                .role(resultSet.getString("role"))
-                .name(resultSet.getString("name"))
-                .build();
-    }
-
-    private TransactionDao mapSingleTransaction(ResultSet resultSet) throws SQLException {
-        String typeStr = resultSet.getString("type");
-
-        // Безопасно переводим String в Enum (если в БД null, то и в DAO запишем null)
-        TransactionType transactionType = (typeStr != null) ? TransactionType.valueOf(typeStr) : null;
-        return TransactionDao.builder()
-                .id(resultSet.getInt("id"))
-                .amount(resultSet.getBigDecimal("amount"))
-                .type(transactionType)
-                .accountId(resultSet.getInt("account_id"))
-                .relatedAccountId(resultSet.getInt("related_account_id"))
-                .build();
-    }
-
-    private AccountDao mapSingleAccount(ResultSet resultSet) throws SQLException {
-        return AccountDao.builder()
-                .id(resultSet.getLong("id"))
-                .accountNumber(resultSet.getString("account_number"))
-                .balance(resultSet.getDouble("balance"))
-                .customerId(resultSet.getLong("customer_id"))
-                .build();
-    }
-
-    // СТАРЫЕ МЕТОДЫ (для метода extractAs): Сначала двигают курсор, потом маппят
-    private UserDao mapToUserDao(ResultSet resultSet) throws SQLException {
-        if (resultSet.next()) {
-            return mapSingleUser(resultSet);
-        }
-        return null;
-    }
-
-    private TransactionDao mapToTransactionDao(ResultSet resultSet) throws SQLException {
-        if (resultSet.next()) {
-            return mapSingleTransaction(resultSet);
-        }
-        return null;
-    }
-
-    private AccountDao mapToAccountDao(ResultSet resultSet) throws SQLException {
-        if (resultSet.next()) {
-            return mapSingleAccount(resultSet);
-        }
-        return null;
     }
 
     private String buildSQL() {
@@ -228,7 +213,6 @@ public class DBRequest {
                     .extractAsClass(extractAsClass)
                     .build();
 
-            // Вызываем внутренний метод экстракции, который умеет возвращать List
             return request.extractAsList(clazz);
         }
     }

@@ -1,6 +1,5 @@
 package api.models;
 
-import api.generators.GeneratingRule;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,12 +8,12 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class DepositAccountRequest extends BaseModel {
-
-    private Integer accountId;
-    @GeneratingRule(min = 0.01, max = 5000)
+public class TransferRequest extends BaseModel {
+    private Integer senderAccountId;
+    private Integer receiverAccountId;
     private BigDecimal amount;
+    private String description;
 }

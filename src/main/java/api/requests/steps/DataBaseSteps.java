@@ -16,11 +16,24 @@ import java.util.List;
 
 public class DataBaseSteps {
 
+    public enum Table {
+        CUSTOMERS("customers"),
+        TRANSACTIONS("transactions"),
+        ACCOUNTS("accounts");
+
+        private String name;
+        Table(String name) {
+            this.name = name;
+        }
+        public String getName() {
+            return name;
+        }
+    }
     public static UserDao getUserByUsername(String username) {
         return StepLogger.log("Get user from database by username: " + username, () -> {
             return DBRequest.builder()
                     .requestType(DBRequest.RequestType.SELECT)
-                    .table("customers")
+                    .table(Table.CUSTOMERS.getName())
                     .where(Condition.equalTo("username", username))
                     .extractAs(UserDao.class);
         });
@@ -30,7 +43,7 @@ public class DataBaseSteps {
         return StepLogger.log("Get transaction from database by AccountId" + id, () -> {
             return DBRequest.builder()
                     .requestType(DBRequest.RequestType.SELECT)
-                    .table("transactions")
+                    .table(Table.TRANSACTIONS.getName())
                     .where(Condition.equalTo("account_id", id))
                     .extractAsList(TransactionDao.class);
         });
@@ -40,7 +53,7 @@ public class DataBaseSteps {
         return StepLogger.log("Get user from database by ID: " + id, () -> {
             return DBRequest.builder()
                     .requestType(DBRequest.RequestType.SELECT)
-                    .table("customers")
+                    .table(Table.CUSTOMERS.getName())
                     .where(Condition.equalTo("id", id))
                     .extractAs(UserDao.class);
         });
@@ -50,7 +63,7 @@ public class DataBaseSteps {
         return StepLogger.log("Get user from database by role: " + role, () -> {
             return DBRequest.builder()
                     .requestType(DBRequest.RequestType.SELECT)
-                    .table("customers")
+                    .table(Table.CUSTOMERS.getName())
                     .where(Condition.equalTo("role", role))
                     .extractAs(UserDao.class);
         });
@@ -60,7 +73,7 @@ public class DataBaseSteps {
         return StepLogger.log("Get account from database by account number: " + accountNumber, () -> {
             return DBRequest.builder()
                     .requestType(DBRequest.RequestType.SELECT)
-                    .table("accounts")
+                    .table(Table.ACCOUNTS.getName())
                     .where(Condition.equalTo("account_number", accountNumber))
                     .extractAs(AccountDao.class);
         });
@@ -70,7 +83,7 @@ public class DataBaseSteps {
         return StepLogger.log("Get account from database by ID: " + id, () -> {
             return DBRequest.builder()
                     .requestType(DBRequest.RequestType.SELECT)
-                    .table("accounts")
+                    .table(Table.ACCOUNTS.getName())
                     .where(Condition.equalTo("id", id))
                     .extractAs(AccountDao.class);
         });
@@ -80,7 +93,7 @@ public class DataBaseSteps {
         return StepLogger.log("Get account from database by customer ID: " + customerId, () -> {
             return DBRequest.builder()
                     .requestType(DBRequest.RequestType.SELECT)
-                    .table("customers")
+                    .table(Table.CUSTOMERS.getName())
                     .where(Condition.equalTo("customer_id", customerId))
                     .extractAs(AccountDao.class);
         });

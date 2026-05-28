@@ -1,4 +1,4 @@
-package common.extansions;
+package common.extensions;
 
 import api.generators.RandomModelGenerator;
 import api.models.DepositAccountRequest;
@@ -20,7 +20,7 @@ public class AccountSessionExtension implements BeforeEachCallback {
                 var user = SessionStorage.getSteps(i + 1);
                 var account = user.createAccount();
                 if (depositCount != 0) {
-                    user.depositAccount(account, RandomModelGenerator.generate(DepositAccountRequest.class).getBalance().doubleValue());
+                    user.depositAccount(account, RandomModelGenerator.generate(DepositAccountRequest.class).getAmount().doubleValue());
                     depositCount--;
                 }
             }

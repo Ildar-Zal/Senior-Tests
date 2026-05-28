@@ -22,7 +22,7 @@ public class DepositAccountTest extends BaseUiTest {
     public void userCanDepositAccountTest() {
         var user = SessionStorage.getSteps();
         var createdAccount = user.createAccount();
-        BigDecimal depositAmount = RandomModelGenerator.generate(DepositAccountRequest.class).getBalance().stripTrailingZeros();
+        BigDecimal depositAmount = RandomModelGenerator.generate(DepositAccountRequest.class).getAmount().stripTrailingZeros();
 
         new UserDashboard().open().openDepositPage().depositMoney(createdAccount.getAccountNumber(), depositAmount.toString());
         var balance = ApiWait.untilNotNull(() -> SessionStorage.getSteps().getAccounts().getFirst().getBalance());

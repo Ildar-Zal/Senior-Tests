@@ -1,4 +1,4 @@
-package common.extansions;
+package common.extensions;
 
 import api.models.UserResponse;
 import api.requests.skelethon.Endpoint;
