@@ -44,12 +44,12 @@ jobs: # Этапы работы пайплайна
           env:
           APIBASEURL: http://localhost:4111
           UIBASEURL: http://frontend:80
-          
-          # ДОБАВЛЯЕМ ЭТОТ ШАГ СЮДА:
-                - name: Dump Docker logs on failure
-                  if: always() # Сработает даже если предыдущий шаг упал по таймауту
-                  run: |
-                    echo "=== nbank-app logs ==="
-                    docker logs nbank-app --tail 100 || echo "Could not get logs for nbank-app"
-                    echo "=== docker ps status ==="
-                    docker ps -a
+
+      - name: Dump Docker logs on failure
+        if: always() # Этот шаг теперь гарантированно запустится, так как он отдельный
+        run: |
+          echo "=== All active docker containers ==="
+          docker ps -a
+          echo "=== Attempting to print logs ==="
+          # Выведем логи всех контейнеров, чтобы понять, как он точно называется на агенте
+          docker ps --format "{{.Names}}" | xargs -I {} sh -c 'echo "Logs for {} :"; docker logs --tail 50 {}; echo "-------------------"'
