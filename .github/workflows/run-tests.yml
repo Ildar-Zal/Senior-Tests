@@ -26,7 +26,7 @@ jobs: # Этапы работы пайплайна
             ${{ runner.os }}-maven-
 
       - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
-        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose && cd ../..
+        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
 
       - name: Run tests # Запуск тестов с Maven
         run: ./mvnw clean test -q
