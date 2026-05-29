@@ -15,7 +15,7 @@ services:
 #      - nbank-network
 
   backend:
-    image: nobugsme/nbank:preprod_version
+    image: nobugsme/nbank:with_deletion
     container_name: nbank-app
     ports:
       - "4111:4111"
