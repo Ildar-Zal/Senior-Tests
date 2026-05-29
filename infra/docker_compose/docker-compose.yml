@@ -1,22 +1,8 @@
 services:
-#  backend:
-#    image: nobugsme/nbank:with_deletion
-#    ports:
-#      - "4112:4111"
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/nbank
-#      - SPRING_DATASOURCE_USERNAME=postgres
-#      - SPRING_DATASOURCE_PASSWORD=postgres
-#      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    networks:
-#      - nbank-network
-
   backend:
     image: nobugsme/nbank:preprod_version
     container_name: nbank-app
+    platform: linux/amd64
     ports:
       - "4111:4111"
     environment:
