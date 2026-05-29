@@ -25,6 +25,9 @@ jobs: # Этапы работы пайплайна
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Set up QEMU (for arm64 docker images)
+        uses: docker/setup-qemu-action@v3
+
       - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
         run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
 

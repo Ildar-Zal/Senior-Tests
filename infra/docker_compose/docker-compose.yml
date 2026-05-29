@@ -2,7 +2,6 @@ services:
   backend:
     image: nobugsme/nbank:preprod_version
     container_name: nbank-app
-    platform: linux/amd64
     ports:
       - "4111:4111"
     environment:
