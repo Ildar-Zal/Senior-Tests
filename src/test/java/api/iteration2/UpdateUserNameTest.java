@@ -67,20 +67,20 @@ public class UpdateUserNameTest extends BaseTest {
 
     public static Stream<Arguments> invalidData() {
         return Stream.of(
-                Arguments.of("asdc", "Name must contain two words with letters only"),
-                Arguments.of("asdc123123 acvxc", "Name must contain two words with letters only"),
-                Arguments.of("123123 adsasd", "Name must contain two words with letters only"),
-                Arguments.of("ADASD #@$@#$@$#", "Name must contain two words with letters only"),
-                Arguments.of("asdasd asdasd adasdasd", "Name must contain two words with letters only"),
-                Arguments.of("adasdasd   ", "Name must contain two words with letters only"),
-                Arguments.of("   adasdasd", "Name must contain two words with letters only"),
-                Arguments.of("фвыфв фывфыв ", "Name must contain two words with letters only")
+                Arguments.of("asdc","message", "Name must contain two words with letters only"),
+                Arguments.of("asdc123123 acvxc","message", "Name must contain two words with letters only"),
+                Arguments.of("123123 adsasd", "message", "Name must contain two words with letters only"),
+                Arguments.of("ADASD #@$@#$@$#","message", "Name must contain two words with letters only"),
+                Arguments.of("asdasd asdasd adasdasd","message", "Name must contain two words with letters only"),
+                Arguments.of("adasdasd   ","message", "Name must contain two words with letters only"),
+                Arguments.of("   adasdasd","message", "Name must contain two words with letters only"),
+                Arguments.of("фвыфв фывфыв ", "message", "Name must contain two words with letters only")
         );
     }
 
     @MethodSource("invalidData")
     @ParameterizedTest(name = "Негативные тесты")
-    public void negativeTest(String name, String error) {
+    public void negativeTest(String name,String errorKey, String error) {
         CreateUserRequest userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
 
@@ -91,7 +91,7 @@ public class UpdateUserNameTest extends BaseTest {
         new CrudRequester
                 (RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                         Endpoint.UPDATE_CUSTOMER_PROFILE,
-                        ResponseSpecs.isBadRequest(null, error))
+                        ResponseSpecs.isBadRequest(errorKey, error))
                 .put(updateCustomerProfileRequest);
 
         var nameAfterUpdate = user.getUserProfile().getName();

@@ -50,7 +50,7 @@ public class DepositAccountTest extends BaseTest {
         softly.assertThat(balanceBeforeDeposit).isEqualByComparingTo(BigDecimal.valueOf(0.0));
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
 
-        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(), accountAfterDeposit);
 
     }
 
@@ -65,7 +65,7 @@ public class DepositAccountTest extends BaseTest {
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
 
-        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(), accountAfterDeposit);
 
     }
 
@@ -80,7 +80,7 @@ public class DepositAccountTest extends BaseTest {
 
         ModelAssertions.assertThatModels(expectedAccountState, accountAfterDeposit).match();
 
-        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(), accountAfterDeposit);
     }
 
     @Test
@@ -121,21 +121,21 @@ public class DepositAccountTest extends BaseTest {
                 .as("Чужой аккаунт не должен быть пополнен")
                 .isZero();
 
-        assertApiDaoAccountDeposit(diffAccountAfterDeposit.getAccountNumber(),diffAccountAfterDeposit);
+        assertApiDaoAccountDeposit(diffAccountAfterDeposit.getAccountNumber(), diffAccountAfterDeposit);
 
     }
 
     public static Stream<Arguments> invalidDepositData() {
         return Stream.of(
-                Arguments.of(5000.01, "Deposit amount exceeds the 5000 limit"),
-                Arguments.of(0.0, "Invalid account or amount"),
-                Arguments.of(-0.01, "Invalid account or amount")
+                Arguments.of(5000.01, "message", "Deposit amount exceeds the 5000 limit"),
+                Arguments.of(0.0, "message", "Invalid account or amount"),
+                Arguments.of(-0.01, "message", "Invalid account or amount")
         );
     }
 
     @MethodSource("invalidDepositData")
     @ParameterizedTest(name = "Негативные тесты")
-    public void userCantDepositAccountTest(Double balance, String error) {
+    public void userCantDepositAccountTest(Double balance, String errorKey, String error) {
         CreateUserRequest userRequest = AdminSteps.createUser();
         UserSteps user = new UserSteps(userRequest);
         var account = user.createAccount();
@@ -147,7 +147,7 @@ public class DepositAccountTest extends BaseTest {
 
         new CrudRequester(RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_DEPOSIT,
-                ResponseSpecs.isBadRequest(null, error))
+                ResponseSpecs.isBadRequest(errorKey, error))
                 .post(depositAccountRequest);
 
         var accountAfterDeposit = user.getAccount(account.getId());
@@ -156,10 +156,10 @@ public class DepositAccountTest extends BaseTest {
                 .as("Депозит не должен быть больше 5000 и меньше 0.01")
                 .isEqualTo(BigDecimal.valueOf(0.0));
 
-        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(),accountAfterDeposit);
+        assertApiDaoAccountDeposit(accountAfterDeposit.getAccountNumber(), accountAfterDeposit);
     }
 
-    private void assertApiDaoAccountDeposit(String accountId,AccountResponse accountApi) {
+    private void assertApiDaoAccountDeposit(String accountId, AccountResponse accountApi) {
         AccountDao accountDao = DataBaseSteps.getAccountByAccountNumber(accountId);
         DaoAndModelAssertions.assertThat(accountApi, accountDao).match();
     }

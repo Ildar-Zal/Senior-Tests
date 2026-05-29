@@ -177,16 +177,16 @@ public class MoneyTransferTest extends BaseTest {
 
     public static Stream<Arguments> invalidTransferData() {
         return Stream.of(
-                Arguments.of(0.0, "Invalid transfer: insufficient funds or invalid accounts"),
-                Arguments.of(-0.01, "Invalid transfer: insufficient funds or invalid accounts"),
-                Arguments.of(10000.01, "Transfer amount cannot exceed 10000"),
-                Arguments.of(200.00, "Invalid transfer: insufficient funds or invalid accounts")
+                Arguments.of(0.0, "message", "Invalid transfer: insufficient funds or invalid accounts"),
+                Arguments.of(-0.01, "message", "Invalid transfer: insufficient funds or invalid accounts"),
+                Arguments.of(10000.01, "message", "Transfer amount cannot exceed 10000"),
+                Arguments.of(200.00, "message", "Invalid transfer: insufficient funds or invalid accounts")
         );
     }
 
     @MethodSource("invalidTransferData")
     @ParameterizedTest(name = "Негативные тесты")
-    public void userCantTransferWithInvalidAmountTest(Double balance, String error) {
+    public void userCantTransferWithInvalidAmountTest(Double balance,String errorKey, String error) {
         CreateUserRequest userRequest = AdminSteps.createUser();
         var user = new UserSteps(userRequest);
         var sourceAcc = user.createAccount();
@@ -202,7 +202,7 @@ public class MoneyTransferTest extends BaseTest {
         new CrudRequester(
                 RequestSpecs.userSpec(userRequest.getUsername(), userRequest.getPassword()),
                 Endpoint.ACCOUNTS_TRANSFER,
-                ResponseSpecs.isBadRequest(null, error))
+                ResponseSpecs.isBadRequest(errorKey, error))
                 .post(transferAccountRequest);
 
         var sourceAccAfter = user.getAccount(sourceAcc.getId());

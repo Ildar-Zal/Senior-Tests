@@ -33,10 +33,10 @@ public class LoginUserTest extends BaseTest {
 
     public static Stream<Arguments> invalidUserData() {
         return Stream.of(
-                Arguments.of("   ", "Password33$", "error", "Invalid username or password"),
-                Arguments.of("ab", "Password33$", "error", "Invalid username or password"),
-                Arguments.of("abc$", "Password33$", "error", "Invalid username or password"),
-                Arguments.of("abc%", "Password33$", "error", "Invalid username or password")
+                Arguments.of("   ", "Password33$", "message", "Invalid username or password"),
+                Arguments.of("ab", "Password33$", "message", "Invalid username or password"),
+                Arguments.of("abc$", "Password33$", "message", "Invalid username or password"),
+                Arguments.of("abc%", "Password33$", "message", "Invalid username or password")
         );
     }
 
