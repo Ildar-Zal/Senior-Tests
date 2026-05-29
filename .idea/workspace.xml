@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/UpdateCustomerProfileResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/UpdateCustomerProfileResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/LoginUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/LoginUserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/UpdateUserNameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/UpdateUserNameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/run-tests.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/run-tests.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +143,7 @@
     "Maven.nbank-tests [clean].executor": "Run",
     "Maven.nbank-tests [test,-P,api].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "database-and-mock-tests",
+    "git-widget-placeholder": "run-tests-pipeline",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Ildar/IdeaProjects/nbank-tests",
     "project.structure.last.edited": "Libraries",
