@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="First pipeline" />
+    <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="Debug pipeline" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -328,7 +328,23 @@
       <option name="project" value="LOCAL" />
       <updated>1780064928293</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Debug pipeline">
+      <option name="closed" value="true" />
+      <created>1780065219443</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1780065219443</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Debug pipeline">
+      <option name="closed" value="true" />
+      <created>1780065365281</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1780065365281</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -344,7 +360,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First pipeline" />
-    <option name="LAST_COMMIT_MESSAGE" value="First pipeline" />
+    <MESSAGE value="Debug pipeline" />
+    <option name="LAST_COMMIT_MESSAGE" value="Debug pipeline" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

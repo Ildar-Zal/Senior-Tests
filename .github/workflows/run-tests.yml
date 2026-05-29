@@ -32,4 +32,4 @@ jobs: # Этапы работы пайплайна
         run: ./mvnw clean test -q
         env:
           APIBASEURL: http://localhost:4111
-          UIBASEURL: http://frontend
+          UIBASEURL: http://frontend:80
