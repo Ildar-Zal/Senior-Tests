@@ -7,7 +7,6 @@ import com.codeborne.selenide.SelenideElement;
 import common.utils.RetryUtils;
 import org.openqa.selenium.By;
 import ui.elements.TransactionBage;
-import ui.elements.UserBage;
 
 import java.util.List;
 import java.util.Objects;

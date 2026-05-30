@@ -1,16 +1,8 @@
 package api.specs;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.protocol.HTTP;
-import org.hamcrest.Matchers;
-
-import java.util.Collection;
 
 import static org.hamcrest.Matchers.*;
 

@@ -2,21 +2,21 @@ package api.iteration1;
 
 import api.dao.UserDao;
 import api.dao.comparison.DaoAndModelAssertions;
-import api.requests.steps.DataBaseSteps;
-import base.BaseTest;
 import api.generators.RandomModelGenerator;
 import api.models.CreateUserRequest;
 import api.models.UserResponse;
 import api.models.comparison.ModelAssertions;
+import api.requests.skelethon.Endpoint;
+import api.requests.skelethon.requesters.CrudRequester;
+import api.requests.skelethon.requesters.ValidatableCrudRequester;
+import api.requests.steps.DataBaseSteps;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
+import base.BaseTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import api.requests.skelethon.Endpoint;
-import api.requests.skelethon.requesters.CrudRequester;
-import api.requests.skelethon.requesters.ValidatableCrudRequester;
-import api.specs.RequestSpecs;
-import api.specs.ResponseSpecs;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;

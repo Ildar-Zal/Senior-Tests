@@ -2,13 +2,13 @@ package api.requests.steps;
 
 import api.generators.RandomModelGenerator;
 import api.models.*;
-import common.helpers.StepLogger;
-import io.restassured.specification.RequestSpecification;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
 import api.requests.skelethon.requesters.ValidatableCrudRequester;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
+import common.helpers.StepLogger;
+import io.restassured.specification.RequestSpecification;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,8 +24,9 @@ public class UserSteps {
     }
 
     public AccountResponse createAccount() {
-        return new ValidatableCrudRequester<AccountResponse>
-                (userSpec, Endpoint.ACCOUNTS, ResponseSpecs.isCreated())
+        return new ValidatableCrudRequester<AccountResponse>(userSpec,
+                Endpoint.ACCOUNTS,
+                ResponseSpecs.isCreated())
                 .post(null);
     }
 
@@ -36,8 +37,9 @@ public class UserSteps {
                 .accountId(account.getId())
                 .build();
 
-        return new ValidatableCrudRequester<AccountResponse>
-                (userSpec, Endpoint.ACCOUNTS_DEPOSIT, ResponseSpecs.isOk())
+        return new ValidatableCrudRequester<AccountResponse>(userSpec,
+                Endpoint.ACCOUNTS_DEPOSIT,
+                ResponseSpecs.isOk())
                 .post(depositAccountRequest);
 
     }
@@ -65,15 +67,17 @@ public class UserSteps {
                 .amount(money)
                 .build();
 
-        new CrudRequester(
-                userSpec, Endpoint.ACCOUNTS_TRANSFER, ResponseSpecs.isOk())
+        new CrudRequester(userSpec,
+                Endpoint.ACCOUNTS_TRANSFER,
+                ResponseSpecs.isOk())
                 .post(transferAccountRequest);
     }
 
 
     public List<AccountResponse> getAccounts() {
-        return new CrudRequester
-                (userSpec, Endpoint.CUSTOMER_ACCOUNTS, ResponseSpecs.isOk())
+        return new CrudRequester(userSpec,
+                Endpoint.CUSTOMER_ACCOUNTS,
+                ResponseSpecs.isOk())
                 .get(null)
                 .extract()
                 .jsonPath()
@@ -81,18 +85,16 @@ public class UserSteps {
     }
 
     public UserResponse getUserProfile() {
-        return new ValidatableCrudRequester<UserResponse>
-                (userSpec,
-                        Endpoint.GET_CUSTOMER_PROFILE,
-                        ResponseSpecs.isOk())
+        return new ValidatableCrudRequester<UserResponse>(userSpec,
+                Endpoint.GET_CUSTOMER_PROFILE,
+                ResponseSpecs.isOk())
                 .get(null);
     }
 
     public List<TransactionResponse> getTransaction(Integer id) {
-        return new ValidatableCrudRequester<TransactionResponse>
-                (userSpec,
-                        Endpoint.ACCOUNTS_TRANSACTIONS,
-                        ResponseSpecs.isOk()).getList(id);
+        return new ValidatableCrudRequester<TransactionResponse>(userSpec,
+                Endpoint.ACCOUNTS_TRANSACTIONS,
+                ResponseSpecs.isOk()).getList(id);
     }
 
     public TransferResponse transferWithFraudCheck(Integer senderAccountId, Integer receiverAccountId, BigDecimal amount) {

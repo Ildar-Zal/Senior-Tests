@@ -2,19 +2,18 @@ package api.iteration1;
 
 import api.dao.AccountDao;
 import api.dao.comparison.DaoAndModelAssertions;
-import api.requests.steps.DataBaseSteps;
-import base.BaseTest;
 import api.models.AccountResponse;
 import api.models.CreateUserRequest;
 import api.models.comparison.ModelAssertions;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
 import api.requests.skelethon.requesters.ValidatableCrudRequester;
 import api.requests.steps.AdminSteps;
+import api.requests.steps.DataBaseSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
+import base.BaseTest;
+import org.junit.jupiter.api.Test;
 
 public class CreateAccountTest extends BaseTest {
 

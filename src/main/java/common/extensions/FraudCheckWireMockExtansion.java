@@ -35,15 +35,15 @@ public class FraudCheckWireMockExtansion implements BeforeEachCallback, AfterEac
 
         // Create the response body based on annotation parameters
         String responseBody = String.format(java.util.Locale.US, """
-        {
-          "status": "%s",
-          "decision": "%s",
-          "riskScore": %.1f,
-          "reason": "%s",
-          "requiresManualReview": %b,
-          "additionalVerificationRequired": %b
-        }
-        """,
+                        {
+                          "status": "%s",
+                          "decision": "%s",
+                          "riskScore": %.1f,
+                          "reason": "%s",
+                          "requiresManualReview": %b,
+                          "additionalVerificationRequired": %b
+                        }
+                        """,
                 config.status(),
                 config.decision(),
                 config.riskScore(),
@@ -71,4 +71,5 @@ public class FraudCheckWireMockExtansion implements BeforeEachCallback, AfterEac
             return "http://host.docker.internal:" + wireMockServer.port();
         }
         return null;
-    }}
+    }
+}

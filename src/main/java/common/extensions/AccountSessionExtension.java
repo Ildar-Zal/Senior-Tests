@@ -2,8 +2,8 @@ package common.extensions;
 
 import api.generators.RandomModelGenerator;
 import api.models.DepositAccountRequest;
-import common.context.SessionStorage;
 import common.annotations.AccountSession;
+import common.context.SessionStorage;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 

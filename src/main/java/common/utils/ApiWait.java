@@ -26,7 +26,11 @@ public class ApiWait {
                 }
                 Thread.sleep(delayMs);
             } catch (Exception ignored) {
-                try { Thread.sleep(delayMs); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+                try {
+                    Thread.sleep(delayMs);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
         return supplier.get(); // Если время истекло, возвращаем что есть (пусть падает ассерт, если там null)
@@ -46,7 +50,11 @@ public class ApiWait {
                 System.out.println("[ApiWait] Список пока пуст, ждем " + delayMs + "мс... (Попытка " + (i + 1) + ")");
                 Thread.sleep(delayMs);
             } catch (Exception ignored) {
-                try { Thread.sleep(delayMs); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+                try {
+                    Thread.sleep(delayMs);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
         }
         System.out.println("[WARN] ApiWait: Таймаут ожидания списка! Данные так и не появились.");
@@ -54,7 +62,7 @@ public class ApiWait {
     }
 
     public static List<AccountResponse> retryGetAccounts() {
-        return retry(()-> SessionStorage.getSteps().getAccounts(),
+        return retry(() -> SessionStorage.getSteps().getAccounts(),
                 (List<AccountResponse> list) -> list.stream().allMatch(AccountResponse::isValid),
                 5,
                 1000);

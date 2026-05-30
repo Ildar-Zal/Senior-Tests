@@ -98,7 +98,8 @@ public class DaoComparator {
         for (String name : fieldNames) {
             try {
                 return getFieldValue(obj, name);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
         return obj.hashCode(); // Хелбэк, если полей для сортировки не нашлось
     }

@@ -1,6 +1,5 @@
 package api.iteration2;
 
-import api.dao.AccountDao;
 import api.dao.UserDao;
 import api.dao.comparison.DaoAndModelAssertions;
 import api.generators.RandomModelGenerator;
@@ -8,25 +7,20 @@ import api.models.CreateUserRequest;
 import api.models.UpdateCustomerProfileRequest;
 import api.models.UpdateCustomerProfileResponse;
 import api.models.UserResponse;
-import api.models.comparison.ModelAssertions;
-import api.requests.steps.DataBaseSteps;
-import api.requests.steps.UserSteps;
-import base.BaseTest;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
 import api.requests.skelethon.requesters.ValidatableCrudRequester;
 import api.requests.steps.AdminSteps;
+import api.requests.steps.DataBaseSteps;
+import api.requests.steps.UserSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
+import base.BaseTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 public class UpdateUserNameTest extends BaseTest {

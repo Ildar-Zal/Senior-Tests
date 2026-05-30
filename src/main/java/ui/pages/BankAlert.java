@@ -2,11 +2,7 @@ package ui.pages;
 
 import lombok.Getter;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
-import java.util.Locale;
 
 @Getter
 public enum BankAlert {

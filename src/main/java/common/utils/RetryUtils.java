@@ -1,8 +1,5 @@
 package common.utils;
 
-import api.models.AccountResponse;
-import common.context.SessionStorage;
-
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 

@@ -7,15 +7,14 @@
     <property name="charset" value="UTF-8"/>
     <property name="severity" value="error"/>
 
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces. Remove them."/>
+    </module>
+
     <module name="TreeWalker">
-        <module name="AvoidStarImport"/>
         <module name="UnusedImports"/>
         <module name="RedundantImport"/>
 
-        <module name="NeedBraces"/> <module name="LeftCurly"/>  <module name="RightCurly"/> <module name="PackageName"/>
-        <module name="TypeName"/>
-        <module name="MemberName"/>
-        <module name="MethodName"/>
-        <module name="LocalVariableName"/>
-    </module>
+        <module name="GenericWhitespace"/> <module name="MethodParamPad"/>     <module name="NoWhitespaceBefore"/> <module name="NoWhitespaceAfter"/>  <module name="WhitespaceAround"/>   </module>
 </module>

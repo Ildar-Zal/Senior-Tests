@@ -5,11 +5,9 @@ import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
-
 import org.junit.jupiter.api.Test;
 
-
-import static api.specs.ResponseSpecs.*;
+import static api.specs.ResponseSpecs.anyStatus;
 public class ZZZDatabaseCleanupTest {
 
     @Test

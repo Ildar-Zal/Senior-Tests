@@ -14,4 +14,5 @@ public class ApiVersionContext {
 
     public static void clear() {
         CURRENT_VERSION.remove();
-    }}
+    }
+}

@@ -9,7 +9,6 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Alert;
 import ui.elements.BaseElement;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
