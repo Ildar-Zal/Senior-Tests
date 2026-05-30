@@ -31,4 +31,16 @@ public class AccountResponse extends BaseModel {
         private String timestamp;
         private Integer relatedAccountId;
     }
+
+    public boolean isValid() {
+        // 1. Проверяем баланс: он не должен быть null или строго равен нулю
+        boolean isBalanceReady = balance != null && balance.compareTo(BigDecimal.ZERO) != 0;
+
+        // 2. Проверяем транзакции: список не пустой, и последняя транзакция уже имеет сумму > 0
+//        boolean isTransactionsReady = transactions != null && !transactions.isEmpty()
+//                && transactions.get(transactions.size() - 1).getAmount() > 0;
+//
+//        return isBalanceReady && isTransactionsReady;
+        return isBalanceReady;
+    }
 }

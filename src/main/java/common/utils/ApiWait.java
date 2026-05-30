@@ -1,7 +1,13 @@
 package common.utils;
 
+import api.models.AccountResponse;
+import common.context.SessionStorage;
+
 import java.util.List;
 import java.util.function.Supplier;
+
+import static common.utils.RetryUtils.retry;
+
 public class ApiWait {
 
     /**
@@ -45,5 +51,12 @@ public class ApiWait {
         }
         System.out.println("[WARN] ApiWait: Таймаут ожидания списка! Данные так и не появились.");
         return listSupplier.get();
+    }
+
+    public static List<AccountResponse> retryGetAccounts() {
+        return retry(()-> SessionStorage.getSteps().getAccounts(),
+                (List<AccountResponse> list) -> list.stream().allMatch(AccountResponse::isValid),
+                5,
+                1000);
     }
 }

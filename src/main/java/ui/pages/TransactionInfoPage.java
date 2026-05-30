@@ -47,7 +47,7 @@ public class TransactionInfoPage extends BasePage<TransactionInfoPage> {
         return  RetryUtils.retry(
                 this::getTransactions,
                 Objects::nonNull,
-                3,
+                10,
                 1000
         );
     }

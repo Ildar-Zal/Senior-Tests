@@ -25,12 +25,12 @@ public class DepositAccountTest extends BaseUiTest {
         BigDecimal depositAmount = RandomModelGenerator.generate(DepositAccountRequest.class).getAmount().stripTrailingZeros();
 
         new UserDashboard().open().openDepositPage().depositMoney(createdAccount.getAccountNumber(), depositAmount.toString());
-        var balance = ApiWait.untilNotNull(() -> SessionStorage.getSteps().getAccounts().getFirst().getBalance());
+        var balance = ApiWait.retryGetAccounts();
         new UserDashboard().checkAlertMessageAndAccept(BankAlert.SUCCESSFULLY_DEPOSITED,
-                balance, createdAccount.getAccountNumber());
+                balance.getFirst().getBalance(), createdAccount.getAccountNumber());
 
 
-        assertThat(balance).isEqualByComparingTo(depositAmount);
+        assertThat(balance.getFirst().getBalance()).isEqualByComparingTo(depositAmount);
     }
 
     @UserSession

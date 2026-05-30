@@ -5,8 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="Debug pipeline">
+      <change afterPath="$PROJECT_DIR$/src/main/java/common/utils/Validatable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/run-tests.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/run-tests.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker_compose/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run-tests.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/models/AccountResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/utils/ApiWait.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/utils/ApiWait.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/utils/RetryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/utils/RetryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/TransactionInfoPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/TransactionInfoPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/iteration2/DepositAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/iteration2/DepositAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,10 +25,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
         <option value="AnnotationType" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -118,7 +127,7 @@
     "JUnit.MoneyTransferTest.UserCanTransferMoneyUrselfTest.executor": "Run",
     "JUnit.MoneyTransferTest.executor": "Run",
     "JUnit.MoneyTransferTest.userCanTransferMoneyDifferentUserTest.executor": "Run",
-    "JUnit.MoneyTransferTest.userCanTransferMoneyTest.executor": "Run",
+    "JUnit.MoneyTransferTest.userCanTransferMoneyTest.executor": "Debug",
     "JUnit.MoneyTransferTest.userCantDepositAccountTest.executor": "Run",
     "JUnit.MoneyTransferTest.userCantTransferMoneyTest.executor": "Run",
     "JUnit.MoneyTransferTest.userCantTransferMoneyWithEmptyFieldTest.executor": "Run",
@@ -129,7 +138,7 @@
     "JUnit.UpdateUserNameTest.executor": "Run",
     "JUnit.UpdateUserNameTest.negativeTest.executor": "Debug",
     "JUnit.UpdateUserNameTest.userCanChangeNameTest (1).executor": "Run",
-    "JUnit.UpdateUserNameTest.userCanChangeNameTest.executor": "Run",
+    "JUnit.UpdateUserNameTest.userCanChangeNameTest.executor": "Debug",
     "JUnit.UpdateUserNameTest.userCantChangeNameTest.executor": "Debug",
     "JUnit.ZZZDatabaseCleanupTest.executor": "Run",
     "JUnit.ZZZDatabaseCleanupTest.tearDownBackendData.executor": "Run",
@@ -178,53 +187,35 @@
       <command value="mvn clean test" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UpdateUserNameTest.userCanChangeNameTest">
-    <configuration name="CreateUserTest.adminCantCreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.ui in nbank-tests">
+    <configuration name="DepositAccountTest.userCanDepositAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="api.iteration1.*" />
+          <option name="PATTERN" value="ui.iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="api.iteration1" />
-      <option name="MAIN_CLASS_NAME" value="api.iteration1.CreateUserTest" />
-      <option name="METHOD_NAME" value="adminCantCreateUserTest(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="PACKAGE_NAME" value="ui.iteration2" />
+      <option name="MAIN_CLASS_NAME" value="ui.iteration2.DepositAccountTest" />
+      <option name="METHOD_NAME" value="userCanDepositAccountTest" />
       <option name="TEST_OBJECT" value="method" />
-      <dir value="$PROJECT_DIR$/src/test/java/api" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepositAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoneyTransferTest.userCanTransferMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="api.iteration2.*" />
+          <option name="PATTERN" value="ui.iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="api.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="api.iteration2.DepositAccountTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <dir value="$PROJECT_DIR$/src/test/java/api" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DepositAccountTest.userCantDepositAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="api.iteration2.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="api.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="api.iteration2.DepositAccountTest" />
-      <option name="METHOD_NAME" value="userCantDepositAccountTest(java.lang.Double,java.lang.String,java.lang.String)" />
+      <option name="PACKAGE_NAME" value="ui.iteration2" />
+      <option name="MAIN_CLASS_NAME" value="ui.iteration2.MoneyTransferTest" />
+      <option name="METHOD_NAME" value="userCanTransferMoneyTest" />
       <option name="TEST_OBJECT" value="method" />
-      <dir value="$PROJECT_DIR$/src/test/java/api" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -250,6 +241,14 @@
       <module name="nbank-tests" />
       <option name="TEST_OBJECT" value="directory" />
       <dir value="$PROJECT_DIR$/src/test/java/api" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ui in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java/ui" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -306,11 +305,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ui in nbank-tests" />
+        <item itemvalue="JUnit.MoneyTransferTest.userCanTransferMoneyTest" />
+        <item itemvalue="JUnit.DepositAccountTest.userCanDepositAccountTest" />
         <item itemvalue="JUnit.UpdateUserNameTest.userCanChangeNameTest" />
         <item itemvalue="JUnit.api in nbank-tests" />
-        <item itemvalue="JUnit.CreateUserTest.adminCantCreateUserTest" />
-        <item itemvalue="JUnit.DepositAccountTest.userCantDepositAccountTest" />
-        <item itemvalue="JUnit.DepositAccountTest" />
       </list>
     </recent_temporary>
   </component>
@@ -395,7 +394,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780068251693</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Debug pipeline">
+      <option name="closed" value="true" />
+      <created>1780068631719</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1780068631719</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -459,48 +466,43 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
-          <line>29</line>
+          <line>30</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
-          <line>30</line>
+          <line>31</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
-          <line>31</line>
+          <line>32</line>
           <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
-          <line>32</line>
+          <line>33</line>
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
-          <line>33</line>
+          <line>34</line>
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
-          <line>35</line>
+          <line>36</line>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
-          <line>36</line>
+          <line>37</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/common/extensions/ValidationFixExtension.java</url>
           <line>12</line>
           <option name="timeStamp" value="113" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/DepositAccountTest.java</url>
-          <line>17</line>
-          <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/ui/iteration1/CreateAccountTest.java</url>
@@ -546,58 +548,59 @@
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/common/extensions/AccountSessionExtension.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="128" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/common/extensions/AccountSessionExtension.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="129" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/common/extensions/AccountSessionExtension.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="130" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/common/extensions/AccountSessionExtension.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="131" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/api/requests/steps/UserSteps.java</url>
           <line>32</line>
           <option name="timeStamp" value="133" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/api/requests/steps/UserSteps.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="134" />
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/DepositAccountTest.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="144" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/api/requests/steps/UserSteps.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="135" />
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/DepositAccountTest.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="145" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/api/requests/steps/UserSteps.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="136" />
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
+          <line>39</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="149" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/api/requests/steps/UserSteps.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="137" />
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
+          <line>40</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="150" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="151" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="153" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/api/requests/steps/UserSteps.java</url>
-          <line>31</line>
-          <properties class="api.requests.steps.UserSteps" method="depositAccount">
+          <url>file://$PROJECT_DIR$/src/test/java/ui/iteration2/DepositAccountTest.java</url>
+          <line>21</line>
+          <properties class="ui.iteration2.DepositAccountTest" method="userCanDepositAccountTest">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="132" />
+          <option name="timeStamp" value="147" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
