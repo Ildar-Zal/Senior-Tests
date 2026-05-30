@@ -2,8 +2,8 @@ package ui.iteration2;
 
 import api.generators.RandomModelGenerator;
 import api.models.DepositAccountRequest;
-import common.context.SessionStorage;
 import common.annotations.UserSession;
+import common.context.SessionStorage;
 import common.utils.ApiWait;
 import org.junit.jupiter.api.Test;
 import ui.BaseUiTest;

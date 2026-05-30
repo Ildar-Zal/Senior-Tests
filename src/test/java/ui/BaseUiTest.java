@@ -1,9 +1,9 @@
 package ui;
 
+import api.configs.Config;
 import base.BaseTest;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import api.configs.Config;
 import common.extensions.AdminSessionExtension;
 import common.extensions.BrowserMatchExtension;
 import common.extensions.UserSessionExtension;
