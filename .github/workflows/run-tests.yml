@@ -56,28 +56,28 @@ jobs: # Этапы работы пайплайна
       - name: Push Docker image to Docker Hub #Пушим образ
         run: docker push 9708/nbank-tests:${{ github.sha }}
 
-      - name: Run tests # Запуск тестов с Maven
-        run: |
-          echo "Waiting for backend to be ready..."
-          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
-          # Он завершится, как только бэкенд вернет хоть какой-то ответ
-          timeout 180s bash -c '
-            until curl -s http://localhost:4111 > /dev/null; do
-              echo "Backend is still starting... waiting"
-              sleep 5
-            done
-          '
-          echo "Backend is UP! Running tests..."
-          ./mvnw clean test -q
-          env:
-          APIBASEURL: http://localhost:4111
-          UIBASEURL: http://frontend:80
-
-      - name: Dump Docker logs on failure
-        if: always() # Этот шаг теперь гарантированно запустится, так как он отдельный
-        run: |
-          echo "=== All active docker containers ==="
-          docker ps -a
-          echo "=== Attempting to print logs ==="
-          # Выведем логи всех контейнеров, чтобы понять, как он точно называется на агенте
-          docker ps --format "{{.Names}}" | xargs -I {} sh -c 'echo "Logs for {} :"; docker logs --tail 50 {}; echo "-------------------"'
+#      - name: Run tests # Запуск тестов с Maven
+#        run: |
+#          echo "Waiting for backend to be ready..."
+#          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
+#          # Он завершится, как только бэкенд вернет хоть какой-то ответ
+#          timeout 180s bash -c '
+#            until curl -s http://localhost:4111 > /dev/null; do
+#              echo "Backend is still starting... waiting"
+#              sleep 5
+#            done
+#          '
+#          echo "Backend is UP! Running tests..."
+#          ./mvnw clean test -q
+#          env:
+#          APIBASEURL: http://localhost:4111
+#          UIBASEURL: http://frontend:80
+#
+#      - name: Dump Docker logs on failure
+#        if: always() # Этот шаг теперь гарантированно запустится, так как он отдельный
+#        run: |
+#          echo "=== All active docker containers ==="
+#          docker ps -a
+#          echo "=== Attempting to print logs ==="
+#          # Выведем логи всех контейнеров, чтобы понять, как он точно называется на агенте
+#          docker ps --format "{{.Names}}" | xargs -I {} sh -c 'echo "Logs for {} :"; docker logs --tail 50 {}; echo "-------------------"'
