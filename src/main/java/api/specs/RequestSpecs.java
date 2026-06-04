@@ -4,6 +4,8 @@ import api.configs.Config;
 import api.models.CreateUserRequest;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -36,7 +38,7 @@ public class RequestSpecs {
         return new RequestSpecBuilder()
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
-                .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter()))
+                .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter(), new AllureRestAssured(),new SwaggerCoverageRestAssured()))
                 .setBaseUri(Config.getProperty("apiBaseUrl") + Config.getProperty("apiVersion"));
 //                .setBaseUri(BASE_URL_SUPPLIER.get());  // URL берется в момент вызова
     }

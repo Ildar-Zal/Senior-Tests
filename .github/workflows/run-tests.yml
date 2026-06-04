@@ -81,3 +81,36 @@ jobs: # Этапы работы пайплайна
 #          echo "=== Attempting to print logs ==="
 #          # Выведем логи всех контейнеров, чтобы понять, как он точно называется на агенте
 #          docker ps --format "{{.Names}}" | xargs -I {} sh -c 'echo "Logs for {} :"; docker logs --tail 50 {}; echo "-------------------"'
+
+      - name: Run Swagger coverage
+        if: always()
+        run: ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
+
+      - name: Load test report history
+        uses: actions/checkout@v2
+        if: always()
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_results: target/allure-results
+          allure_history: allure-history
+
+      - name: Build Swagger coverage report
+        if: always()
+        run: sudo cp swagger-coverage-report.html allure/history/${{ github.run.number }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+
+      - name: Clean up servises
+        if: always
+        run: docker compose down
+

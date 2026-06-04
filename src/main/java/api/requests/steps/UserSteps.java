@@ -24,10 +24,12 @@ public class UserSteps {
     }
 
     public AccountResponse createAccount() {
-        return new ValidatableCrudRequester<AccountResponse>(userSpec,
-                Endpoint.ACCOUNTS,
-                ResponseSpecs.isCreated())
-                .post(null);
+        return StepLogger.log("User " + user.getUsername() + " create account", () -> {
+            return new ValidatableCrudRequester<AccountResponse>(userSpec,
+                    Endpoint.ACCOUNTS,
+                    ResponseSpecs.isCreated())
+                    .post(null);
+        });
     }
 
     public AccountResponse depositAccount(AccountResponse account, double balance) {
@@ -37,27 +39,33 @@ public class UserSteps {
                 .accountId(account.getId())
                 .build();
 
-        return new ValidatableCrudRequester<AccountResponse>(userSpec,
-                Endpoint.ACCOUNTS_DEPOSIT,
-                ResponseSpecs.isOk())
-                .post(depositAccountRequest);
+        return StepLogger.log("User " + user.getUsername() + " deposit account", () -> {
+            return new ValidatableCrudRequester<AccountResponse>(userSpec,
+                    Endpoint.ACCOUNTS_DEPOSIT,
+                    ResponseSpecs.isOk())
+                    .post(depositAccountRequest);
+        });
 
     }
 
 
     public AccountResponse getAccount(Integer id) {
         List<AccountResponse> userAccounts = getAccounts();
-        return userAccounts.stream()
-                .filter(a -> a.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException(
-                        String.format("Account with Account id %d not found for user: %s", id, user.getUsername())
-                ));
+        return StepLogger.log("User " + user.getUsername() + " get  account by id: " + id, () -> {
+            return userAccounts.stream()
+                    .filter(a -> a.getId().equals(id))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException(
+                            String.format("Account with Account id %d not found for user: %s", id, user.getUsername())
+                    ));
+        });
     }
 
     public AccountResponse depositRandomMoneyToAccount(AccountResponse account) {
         DepositAccountRequest randomRequest = RandomModelGenerator.generate(DepositAccountRequest.class);
-        return depositAccount(account, randomRequest.getAmount().doubleValue());
+        return StepLogger.log("User " + user.getUsername() + " deposit money to account: " + account.getAccountNumber(), () -> {
+            return depositAccount(account, randomRequest.getAmount().doubleValue());
+        });
     }
 
     public void transferMoney(AccountResponse sourceAcc, AccountResponse targetAcc, BigDecimal money) {
@@ -67,34 +75,39 @@ public class UserSteps {
                 .amount(money)
                 .build();
 
-        new CrudRequester(userSpec,
-                Endpoint.ACCOUNTS_TRANSFER,
-                ResponseSpecs.isOk())
-                .post(transferAccountRequest);
+        StepLogger.log("User " + user.getUsername() + " transfers " + money + " to " + targetAcc + " with fraud check", () -> {
+            new CrudRequester(userSpec,
+                    Endpoint.ACCOUNTS_TRANSFER,
+                    ResponseSpecs.isOk())
+                    .post(transferAccountRequest);
+        });
     }
 
 
     public List<AccountResponse> getAccounts() {
-        return new CrudRequester(userSpec,
-                Endpoint.CUSTOMER_ACCOUNTS,
-                ResponseSpecs.isOk())
-                .get(null)
-                .extract()
-                .jsonPath()
-                .getList("", AccountResponse.class);
+        return StepLogger.log("User " + user.getUsername() + " get all accounts", () -> {
+            return new ValidatableCrudRequester<AccountResponse>(userSpec,
+                    Endpoint.CUSTOMER_ACCOUNTS,
+                    ResponseSpecs.isOk())
+                    .getAll(AccountResponse.class);
+        });
     }
 
     public UserResponse getUserProfile() {
-        return new ValidatableCrudRequester<UserResponse>(userSpec,
-                Endpoint.GET_CUSTOMER_PROFILE,
-                ResponseSpecs.isOk())
-                .get(null);
+        return StepLogger.log("User " + user.getUsername() + " get user profile", () -> {
+            return new ValidatableCrudRequester<UserResponse>(userSpec,
+                    Endpoint.GET_CUSTOMER_PROFILE,
+                    ResponseSpecs.isOk())
+                    .get(null);
+        });
     }
 
     public List<TransactionResponse> getTransaction(Integer id) {
-        return new ValidatableCrudRequester<TransactionResponse>(userSpec,
-                Endpoint.ACCOUNTS_TRANSACTIONS,
-                ResponseSpecs.isOk()).getList(id);
+        return StepLogger.log("User " + user.getUsername() + " get transaction", () -> {
+            return new ValidatableCrudRequester<TransactionResponse>(userSpec,
+                    Endpoint.ACCOUNTS_TRANSACTIONS,
+                    ResponseSpecs.isOk()).getList(id);
+        });
     }
 
     public TransferResponse transferWithFraudCheck(Integer senderAccountId, Integer receiverAccountId, BigDecimal amount) {

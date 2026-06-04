@@ -18,6 +18,7 @@ import io.qameta.allure.Allure;
 
  */
 public class StepLogger {
+
     @FunctionalInterface
     public interface ThrowableRunnable<T> {
         T run() throws Throwable;

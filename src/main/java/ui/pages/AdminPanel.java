@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
+import common.helpers.StepLogger;
 import common.utils.RetryUtils;
 import lombok.Getter;
 import ui.elements.UserBage;
@@ -40,8 +41,10 @@ public class AdminPanel extends BasePage<AdminPanel> {
     }
 
     public List<UserBage> getAllUsers() {
-        ElementsCollection elementsCollection = $(byText("All Users")).parent().findAll("li");
-        return generatePageElements(elementsCollection, UserBage::new);
+        return StepLogger.log("Get all users from dashboard", () -> {
+            ElementsCollection elementsCollection = $(byText("All Users")).parent().findAll("li");
+            return generatePageElements(elementsCollection, UserBage::new);
+        });
     }
 
     public UserBage findUserByUsername(String username) {

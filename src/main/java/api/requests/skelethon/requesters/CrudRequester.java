@@ -1,10 +1,12 @@
 package api.requests.skelethon.requesters;
 
+import api.configs.Config;
 import api.models.BaseModel;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.HttpRequest;
 import api.requests.skelethon.interfaces.Crud;
 import api.requests.skelethon.interfaces.GetAllEndpointInterface;
+import common.helpers.StepLogger;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -17,56 +19,65 @@ import static io.restassured.RestAssured.given;
 
 public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointInterface {
 
+    private final static String API_VERSION = Config.getProperty("apiVersion");
     public CrudRequester(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
         super(requestSpecification, endpoint, responseSpecification);
     }
 
     @Override
     public ValidatableResponse post(BaseModel model) {
-        var body = model == null ? "" : model;
-        return given()
-                .spec(requestSpecification)
-                .body(body)
-                .when()
-                .post(endpoint.getUrl())
-                .then()
-                .assertThat()
-                .spec(responseSpecification);
+       return StepLogger.log("POST request to " + endpoint.getUrl(), ()-> {
+            var body = model == null ? "" : model;
+            return given()
+                    .spec(requestSpecification)
+                    .body(body)
+                    .when()
+                    .post(API_VERSION+endpoint.getUrl())
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecification);
+        });
     }
 
     @Override
     public ValidatableResponse get(Object... pathParams) {
-        return prepareRequest(pathParams)
-                .when()
-                .get()
-                .then()
-                .assertThat()
-                .spec(responseSpecification);
+        return StepLogger.log("GET request to " + endpoint.getUrl(), ()-> {
+            return prepareRequest(pathParams)
+                    .when()
+                    .get()
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecification);
+        });
     }
 
     @Override
     public ValidatableResponse put(BaseModel model, Object... pathParams) {
-        var body = model == null ? "" : model;
+        return StepLogger.log("PUT request to " + endpoint.getUrl(), ()-> {
+            var body = model == null ? "" : model;
 
-        return prepareRequest(pathParams) // подготавливает урл и подставляет path параметры
-                .body(body)
-                .when()
-                .put() // путь уже сидит внутри request благодаря basePath
-                .then()
-                .assertThat()
-                .spec(responseSpecification);
+            return prepareRequest(pathParams) // подготавливает урл и подставляет path параметры
+                    .body(body)
+                    .when()
+                    .put() // путь уже сидит внутри request благодаря basePath
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecification);
+        });
     }
 
     @Override
     public ValidatableResponse delete(Integer id) {
-        var url = id == null ? "" : "/" + id;
-        return given()
-                .spec(requestSpecification)
-                .when()
-                .delete(endpoint.getUrl() + url)
-                .then()
-                .assertThat()
-                .spec(responseSpecification);
+        return StepLogger.log("DELETE request to " + endpoint.getUrl(), ()-> {
+            var url = id == null ? "" : "/" + id;
+            return given()
+                    .spec(requestSpecification)
+                    .when()
+                    .delete(endpoint.getUrl() + url)
+                    .then()
+                    .assertThat()
+                    .spec(responseSpecification);
+        });
     }
 
     private RequestSpecification prepareRequest(Object... params) {

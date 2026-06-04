@@ -1,0 +1,26 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "DESKTOP-I1N76FL",
+    "children" : [ {
+      "name" : "30288@DESKTOP-I1N76FL.main(1)",
+      "children" : [ {
+        "name" : "userCanCreateAccountTest()",
+        "uid" : "bbfe90e6cecf24e3",
+        "parentUid" : "b1e8381c8f64ce78e312b70da3397515",
+        "status" : "passed",
+        "time" : {
+          "start" : 1780397429462,
+          "stop" : 1780397443840,
+          "duration" : 14378
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "b1e8381c8f64ce78e312b70da3397515"
+    } ],
+    "uid" : "6435e0eb67270a35046a7046efbce66f"
+  } ]
+}

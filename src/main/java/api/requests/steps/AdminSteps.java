@@ -8,6 +8,7 @@ import api.requests.skelethon.requesters.CrudRequester;
 import api.requests.skelethon.requesters.ValidatableCrudRequester;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
+import common.helpers.StepLogger;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,19 +17,23 @@ public class AdminSteps {
 
     public static CreateUserRequest createUser() {
         CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+        return StepLogger.log("Admin creates user " + createUserRequest.getUsername(), () -> {
 
-        new CrudRequester(RequestSpecs.adminSpec(), Endpoint.ADMIN_USERS, ResponseSpecs.isCreated())
-                .post(createUserRequest);
+            new CrudRequester(RequestSpecs.adminSpec(), Endpoint.ADMIN_USERS, ResponseSpecs.isCreated())
+                    .post(createUserRequest);
 
-        return createUserRequest;
+            return createUserRequest;
+        });
 
     }
 
     public static List<UserResponse> getAllUsers() {
-        return new ValidatableCrudRequester<UserResponse>(
-                RequestSpecs.adminSpec(),
-                Endpoint.ADMIN_USERS,
-                ResponseSpecs.isOk()).getAll(UserResponse.class);
+        return StepLogger.log("Admin gets all users", () -> {
+            return new ValidatableCrudRequester<UserResponse>(
+                    RequestSpecs.adminSpec(),
+                    Endpoint.ADMIN_USERS,
+                    ResponseSpecs.isOk()).getAll(UserResponse.class);
+        });
     }
 
     public static UserResponse getUser(CreateUserRequest user) {
