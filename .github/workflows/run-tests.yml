@@ -83,12 +83,12 @@ jobs: # Этапы работы пайплайна
 
 
       - name: Build test report
-        uses: andrcuns/allure-report-action@v1
+        uses: simple-elf/allure-report-action@v1.11
         if: always()
         with:
-            allure_results: target/allure-results
-            allure_history: allure-history
-            keep_reports: 20
+          gh_pages: gh-pages
+          allure_results: target/allure-results
+          allure_history: allure-history
 
       - name: Build Swagger coverage report
         if: always()
