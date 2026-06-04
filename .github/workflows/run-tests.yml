@@ -102,10 +102,6 @@ jobs: # Этапы работы пайплайна
           publish_branch: gh-pages
           publish_dir: allure-history
 
-      - name: Clean up servises
-        if: always
-        run: docker compose down
-
       - name: Log in to Docker Hub #После успешных проверок Логин в докерхаб
         uses: docker/login-action@v3
         with:
@@ -117,4 +113,8 @@ jobs: # Этапы работы пайплайна
 
       - name: Push Docker image to Docker Hub #Пушим образ
         run: docker push 9708/nbank-tests:${{ github.sha }}
+
+      - name: Clean up servises
+        if: always()
+        run: docker compose down
 
