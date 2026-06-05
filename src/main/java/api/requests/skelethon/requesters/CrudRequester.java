@@ -83,7 +83,7 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
 
     private RequestSpecification prepareRequest(Object... params) {
         var request = given().spec(requestSpecification);
-        String finalUrl = endpoint.getUrl();
+        String finalUrl = API_VERSION + endpoint.getUrl();
 
         if (params != null && params.length > 0) {
             if (endpoint.isDynamic()) {

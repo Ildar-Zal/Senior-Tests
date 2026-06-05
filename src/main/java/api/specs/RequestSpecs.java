@@ -39,7 +39,7 @@ public class RequestSpecs {
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
                 .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter(), new AllureRestAssured(),new SwaggerCoverageRestAssured()))
-                .setBaseUri(Config.getProperty("apiBaseUrl") + Config.getProperty("apiVersion"));
+                .setBaseUri(Config.getProperty("apiBaseUrl"));
 //                .setBaseUri(BASE_URL_SUPPLIER.get());  // URL берется в момент вызова
     }
 
