@@ -39,7 +39,8 @@ public class EditProfilePage extends BasePage<EditProfilePage> {
                         WebDriverWait shortWait = new WebDriverWait(WebDriverRunner.getWebDriver(), Duration.ofMillis(300));
                         Alert activeAlert = shortWait.until(ExpectedConditions.alertIsPresent());
                         activeAlert.accept();
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
 
                     // 2. Чистим поле до идеальной пустоты
                     enterNewNameInput.shouldBe(Condition.visible, Condition.enabled).clear();

@@ -6,7 +6,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import common.utils.RetryUtils;
 import org.openqa.selenium.Alert;
 import ui.elements.BaseElement;
 

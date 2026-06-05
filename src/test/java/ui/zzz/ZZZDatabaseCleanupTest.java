@@ -8,6 +8,7 @@ import api.specs.ResponseSpecs;
 import org.junit.jupiter.api.Test;
 
 import static api.specs.ResponseSpecs.anyStatus;
+
 public class ZZZDatabaseCleanupTest {
 
     @Test
@@ -25,7 +26,8 @@ public class ZZZDatabaseCleanupTest {
                     try {
                         new CrudRequester(RequestSpecs.adminSpec(), Endpoint.ADMIN_USERS, ResponseSpecs.isOk())
                                 .delete(user.getId());
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
                 });
             }
         } catch (Exception e) {
