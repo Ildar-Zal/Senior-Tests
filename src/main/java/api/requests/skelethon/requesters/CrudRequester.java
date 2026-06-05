@@ -20,19 +20,20 @@ import static io.restassured.RestAssured.given;
 public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointInterface {
 
     private final static String API_VERSION = Config.getProperty("apiVersion");
+
     public CrudRequester(RequestSpecification requestSpecification, Endpoint endpoint, ResponseSpecification responseSpecification) {
         super(requestSpecification, endpoint, responseSpecification);
     }
 
     @Override
     public ValidatableResponse post(BaseModel model) {
-       return StepLogger.log("POST request to " + endpoint.getUrl(), ()-> {
+        return StepLogger.log("POST request to " + endpoint.getUrl(), () -> {
             var body = model == null ? "" : model;
             return given()
                     .spec(requestSpecification)
                     .body(body)
                     .when()
-                    .post(API_VERSION+endpoint.getUrl())
+                    .post(API_VERSION + endpoint.getUrl())
                     .then()
                     .assertThat()
                     .spec(responseSpecification);
@@ -41,7 +42,7 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
 
     @Override
     public ValidatableResponse get(Object... pathParams) {
-        return StepLogger.log("GET request to " + endpoint.getUrl(), ()-> {
+        return StepLogger.log("GET request to " + endpoint.getUrl(), () -> {
             return prepareRequest(pathParams)
                     .when()
                     .get()
@@ -53,7 +54,7 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
 
     @Override
     public ValidatableResponse put(BaseModel model, Object... pathParams) {
-        return StepLogger.log("PUT request to " + endpoint.getUrl(), ()-> {
+        return StepLogger.log("PUT request to " + endpoint.getUrl(), () -> {
             var body = model == null ? "" : model;
 
             return prepareRequest(pathParams) // подготавливает урл и подставляет path параметры
@@ -68,7 +69,7 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
 
     @Override
     public ValidatableResponse delete(Integer id) {
-        return StepLogger.log("DELETE request to " + endpoint.getUrl(), ()-> {
+        return StepLogger.log("DELETE request to " + endpoint.getUrl(), () -> {
             var url = id == null ? "" : "/" + id;
             return given()
                     .spec(requestSpecification)
@@ -107,7 +108,7 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
 
     @Override
     public ValidatableResponse getAll(Class<?> clazz) {
-       return given()
+        return given()
                 .spec(requestSpecification)
                 .when()
                 .get(endpoint.getUrl())
