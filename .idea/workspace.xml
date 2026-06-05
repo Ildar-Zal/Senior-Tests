@@ -7,7 +7,10 @@
     <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="Debug pipeline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/requesters/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/requests/skelethon/requesters/CrudRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/RequestSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/common/utils/RetryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/common/utils/RetryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/BasePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/pages/EditProfilePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/pages/EditProfilePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ui/iteration2/MoneyTransferTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +132,7 @@
     "JUnit.UpdateUserNameTest.executor": "Run",
     "JUnit.UpdateUserNameTest.negativeTest.executor": "Debug",
     "JUnit.UpdateUserNameTest.userCanChangeNameTest (1).executor": "Run",
-    "JUnit.UpdateUserNameTest.userCanChangeNameTest.executor": "Debug",
+    "JUnit.UpdateUserNameTest.userCanChangeNameTest.executor": "Run",
     "JUnit.UpdateUserNameTest.userCantChangeNameTest.executor": "Debug",
     "JUnit.ZZZDatabaseCleanupTest.executor": "Run",
     "JUnit.ZZZDatabaseCleanupTest.tearDownBackendData.executor": "Run",
@@ -138,6 +141,8 @@
     "JUnit.iteration1 in nbank-tests.executor": "Run",
     "JUnit.iteration2 in nbank-tests.executor": "Run",
     "JUnit.ui in nbank-tests.executor": "Run",
+    "JUnit.ui.iteration1 in nbank-tests.executor": "Run",
+    "JUnit.ui.iteration2 in nbank-tests.executor": "Run",
     "Maven.nbank-tests [-DskipTest=true...].executor": "Run",
     "Maven.nbank-tests [-DskipTests=true...].executor": "Run",
     "Maven.nbank-tests [clean,test].executor": "Run",
@@ -178,50 +183,33 @@
       <command value="mvn clean test" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CreateAccountTest">
-    <configuration name="CreateAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.UpdateUserNameTest.userCanChangeNameTest">
+    <configuration name="CreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="api.iteration1.*" />
+          <option name="PATTERN" value="ui.iteration1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="api.iteration1" />
-      <option name="MAIN_CLASS_NAME" value="api.iteration1.CreateAccountTest" />
+      <option name="PACKAGE_NAME" value="ui.iteration1" />
+      <option name="MAIN_CLASS_NAME" value="ui.iteration1.CreateUserTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepositAccountTest.userCanDepositAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferWithFraudCheckTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.iteration2.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="ui.iteration2.DepositAccountTest" />
-      <option name="METHOD_NAME" value="userCanDepositAccountTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MoneyTransferTest.userCanTransferMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ui.iteration2.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="ui.iteration2.MoneyTransferTest" />
-      <option name="METHOD_NAME" value="userCanTransferMoneyTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.TransferWithFraudCheckTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -230,23 +218,42 @@
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="api.iteration2.*" />
+          <option name="PATTERN" value="ui.iteration2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="api.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="api.iteration2.UpdateUserNameTest" />
+      <option name="PACKAGE_NAME" value="ui.iteration2" />
+      <option name="MAIN_CLASS_NAME" value="ui.iteration2.UpdateUserNameTest" />
       <option name="METHOD_NAME" value="userCanChangeNameTest" />
       <option name="TEST_OBJECT" value="method" />
-      <dir value="$PROJECT_DIR$/src/test/java/api" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ui in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ui.iteration1 in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
-      <option name="TEST_OBJECT" value="directory" />
-      <dir value="$PROJECT_DIR$/src/test/java/ui" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui.iteration1" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ui.iteration2 in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ui.iteration2" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -314,11 +321,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CreateAccountTest" />
-        <item itemvalue="JUnit.ui in nbank-tests" />
-        <item itemvalue="JUnit.MoneyTransferTest.userCanTransferMoneyTest" />
-        <item itemvalue="JUnit.DepositAccountTest.userCanDepositAccountTest" />
         <item itemvalue="JUnit.UpdateUserNameTest.userCanChangeNameTest" />
+        <item itemvalue="JUnit.ui.iteration2 in nbank-tests" />
+        <item itemvalue="JUnit.TransferWithFraudCheckTest" />
+        <item itemvalue="JUnit.ui.iteration1 in nbank-tests" />
+        <item itemvalue="JUnit.CreateUserTest" />
       </list>
     </recent_temporary>
   </component>
@@ -515,7 +522,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780647993441</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Debug pipeline">
+      <option name="closed" value="true" />
+      <created>1780649636481</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1780649636481</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

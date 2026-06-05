@@ -74,7 +74,7 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
             return given()
                     .spec(requestSpecification)
                     .when()
-                    .delete(endpoint.getUrl() + url)
+                    .delete(API_VERSION+ endpoint.getUrl() + url)
                     .then()
                     .assertThat()
                     .spec(responseSpecification);
@@ -111,7 +111,7 @@ public class CrudRequester extends HttpRequest implements Crud, GetAllEndpointIn
         return given()
                 .spec(requestSpecification)
                 .when()
-                .get(endpoint.getUrl())
+                .get(API_VERSION + endpoint.getUrl())
                 .then()
                 .spec(responseSpecification);
     }

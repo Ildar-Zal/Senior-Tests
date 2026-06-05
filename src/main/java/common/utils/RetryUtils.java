@@ -22,9 +22,15 @@ public class RetryUtils {
 
         while (attempts < maxAttempts) {
             attempts++;
-            result = action.get();
-            if (condition.test(result)) {
-                return result;
+            try {
+                result = action.get();
+                if (condition.test(result)) {
+                    return result;
+                }
+            } catch (Exception e) {
+                // Если Селениум плюется ошибками (нет алерта, старый элемент и т.д.)
+                // Мы просто игнорируем это и даем шанс следующей попытке
+                result = null;
             }
             try {
                 Thread.sleep(delayMillis);
