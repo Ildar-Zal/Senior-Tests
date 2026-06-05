@@ -96,7 +96,7 @@ jobs: # Этапы работы пайплайна
 
       - name: Build Swagger coverage report
         if: always()
-        run: sudo cp swagger-coverage-report.html allure/history/${{ github.run.number }}
+        run: sudo cp swagger-coverage-report.html allure-history/${{ github.run.number }}
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
