@@ -71,7 +71,7 @@ jobs: # Этапы работы пайплайна
 
       - name: Run Swagger coverage
         if: always()
-        run:
+        run: |
           # Выдаем права на исполнение CLI утилите
           chmod +x ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline
           
