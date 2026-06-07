@@ -104,10 +104,10 @@ jobs: # Этапы работы пайплайна
         if: always()
         run: |
           # Создаем целевую подпапку для swagger-coverage внутри текущего билда Allure
-          mkdir -p allure-history/${{ github.run.number }}/swagger-coverage
+          sudo mkdir -p allure-history/${{ github.run.number }}/swagger-coverage
                 
           # Переименовываем наш index файл, чтобы он открывался по ссылке как сайт
-          cp swagger-coverage-report.html allure-history/${{ github.run.number }}/swagger-coverage/index.html
+          sudo cp swagger-coverage-report.html allure-history/${{ github.run.number }}/swagger-coverage/index.html
 
       # 3. Публикуем готовую собранную папку allure-history в gh-pages
       - name: Publish test report
