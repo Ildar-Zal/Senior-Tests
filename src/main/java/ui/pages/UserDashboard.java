@@ -48,7 +48,7 @@ public class UserDashboard extends BasePage<UserDashboard> {
     }
 
     public TransferPage testMethod() {
-        return new TransferPage();//234189560434
+        return new TransferPage();//1
     }
 
 }
