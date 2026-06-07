@@ -78,22 +78,56 @@ jobs: # Этапы работы пайплайна
           # Запускаем генерацию покрытия
           ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
 
-      # 1. Сначала загружаем историю
+      # 1. Загружаем историю (чтобы старые билды не удалялись из gh-pages)
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
         with:
           ref: gh-pages
-          path: gh-pages
+          path: gh-pages-dir # Качаем в отдельную папку, чтобы не путаться
 
-      # 2. Строим отчет, используя магию версии v1.7
-      - name: Build test report (Allure)
-        uses: simple-elf/allure-report-action@v1.7
+      # 2. Генерируем чистый Allure Report через CLI (без деплой-магии экшена)
+      - name: Build Allure Report
+        if: always()
+        run: |
+          # Устанавливаем allure-cli на агент сборки
+          sudo wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
+          sudo tar -zxvf allure-2.24.0.tgz -C /opt/
+          sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
+          
+          # Создаем структуру папок по ТЗ руководителя в локальной директории для публикации
+          mkdir -p public-reports/${{ github.run.number }}/allure-report
+          mkdir -p public-reports/${{ github.run.number }}/swagger-coverage
+          
+          # Переносим историю прошлых запусков для Allure (чтобы графики в отчете работали)
+          if [ -d "gh-pages-dir/${{ github.run.number - 1 }}/allure-report/history" ]; then
+            cp -r gh-pages-dir/${{ github.run.number - 1 }}/allure-report/history target/allure-results/history
+          fi
+          
+          # Генерируем Allure прямо в целевую папку номера пайплайна
+          allure generate target/allure-results -o public-reports/${{ github.run.number }}/allure-report --clean
+
+      # 3. Копируем Swagger Coverage в его личную подпапку
+      - name: Inject Swagger coverage report
+        if: always()
+        run: |
+          cp swagger-coverage-report.html public-reports/${{ github.run.number }}/swagger-coverage/index.html
+
+      # 4. Переносим все старые билды из gh-pages в нашу новую папку публикации, чтобы они не пропали
+      - name: Merge past history
+        if: always()
+        run: |
+          # Копируем всё, кроме служебных файлов гита, из старой ветки в новую папку сборки
+          rsync -v -a --exclude '.git' gh-pages-dir/ public-reports/
+
+      # 5. Публикуем собранную папку public-reports в ветку gh-pages
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
-          gh_pages: gh-pages
-          allure_results: target/allure-results
-          allure_history: allure-history
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: public-reports
 
       # 3. Копируем Swagger Coverage прямо в созданную экшеном папку билда
       - name: Inject Swagger coverage report into Allure structure
