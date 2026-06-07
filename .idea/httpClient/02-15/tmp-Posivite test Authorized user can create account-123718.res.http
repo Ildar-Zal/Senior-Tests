@@ -1,0 +1,23 @@
+// Status: 201, time: 96ms, size: 63 B
+### Posivite test Authorized user can create account
+POST http://localhost:4111/api/v1/accounts HTTP/1.1
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+content-type: application/json
+date: Sun, 15 Feb 2026 09:37:18 GMT
+expires: 0
+pragma: no-cache
+transfer-encoding: chunked
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-xss-protection: 0
+
+{
+  "id": 4,
+  "accountNumber": "ACC4",
+  "balance": 0.0,
+  "transactions": []
+}
+>> C:\Users\Ildar\IdeaProjects\nbank-tests\.idea\httpClient\02-15\Posivite test Authorized user can create account\2026-02-15T123718.json

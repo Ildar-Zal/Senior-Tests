@@ -1,0 +1,16 @@
+// Size: 67 B
+/*
+Pre js executed result:
+my_pass was set to(global scope): Safe123!kipy5
+*/
+### Negative test Admin cannot create new user with blank username
+POST http://localhost:4111/api/v1/admin/users HTTP/1.1
+Authorization: Basic YWRtaW46YWRtaW4=
+Content-Type: application/json
+Content-Length: 67
+
+{
+  "username": "",
+  "password": "{{my_pass}}",
+  "role": "USER"
+}

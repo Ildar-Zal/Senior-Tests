@@ -1,0 +1,22 @@
+// Status: 200, time: 179ms, size: 37 B
+### Get auth token for user
+POST http://localhost:4111/api/v1/auth/login HTTP/1.1
+authorization: Basic a2F0ZTE5OTc6S2F0ZTE5OTch
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+content-type: application/json
+date: Tue, 17 Feb 2026 10:56:21 GMT
+expires: 0
+pragma: no-cache
+transfer-encoding: chunked
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-xss-protection: 0
+
+{
+  "username": "kate1997",
+  "role": "USER"
+}
+>> C:\Users\Ildar\IdeaProjects\nbank-tests\.idea\httpClient\02-17\Get auth token for user\2026-02-17T135621.json

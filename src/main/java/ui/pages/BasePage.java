@@ -1,0 +1,62 @@
+package ui.pages;
+
+import api.models.CreateUserRequest;
+import api.specs.RequestSpecs;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selectors;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Alert;
+import ui.elements.BaseElement;
+
+import java.util.List;
+import java.util.function.Function;
+
+import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public abstract class BasePage<T extends BasePage> {
+
+    protected SelenideElement usernameInput = $(Selectors.byAttribute("placeholder", "Username"));
+    protected SelenideElement passwordInput = $(Selectors.byAttribute("placeholder", "Password"));
+
+    public abstract String url();
+
+    public abstract T waitForLoadPage();
+
+    public T open() {
+        Selenide.open(url());
+        return waitForLoadPage();
+    }
+
+    public <T extends BasePage> T getPage(Class<T> pageClass) {
+        return Selenide.page(pageClass);
+    }
+
+    public T checkAlertMessageAndAccept(String bankAlert) {
+        Alert alert = switchTo().alert();
+        assertThat(alert.getText()).contains(bankAlert);
+        alert.accept();
+        return (T) this;
+    }
+
+    public T checkAlertMessageAndAccept(BankAlert alert, Object... args) {
+        String formattedMessage = alert.format(args);
+        return checkAlertMessageAndAccept(formattedMessage);
+    }
+
+    public static void authAsUser(String username, String password) {
+        Selenide.open("/");
+        String userAuthHeader = RequestSpecs.getUserAuthHeader(username, password);
+        executeJavaScript("localStorage.setItem('authToken', arguments[0])", userAuthHeader);
+    }
+
+    public static void authAsUser(CreateUserRequest createUserRequest) {
+        authAsUser(createUserRequest.getUsername(), createUserRequest.getPassword());
+    }
+
+    // ElementCollection -> List<BaseElement>
+    protected <T extends BaseElement> List<T> generatePageElements(ElementsCollection elementsCollection, Function<SelenideElement, T> constructor) {
+        return elementsCollection.stream().map(constructor).toList();
+    }
+}

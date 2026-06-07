@@ -1,0 +1,19 @@
+// Status: 400, time: 292ms, size: 42 B
+### Positive test Admin can create new user with correct data
+POST http://localhost:4111/api/v1/admin/users HTTP/1.1
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+connection: close
+content-length: 42
+content-type: text/plain;charset=UTF-8
+date: Tue, 17 Feb 2026 10:56:41 GMT
+expires: 0
+pragma: no-cache
+vary: Origin
+vary: Access-Control-Request-Method
+vary: Access-Control-Request-Headers
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-xss-protection: 0
+
+Error: Username 'kate1997' already exists.
+>> C:\Users\Ildar\IdeaProjects\nbank-tests\.idea\httpClient\02-17\Positive test Admin can create new user with correct data\2026-02-17T135641.txt
