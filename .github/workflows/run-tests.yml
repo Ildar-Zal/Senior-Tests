@@ -78,41 +78,75 @@ jobs: # Этапы работы пайплайна
           # Запускаем генерацию покрытия
           ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
 
-      # 1. Сначала загружаем историю
+      # 1. Скачиваем текущий сайт из ветки gh-pages, чтобы не стереть прошлые билды (19, 20 и т.д.)
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
         with:
           ref: gh-pages
-          path: gh-pages
+          path: old-gh-pages
 
-       # 2. Даем Allure СНАЧАЛА построить папку 'allure-history/39'
-      - name: Build test report (Allure)
-        uses: simple-elf/allure-report-action@v1.13
-        if: always()
-        with:
-          gh_pages: gh-pages
-          allure_results: target/allure-results
-          allure_history: allure-history
-          keep_reports: 20
-
-      # 3. И только ТЕПЕРЬ, когда папка allure-history/39 точно создана плагином Allure,
-      # мы насильно копируем туда Swagger Coverage!
-      - name: Inject Swagger coverage report into Allure structure
+      # 2. Скачиваем официальную утилиту Allure CLI (она сгенерирует чистый HTML без магии экшенов)
+      - name: Install Allure CLI
         if: always()
         run: |
-          sudo mkdir -p allure-history/${{ github.run.number }}/swagger-coverage
-          sudo cp swagger-coverage-report.html allure-history/${{ github.run.number }}/swagger-coverage/index.html
-          sudo chmod -R 755 allure-history/${{ github.run.number }}/swagger-coverage
+          sudo wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
+          sudo tar -zxvf allure-2.24.0.tgz -C /opt/
+          sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
 
-      # 4. Публикуем всю собранную папку allure-history
+      # 3. Сами собираем структуру строго по ТЗ руководителя
+      - name: Build target folders structure
+        if: always()
+        run: |
+          # Создаем физические папки под текущий номер пайплайна
+          mkdir -p test-report/${{ github.run_number }}/allure-report
+          mkdir -p test-report/${{ github.run_number }}/swagger-coverage
+          
+          # Подтягиваем историю прошлых запусков для Allure (чтобы графики трендов внутри Алюра работали)
+          PREV_BUILD=$(( ${{ github.run_number }} - 1 ))
+          if [ -d "old-gh-pages/test-report/${PREV_BUILD}/allure-report/history" ]; then
+            cp -r old-gh-pages/test-report/${PREV_BUILD}/allure-report/history target/allure-results/history
+          fi
+          
+          # Генерируем Allure прямо в папку по ТЗ
+          allure generate target/allure-results -o test-report/${{ github.run_number }}/allure-report --clean
+          
+          # Копируем Swagger-отчет и переименовываем его в index.html
+          if [ -f "swagger-coverage-report.html" ]; then
+            cp swagger-coverage-report.html test-report/${{ github.run_number }}/swagger-coverage/index.html
+          fi
+          
+          # Бережно переносим ВСЕ старые билды из старого gh-pages в нашу новую папку, чтобы они не пропали с сайта
+          if [ -d "old-gh-pages/test-report" ]; then
+            rsync -a old-gh-pages/test-report/ test-report/
+          fi
+          
+          # Делаем редирект для корня сайта, чтобы главная страница не отдавала 404, 
+          # а перекидывала на самый свежий Allure-отчет
+          cat <<EOF > index.html
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta http-equiv="refresh" content="0; url=./test-report/${{ github.run_number }}/allure-report/" />
+              <script type="text/javascript">
+                window.location.href = "./test-report/${{ github.run_number }}/allure-report/"
+              </script>
+            </head>
+            <body>
+              Redirecting to latest report...
+            </body>
+          </html>
+          EOF
+
+      # 4. Публикуем всю нашу папку test-report и коренной редирект на GitHub Pages
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          # Важно: деплоим текущую рабочую директорию, куда мы все красиво разложили
+          publish_dir: .
 
       - name: Log in to Docker Hub #После успешных проверок Логин в докерхаб
         uses: docker/login-action@v3
