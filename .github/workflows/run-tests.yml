@@ -78,15 +78,15 @@ jobs: # Этапы работы пайплайна
           # Запускаем генерацию покрытия
           ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
 
-      # 1. Скачиваем текущий сайт из ветки gh-pages, чтобы не стереть прошлые билды (19, 20 и т.д.)
+      # 1. Меняем path: качаем на уровень ВЫШЕ, вне основного репозитория
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
         with:
           ref: gh-pages
-          path: old-gh-pages
+          path: ../old-gh-pages # <-- Добавили ../
 
-      # 2. Скачиваем официальную утилиту Allure CLI (она сгенерирует чистый HTML без магии экшенов)
+      # 2. Устанавливаем Allure CLI (остается без изменений)
       - name: Install Allure CLI
         if: always()
         run: |
@@ -94,35 +94,31 @@ jobs: # Этапы работы пайплайна
           sudo tar -zxvf allure-2.24.0.tgz -C /opt/
           sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
 
-      # 3. Сами собираем структуру строго по ТЗ руководителя
+      # 3. В скрипте сборки тоже меняем путь к старой истории на ../old-gh-pages
       - name: Build target folders structure
         if: always()
         run: |
-          # Создаем физические папки под текущий номер пайплайна
           mkdir -p test-report/${{ github.run_number }}/allure-report
           mkdir -p test-report/${{ github.run_number }}/swagger-coverage
           
-          # Подтягиваем историю прошлых запусков для Allure (чтобы графики трендов внутри Алюра работали)
           PREV_BUILD=$(( ${{ github.run_number }} - 1 ))
-          if [ -d "old-gh-pages/test-report/${PREV_BUILD}/allure-report/history" ]; then
-            cp -r old-gh-pages/test-report/${PREV_BUILD}/allure-report/history target/allure-results/history
+          # Меняем путь на ../old-gh-pages здесь:
+          if [ -d "../old-gh-pages/test-report/${PREV_BUILD}/allure-report/history" ]; then
+            cp -r ../old-gh-pages/test-report/${PREV_BUILD}/allure-report/history target/allure-results/history
           fi
           
-          # Генерируем Allure прямо в папку по ТЗ
           allure generate target/allure-results -o test-report/${{ github.run_number }}/allure-report --clean
           
-          # Копируем Swagger-отчет и переименовываем его в index.html
           if [ -f "swagger-coverage-report.html" ]; then
             cp swagger-coverage-report.html test-report/${{ github.run_number }}/swagger-coverage/index.html
           fi
           
-          # Бережно переносим ВСЕ старые билды из старого gh-pages в нашу новую папку, чтобы они не пропали с сайта
-          if [ -d "old-gh-pages/test-report" ]; then
-            rsync -a old-gh-pages/test-report/ test-report/
+          # И здесь меняем путь на ../old-gh-pages:
+          if [ -d "../old-gh-pages/test-report" ]; then
+            rsync -a ../old-gh-pages/test-report/ test-report/
           fi
           
-          # Делаем редирект для корня сайта, чтобы главная страница не отдавала 404, 
-          # а перекидывала на самый свежий Allure-отчет
+          # Создаем коренной редирект (остается без изменений)
           cat <<EOF > index.html
           <!DOCTYPE html>
           <html>
@@ -138,14 +134,13 @@ jobs: # Этапы работы пайплайна
           </html>
           EOF
 
-      # 4. Публикуем всю нашу папку test-report и коренной редирект на GitHub Pages
+      # 4. Публикация (остается без изменений)
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          # Важно: деплоим текущую рабочую директорию, куда мы все красиво разложили
           publish_dir: .
 
       - name: Log in to Docker Hub #После успешных проверок Логин в докерхаб
