@@ -49,16 +49,16 @@ jobs: # Этапы работы пайплайна
           APIBASEURL: http://localhost:4111
           UIBASEURL: http://frontend:80
         run: |
-            echo "Waiting for backend to be ready..."
-            # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
-            timeout 180s bash -c '
-              until curl -s http://localhost:4111 > /dev/null; do
-                echo "Backend is still starting... waiting"
-                sleep 5
-              done
-            '
-            echo "Backend is UP! Running tests..."
-            ./mvnw clean test -q
+          echo "Waiting for backend to be ready..."
+          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
+          timeout 180s bash -c '
+            until curl -s http://localhost:4111 > /dev/null; do
+              echo "Backend is still starting... waiting"
+              sleep 5
+            done
+          '
+          echo "Backend is UP! Running tests..."
+          ./mvnw clean test -q
 
       - name: Dump Docker logs on failure
         if: always() # Этот шаг теперь гарантированно запустится, так как он отдельный
@@ -84,7 +84,7 @@ jobs: # Этапы работы пайплайна
         if: always()
         with:
           ref: gh-pages
-          path: gh-pages-dir # Качаем в отдельную папку, чтобы не путаться
+          path: gh-pages-dir
 
       # 2. Генерируем чистый Allure Report через CLI (без деплой-магии экшена)
       - name: Build Allure Report
@@ -99,9 +99,12 @@ jobs: # Этапы работы пайплайна
           mkdir -p public-reports/${{ github.run.number }}/allure-report
           mkdir -p public-reports/${{ github.run.number }}/swagger-coverage
           
+          # Считаем номер предыдущего билда через bash, чтобы гитхаб не ругался
+          PREV_BUILD=$(( ${{ github.run.number }} - 1 ))
+          
           # Переносим историю прошлых запусков для Allure (чтобы графики в отчете работали)
-          if [ -d "gh-pages-dir/${{ github.run.number - 1 }}/allure-report/history" ]; then
-            cp -r gh-pages-dir/${{ github.run.number - 1 }}/allure-report/history target/allure-results/history
+          if [ -d "gh-pages-dir/${PREV_BUILD}/allure-report/history" ]; then
+            cp -r gh-pages-dir/${PREV_BUILD}/allure-report/history target/allure-results/history
           fi
           
           # Генерируем Allure прямо в целевую папку номера пайплайна
@@ -129,24 +132,6 @@ jobs: # Этапы работы пайплайна
           publish_branch: gh-pages
           publish_dir: public-reports
 
-      # 3. Копируем Swagger Coverage прямо в созданную экшеном папку билда
-      - name: Inject Swagger coverage report into Allure structure
-        if: always()
-        run: |
-          # Папка allure-history/${{ github.run_number }} уже создана экшеном v1.7!
-          # Создаем внутри нее подпапку swagger-coverage, чтобы отчеты не перемешались
-          sudo mkdir -p allure-history/${{ github.run_number }}/swagger-coverage
-          sudo cp swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage/index.html
-
-      # 4. Публикуем всю собранную папку (используем v4 для надежности деплоя)
-      - name: Publish test report
-        uses: peaceiris/actions-gh-pages@v4
-        if: always()
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
-
       - name: Log in to Docker Hub #После успешных проверок Логин в докерхаб
         uses: docker/login-action@v3
         with:
@@ -162,4 +147,3 @@ jobs: # Этапы работы пайплайна
       - name: Clean up servises
         if: always()
         run: cd infra/docker_compose && docker compose down
-
