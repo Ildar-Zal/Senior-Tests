@@ -1,7 +1,13 @@
 package api;
 
+import api.models.TransferRequest;
 import api.models.TransferResponse;
 import api.models.comparison.ModelAssertions;
+import api.requests.skelethon.Endpoint;
+import api.requests.skelethon.requesters.CrudRequester;
+import api.requests.skelethon.requesters.ValidatableCrudRequester;
+import api.specs.RequestSpecs;
+import api.specs.ResponseSpecs;
 import base.BaseTest;
 import common.annotations.AccountSession;
 import common.annotations.FraudCheckMock;
@@ -55,5 +61,63 @@ public class TransferWithFraudCheckTest extends BaseTest {
                 .build();
 
         ModelAssertions.assertThatModels(expectedResponse, transferResponse).match();
+    }
+
+    @Test
+    @UserSession(value = 2, auth = 0)
+    @AccountSession(2)
+    public void testTransferWithFraudCheckUnathorized() {
+
+        TransferRequest transferRequest = TransferRequest.builder()
+                .senderAccountId(123)
+                .receiverAccountId(123)
+                .amount(BigDecimal.valueOf(123))
+                .description("Test transfer with fraud check")
+                .build();
+
+        new CrudRequester(
+                RequestSpecs.unauthSpec(),
+                Endpoint.TRANSFER_WITH_FRAUD_CHECK,
+                ResponseSpecs.isUnathorized()).post(transferRequest);
+    }
+
+    @Test
+    @UserSession(value = 2, auth = 0)
+    @AccountSession(2)
+    public void testTransferWithFraudCheckForbidden() {
+
+        TransferRequest transferRequest = TransferRequest.builder()
+                .senderAccountId(123)
+                .receiverAccountId(123)
+                .amount(BigDecimal.valueOf(123))
+                .description("Test transfer with fraud check")
+                .build();
+
+        new CrudRequester(
+                RequestSpecs.adminSpec(),
+                Endpoint.TRANSFER_WITH_FRAUD_CHECK,
+                ResponseSpecs.isForbidden()).post(transferRequest);
+    }
+
+    @Test
+    @UserSession(value = 2, auth = 0)
+    @AccountSession(2)
+    public void testTransferWithFraudotricCheck() {
+        var user = SessionStorage.getUser(1);
+        var account1 = SessionStorage.getAccount(1);
+        var account2 = SessionStorage.getAccount(2);
+
+        TransferRequest transferRequest = TransferRequest.builder()
+                .senderAccountId(account1.getId())
+                .receiverAccountId(account2.getId())
+                .amount(BigDecimal.valueOf(-1000))
+                .description("Test transfer")
+                .build();
+
+        new CrudRequester(
+                RequestSpecs.userSpec(user.getUsername(),user.getPassword()),
+                Endpoint.TRANSFER_WITH_FRAUD_CHECK,
+                ResponseSpecs.isBadRequest()).post(transferRequest);
+
     }
 }

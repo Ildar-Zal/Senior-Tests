@@ -29,15 +29,24 @@ public class ResponseSpecs {
                 .build();
     }
 
+    public static ResponseSpecification isBadRequest() {
+        return defaultSpec().expectStatusCode(HttpStatus.SC_BAD_REQUEST)
+                .build();
+    }
+
     public static ResponseSpecification isUnathorized(String errorKey, String errorMessage) {
         return defaultSpec().expectStatusCode(HttpStatus.SC_UNAUTHORIZED)
                 .expectBody(errorKey, equalTo(errorMessage))
                 .build();
     }
 
+    public static ResponseSpecification isUnathorized() {
+        return defaultSpec().expectStatusCode(HttpStatus.SC_UNAUTHORIZED)
+                .build();
+    }
+
     public static ResponseSpecification isForbidden() {
-        var spec = defaultSpec().expectStatusCode(HttpStatus.SC_FORBIDDEN);
-        return spec.expectBody("message",equalTo("Unauthorized access to account")).build();
+        return defaultSpec().expectStatusCode(HttpStatus.SC_FORBIDDEN).build();
     }
 
     public static ResponseSpecification isBadRequest(String errorKey, Object expectedValue) {

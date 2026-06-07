@@ -4,16 +4,21 @@ import api.dao.AccountDao;
 import api.dao.comparison.DaoAndModelAssertions;
 import api.models.AccountResponse;
 import api.models.CreateUserRequest;
+import api.models.TransferAccountRequest;
 import api.models.comparison.ModelAssertions;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
 import api.requests.skelethon.requesters.ValidatableCrudRequester;
 import api.requests.steps.AdminSteps;
 import api.requests.steps.DataBaseSteps;
+import api.requests.steps.UserSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 import base.BaseTest;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -43,4 +48,36 @@ public class CreateAccountTest extends BaseTest {
 
         DaoAndModelAssertions.assertThat(foundAccount, accountDao).match();
     }
+
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для GET /accounts")
+    public void unauthorizedAccountsError() {
+        new CrudRequester
+                (RequestSpecs.unauthSpec(),
+                        Endpoint.ACCOUNTS,
+                        ResponseSpecs.isUnathorized())
+                .getAll(AccountResponse.class);
+    }
+
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для customer/accounts")
+    public void unauthorizedCustomerAccountsError() {
+        new CrudRequester
+                (RequestSpecs.unauthSpec(),
+                        Endpoint.CUSTOMER_ACCOUNTS,
+                        ResponseSpecs.isUnathorized())
+                .getAll(AccountResponse.class);
+    }
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для POST /accounts")
+    public void unauthorizedPostAccountsError() {
+
+        new CrudRequester
+                (RequestSpecs.unauthSpec(),
+                        Endpoint.ACCOUNTS,
+                        ResponseSpecs.isUnathorized())
+                .post(null);
+    }
+
+
 }

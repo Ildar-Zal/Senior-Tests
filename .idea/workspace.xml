@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="Debug pipeline" />
+    <list default="true" id="1d10162d-a7c1-4008-b7f4-ab58ac5514a1" name="Changes" comment="Debug pipeline">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/specs/ResponseSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/TransferWithFraudCheckTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/TransferWithFraudCheckTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateUserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration1/CreateUserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/DepositAccountTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/iteration2/MoneyTransferTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swagger-coverage-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/swagger-coverage-report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swagger-coverage-results.json" beforeDir="false" afterPath="$PROJECT_DIR$/swagger-coverage-results.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +80,8 @@
     "HttpClient.Posivite test Authorized user can create account.executor": "httpExecutor",
     "JUnit.CreateAccountTest (1).executor": "Run",
     "JUnit.CreateAccountTest.executor": "Run",
+    "JUnit.CreateAccountTest.unauthorizedAccountsError.executor": "Run",
+    "JUnit.CreateAccountTest.unauthorizedPostAccountsError.executor": "Run",
     "JUnit.CreateAccountTest.userCanCreateAccountTest.executor": "Run",
     "JUnit.CreateAccoutTest.executor": "Run",
     "JUnit.CreateAccoutTest.userCanCreateAccountTest.executor": "Run",
@@ -81,9 +93,13 @@
     "JUnit.CreateUserTest.adminCannotCreateUserWithInvalidData.executor": "Run",
     "JUnit.CreateUserTest.adminCantCreateUserTest.executor": "Run",
     "JUnit.CreateUserTest.executor": "Run",
+    "JUnit.CreateUserTest.forbiddenPostUsersError.executor": "Run",
+    "JUnit.CreateUserTest.unauthorizedCustomerAccountsError.executor": "Run",
+    "JUnit.CreateUserTest.unauthorizedPostUsersError.executor": "Run",
     "JUnit.DepositAccountTest.UserCanDepositAccountTest.executor": "Run",
     "JUnit.DepositAccountTest.UserCanDepositMinSumAccountTest.executor": "Run",
     "JUnit.DepositAccountTest.executor": "Run",
+    "JUnit.DepositAccountTest.unauthorizedDepositError.executor": "Run",
     "JUnit.DepositAccountTest.userCanDepositAccountTest.executor": "Run",
     "JUnit.DepositAccountTest.userCantDepositAccountTest.executor": "Run",
     "JUnit.DepositAccountTest.userCantDepositAccountWithoutAmountTest.executor": "Run",
@@ -113,6 +129,9 @@
     "JUnit.MoneyTransferTest.UserCanTransferMoneyDifferentUserTest.executor": "Run",
     "JUnit.MoneyTransferTest.UserCanTransferMoneyUrselfTest.executor": "Run",
     "JUnit.MoneyTransferTest.executor": "Run",
+    "JUnit.MoneyTransferTest.forbiddenTransferError.executor": "Run",
+    "JUnit.MoneyTransferTest.forbidenErrorTransfer.executor": "Run",
+    "JUnit.MoneyTransferTest.unauthorizedTransferError.executor": "Run",
     "JUnit.MoneyTransferTest.userCanTransferMoneyDifferentUserTest.executor": "Run",
     "JUnit.MoneyTransferTest.userCanTransferMoneyTest.executor": "Debug",
     "JUnit.MoneyTransferTest.userCantDepositAccountTest.executor": "Run",
@@ -121,6 +140,10 @@
     "JUnit.MoneyTransferTest.userCantTrasferMoreThanTenTest.executor": "Run",
     "JUnit.MoneyTransferTest.userNotFoundWithAccountTest.executor": "Debug",
     "JUnit.TransferWithFraudCheckTest.executor": "Run",
+    "JUnit.TransferWithFraudCheckTest.testTransferWithErrorFraudCheck.executor": "Run",
+    "JUnit.TransferWithFraudCheckTest.testTransferWithFraudCheck.executor": "Run",
+    "JUnit.TransferWithFraudCheckTest.testTransferWithFraudCheckForbidden.executor": "Run",
+    "JUnit.TransferWithFraudCheckTest.testTransferWithFraudotricCheck.executor": "Run",
     "JUnit.UpdateUserNameTest.UserCanChangeNameTest.executor": "Run",
     "JUnit.UpdateUserNameTest.executor": "Run",
     "JUnit.UpdateUserNameTest.negativeTest.executor": "Debug",
@@ -171,28 +194,45 @@
     <option name="myCommands">
       <command value="mvn clean" />
       <command value="mvn -DskipTest=true surfire-report:repot" />
-      <command value="mvn test -P api" />
       <command value="mvn -DskipTests=true surefire-report:report" />
       <command value="mvn clean test" />
+      <command value="mvn test -P api" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UpdateUserNameTest.userCanChangeNameTest">
-    <configuration name="CreateUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TransferWithFraudCheckTest.testTransferWithFraudotricCheck">
+    <configuration name="CreateAccountTest.unauthorizedPostAccountsError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.iteration1.*" />
+          <option name="PATTERN" value="api.iteration1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration1" />
-      <option name="MAIN_CLASS_NAME" value="ui.iteration1.CreateUserTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="api.iteration1" />
+      <option name="MAIN_CLASS_NAME" value="api.iteration1.CreateAccountTest" />
+      <option name="METHOD_NAME" value="unauthorizedPostAccountsError" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransferWithFraudCheckTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CreateUserTest.forbiddenPostUsersError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="api.iteration1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="api.iteration1" />
+      <option name="MAIN_CLASS_NAME" value="api.iteration1.CreateUserTest" />
+      <option name="METHOD_NAME" value="forbiddenPostUsersError" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferWithFraudCheckTest.testTransferWithErrorFraudCheck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
@@ -202,51 +242,40 @@
       </extension>
       <option name="PACKAGE_NAME" value="api" />
       <option name="MAIN_CLASS_NAME" value="api.TransferWithFraudCheckTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UpdateUserNameTest.userCanChangeNameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ui.iteration2.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration2" />
-      <option name="MAIN_CLASS_NAME" value="ui.iteration2.UpdateUserNameTest" />
-      <option name="METHOD_NAME" value="userCanChangeNameTest" />
+      <option name="METHOD_NAME" value="testTransferWithErrorFraudCheck" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ui.iteration1 in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferWithFraudCheckTest.testTransferWithFraudCheckForbidden" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.iteration1.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration1" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.TransferWithFraudCheckTest" />
+      <option name="METHOD_NAME" value="testTransferWithFraudCheckForbidden" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ui.iteration2 in nbank-tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferWithFraudCheckTest.testTransferWithFraudotricCheck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ui.iteration2.*" />
+          <option name="PATTERN" value="api.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ui.iteration2" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="api" />
+      <option name="MAIN_CLASS_NAME" value="api.TransferWithFraudCheckTest" />
+      <option name="METHOD_NAME" value="testTransferWithFraudotricCheck" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -314,11 +343,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UpdateUserNameTest.userCanChangeNameTest" />
-        <item itemvalue="JUnit.ui.iteration2 in nbank-tests" />
-        <item itemvalue="JUnit.TransferWithFraudCheckTest" />
-        <item itemvalue="JUnit.ui.iteration1 in nbank-tests" />
-        <item itemvalue="JUnit.CreateUserTest" />
+        <item itemvalue="JUnit.TransferWithFraudCheckTest.testTransferWithFraudotricCheck" />
+        <item itemvalue="JUnit.TransferWithFraudCheckTest.testTransferWithFraudCheckForbidden" />
+        <item itemvalue="JUnit.TransferWithFraudCheckTest.testTransferWithErrorFraudCheck" />
+        <item itemvalue="JUnit.CreateAccountTest.unauthorizedPostAccountsError" />
+        <item itemvalue="JUnit.CreateUserTest.forbiddenPostUsersError" />
       </list>
     </recent_temporary>
   </component>
@@ -611,7 +640,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780659974837</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Debug pipeline">
+      <option name="closed" value="true" />
+      <created>1780660940103</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1780660940103</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -720,7 +757,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java</url>
-          <line>38</line>
+          <line>43</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -728,32 +765,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/iteration1/CreateAccountTest.java</url>
-          <line>39</line>
+          <line>44</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/TransferWithFraudCheckTest.java</url>
-          <line>35</line>
+          <line>41</line>
           <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/TransferWithFraudCheckTest.java</url>
-          <line>37</line>
+          <line>43</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/TransferWithFraudCheckTest.java</url>
-          <line>39</line>
+          <line>45</line>
           <option name="timeStamp" value="125" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/TransferWithFraudCheckTest.java</url>
-          <line>38</line>
+          <line>44</line>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/TransferWithFraudCheckTest.java</url>
-          <line>36</line>
+          <line>42</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

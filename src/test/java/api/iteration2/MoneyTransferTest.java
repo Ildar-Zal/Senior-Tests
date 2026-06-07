@@ -13,6 +13,7 @@ import api.requests.steps.UserSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 import base.BaseTest;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -229,6 +230,45 @@ public class MoneyTransferTest extends BaseTest {
                 .isEmpty();
 
     }
+
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для /transfer")
+    public void unauthorizedTransferError() {
+        TransferAccountRequest transferAccountRequest = TransferAccountRequest.builder()
+                .senderAccountId(1) // ID могут быть любыми, до валидации тела дело даже не дойдет
+                .receiverAccountId(2)
+                .amount(BigDecimal.valueOf(100))
+                .build();
+
+        // Отправляем запрос со спецификацией БЕЗ авторизации (unauthSpec)
+        new CrudRequester(
+                RequestSpecs.unauthSpec(),
+                Endpoint.ACCOUNTS_TRANSFER,
+                ResponseSpecs.isUnathorized()) // Ждем 401 статус
+                .post(transferAccountRequest);
+    }
+
+    @Test
+    @Description("Покрытие Swagger Coverage: 403 Forbidden для /transfer")
+    public void forbiddenTransferError() {
+        CreateUserRequest userRequestA = AdminSteps.createUser();
+        var userA = new UserSteps(userRequestA);
+        var sourceAccA = userA.createAccount();
+        var targetAccA = userA.createAccount();
+
+        TransferAccountRequest transferAccountRequest = TransferAccountRequest.builder()
+                .senderAccountId(sourceAccA.getId())   // Берем счет Пользователя А
+                .receiverAccountId(targetAccA.getId()) // Берем счет Пользователя А
+                .amount(BigDecimal.valueOf(123))
+                .build();
+
+        new CrudRequester(
+                RequestSpecs.adminSpec(),
+                Endpoint.ACCOUNTS_TRANSFER,
+                ResponseSpecs.isForbidden()) // Ждем 403 статус
+                .post(transferAccountRequest);
+    }
+
 
     private void assertTransferTransactions(List<TransactionResponse> sourceTx, List<TransactionResponse> targetTx) {
         softly.assertThat(sourceTx)

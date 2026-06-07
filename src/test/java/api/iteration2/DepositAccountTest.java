@@ -6,6 +6,7 @@ import api.generators.RandomModelGenerator;
 import api.models.AccountResponse;
 import api.models.CreateUserRequest;
 import api.models.DepositAccountRequest;
+import api.models.TransferAccountRequest;
 import api.models.comparison.ModelAssertions;
 import api.requests.skelethon.Endpoint;
 import api.requests.skelethon.requesters.CrudRequester;
@@ -16,6 +17,7 @@ import api.requests.steps.UserSteps;
 import api.specs.RequestSpecs;
 import api.specs.ResponseSpecs;
 import base.BaseTest;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -159,5 +161,19 @@ public class DepositAccountTest extends BaseTest {
     private void assertApiDaoAccountDeposit(String accountId, AccountResponse accountApi) {
         AccountDao accountDao = DataBaseSteps.getAccountByAccountNumber(accountId);
         DaoAndModelAssertions.assertThat(accountApi, accountDao).match();
+    }
+
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для /deposit")
+    public void unauthorizedDepositError() {
+        DepositAccountRequest depositAccountRequest = DepositAccountRequest.builder()
+                .amount(BigDecimal.valueOf(1))
+                .accountId(1)
+                .build();
+
+        new CrudRequester(RequestSpecs.unauthSpec(),
+                Endpoint.ACCOUNTS_DEPOSIT,
+                ResponseSpecs.isUnathorized())
+                .post(depositAccountRequest);
     }
 }
