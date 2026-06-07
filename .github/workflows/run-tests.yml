@@ -41,24 +41,24 @@ jobs: # Этапы работы пайплайна
       - name: Verify
         run: ./mvnw verify -DskipTests
 
-#      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
-#        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
+      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
+        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
 
-#      - name: Run tests # Запуск тестов с Maven
-#        env: # Теперь env стоит правильно — на одном уровне с run
-#          APIBASEURL: http://localhost:4111
-#          UIBASEURL: http://frontend:80
-#        run: |
-#            echo "Waiting for backend to be ready..."
-#            # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
-#            timeout 180s bash -c '
-#              until curl -s http://localhost:4111 > /dev/null; do
-#                echo "Backend is still starting... waiting"
-#                sleep 5
-#              done
-#            '
-#            echo "Backend is UP! Running tests..."
-#            ./mvnw clean test -q
+      - name: Run tests # Запуск тестов с Maven
+        env: # Теперь env стоит правильно — на одном уровне с run
+          APIBASEURL: http://localhost:4111
+          UIBASEURL: http://frontend:80
+        run: |
+          echo "Waiting for backend to be ready..."
+          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
+          timeout 180s bash -c '
+          until curl -s http://localhost:4111 > /dev/null; do
+          echo "Backend is still starting... waiting"
+          sleep 5
+          done
+          '
+          echo "Backend is UP! Running tests..."
+          ./mvnw clean test -q
 
       - name: Dump Docker logs on failure
         if: always() # Этот шаг теперь гарантированно запустится, так как он отдельный
@@ -74,81 +74,39 @@ jobs: # Этапы работы пайплайна
         run: |
           # Выдаем права на исполнение CLI утилите
           chmod +x ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline
-          
           # Запускаем генерацию покрытия
           ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
 
-      # 1. Скачиваем внутрь проекта (Гитхаб это разрешит)
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
         with:
           ref: gh-pages
-          path: history-download-folder
+          path: gh-pages
 
-      # 2. Мгновенно выносим папку на уровень выше силами Bash, подальше от глаз Git
-      - name: Move history out of git sight
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.13
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_results: target/allure-results
+          allure_history: allure-history
+
+      - name: Build Swagger coverage report
         if: always()
         run: |
-          mv history-download-folder ../old-gh-pages
+          # Создаем отдельную подпапку под Swagger внутри папки текущего билда, которую создал Allure
+          mkdir -p allure-history/${{ github.run_number }}/swagger-coverage
+          # Копируем отчет туда под именем index.html, чтобы он корректно открывался по ссылке
+          cp swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage/index.html
 
-      # 3. Устанавливаем Allure CLI
-      - name: Install Allure CLI
-        if: always()
-        run: |
-          sudo wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
-          sudo tar -zxvf allure-2.24.0.tgz -C /opt/
-          sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
-
-      # 4. Собираем структуру (пути теперь ведут в безопасное место `../old-gh-pages`)
-      - name: Build target folders structure
-        if: always()
-        run: |
-          mkdir -p test-report/${{ github.run_number }}/allure-report
-          mkdir -p test-report/${{ github.run_number }}/swagger-coverage
-          
-          PREV_BUILD=$(( ${{ github.run_number }} - 1 ))
-          
-          # Берем историю Алюра из безопасного места
-          if [ -d "../old-gh-pages/test-report/${PREV_BUILD}/allure-report/history" ]; then
-            cp -r ../old-gh-pages/test-report/${PREV_BUILD}/allure-report/history target/allure-results/history
-          fi
-          
-          allure generate target/allure-results -o test-report/${{ github.run_number }}/allure-report --clean
-          
-          if [ -f "swagger-coverage-report.html" ]; then
-            cp swagger-coverage-report.html test-report/${{ github.run_number }}/swagger-coverage/index.html
-          fi
-          
-          # Подтягиваем старые билды
-          if [ -d "../old-gh-pages/test-report" ]; then
-            rsync -a ../old-gh-pages/test-report/ test-report/
-          fi
-          
-          # Создаем коренной редирект
-          cat <<EOF > index.html
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <meta http-equiv="refresh" content="0; url=./test-report/${{ github.run_number }}/allure-report/" />
-              <script type="text/javascript">
-                window.location.href = "./test-report/${{ github.run_number }}/allure-report/"
-              </script>
-            </head>
-            <body>
-              Redirecting to latest report...
-            </body>
-          </html>
-          EOF
-
-      # 5. Публикуем
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .
+          publish_dir: allure-history
 
       - name: Log in to Docker Hub #После успешных проверок Логин в докерхаб
         uses: docker/login-action@v3
@@ -165,4 +123,3 @@ jobs: # Этапы работы пайплайна
       - name: Clean up servises
         if: always()
         run: cd infra/docker_compose && docker compose down
-
