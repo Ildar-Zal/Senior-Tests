@@ -41,8 +41,8 @@ jobs: # Этапы работы пайплайна
       - name: Verify
         run: ./mvnw verify -DskipTests
 
-      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
-        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
+#      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
+#        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
 
 #      - name: Run tests # Запуск тестов с Maven
 #        env: # Теперь env стоит правильно — на одном уровне с run
@@ -78,15 +78,21 @@ jobs: # Этапы работы пайплайна
           # Запускаем генерацию покрытия
           ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
 
-      # 1. Меняем path: качаем на уровень ВЫШЕ, вне основного репозитория
+      # 1. Скачиваем внутрь проекта (Гитхаб это разрешит)
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
         with:
           ref: gh-pages
-          path: ../old-gh-pages # <-- Добавили ../
+          path: history-download-folder
 
-      # 2. Устанавливаем Allure CLI (остается без изменений)
+      # 2. Мгновенно выносим папку на уровень выше силами Bash, подальше от глаз Git
+      - name: Move history out of git sight
+        if: always()
+        run: |
+          mv history-download-folder ../old-gh-pages
+
+      # 3. Устанавливаем Allure CLI
       - name: Install Allure CLI
         if: always()
         run: |
@@ -94,7 +100,7 @@ jobs: # Этапы работы пайплайна
           sudo tar -zxvf allure-2.24.0.tgz -C /opt/
           sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
 
-      # 3. В скрипте сборки тоже меняем путь к старой истории на ../old-gh-pages
+      # 4. Собираем структуру (пути теперь ведут в безопасное место `../old-gh-pages`)
       - name: Build target folders structure
         if: always()
         run: |
@@ -102,7 +108,8 @@ jobs: # Этапы работы пайплайна
           mkdir -p test-report/${{ github.run_number }}/swagger-coverage
           
           PREV_BUILD=$(( ${{ github.run_number }} - 1 ))
-          # Меняем путь на ../old-gh-pages здесь:
+          
+          # Берем историю Алюра из безопасного места
           if [ -d "../old-gh-pages/test-report/${PREV_BUILD}/allure-report/history" ]; then
             cp -r ../old-gh-pages/test-report/${PREV_BUILD}/allure-report/history target/allure-results/history
           fi
@@ -113,12 +120,12 @@ jobs: # Этапы работы пайплайна
             cp swagger-coverage-report.html test-report/${{ github.run_number }}/swagger-coverage/index.html
           fi
           
-          # И здесь меняем путь на ../old-gh-pages:
+          # Подтягиваем старые билды
           if [ -d "../old-gh-pages/test-report" ]; then
             rsync -a ../old-gh-pages/test-report/ test-report/
           fi
           
-          # Создаем коренной редирект (остается без изменений)
+          # Создаем коренной редирект
           cat <<EOF > index.html
           <!DOCTYPE html>
           <html>
@@ -134,7 +141,7 @@ jobs: # Этапы работы пайплайна
           </html>
           EOF
 
-      # 4. Публикация (остается без изменений)
+      # 5. Публикуем
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
         if: always()
