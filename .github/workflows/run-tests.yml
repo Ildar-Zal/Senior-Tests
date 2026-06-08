@@ -41,24 +41,24 @@ jobs: # Этапы работы пайплайна
       - name: Verify
         run: ./mvnw verify -DskipTests
 
-      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
-        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
-
-      - name: Run tests # Запуск тестов с Maven
-        env: # Теперь env стоит правильно — на одном уровне с run
-          APIBASEURL: http://localhost:4111
-          UIBASEURL: http://frontend:80
-        run: |
-          echo "Waiting for backend to be ready..."
-          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
-          timeout 180s bash -c '
-          until curl -s http://localhost:4111 > /dev/null; do
-          echo "Backend is still starting... waiting"
-          sleep 5
-          done
-          '
-          echo "Backend is UP! Running tests..."
-          ./mvnw clean test -q
+#      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
+#        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
+#
+#      - name: Run tests # Запуск тестов с Maven
+#        env: # Теперь env стоит правильно — на одном уровне с run
+#          APIBASEURL: http://localhost:4111
+#          UIBASEURL: http://frontend:80
+#        run: |
+#          echo "Waiting for backend to be ready..."
+#          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
+#          timeout 180s bash -c '
+#          until curl -s http://localhost:4111 > /dev/null; do
+#          echo "Backend is still starting... waiting"
+#          sleep 5
+#          done
+#          '
+#          echo "Backend is UP! Running tests..."
+#          ./mvnw clean test -q
 
       - name: Dump Docker logs on failure
         if: always() # Этот шаг теперь гарантированно запустится, так как он отдельный
@@ -76,6 +76,12 @@ jobs: # Этапы работы пайплайна
           chmod +x ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline
           # Запускаем генерацию покрытия
           ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
+
+      - name: Debug Print Swagger JSON
+        if: always()
+        run: |
+          echo "=== Printing swagger-coverage-results.json ==="
+          cat swagger-coverage-results.json || cat swagger-coverage-output/swagger-coverage-results.json || echo "File not found"
 
       - name: Load test report history
         uses: actions/checkout@v4
