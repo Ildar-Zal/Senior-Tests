@@ -80,7 +80,7 @@ jobs: # Этапы работы пайплайна
       - name: Check API Coverage Quality Gate
         if: always()
         run: |
-            echo "=== Checking API Coverage Quality Gate ==="
+            echo "=== Checking API Coverage Quality Gate (Operations) ==="
             
             JSON_FILE="swagger-coverage-results.json"
             if [ ! -f "$JSON_FILE" ]; then
@@ -92,27 +92,33 @@ jobs: # Этапы работы пайплайна
               exit 1
             fi
             
-            TOTAL_COVERED=$(jq '[.operations[].coveredConditionCount] | add' "$JSON_FILE")
-            TOTAL_ALL=$(jq '[.operations[].allConditionCount] | add' "$JSON_FILE")
+            echo "Found results file at: $JSON_FILE"
             
-            echo "Total conditions expected: $TOTAL_ALL"
-            echo "Total conditions covered: $TOTAL_COVERED"
+            # 1. Считаем общее количество ручек API (Operations)
+            TOTAL_OPERATIONS=$(jq '.operations | length' "$JSON_FILE")
             
-            if [ "$TOTAL_ALL" -eq 0 ]; then
-              echo "❌ ERROR: Total conditions count is 0. Check your swagger.json"
+            # 2. Считаем количество покрытых ручек (все, у которых статус НЕ равен "EMPTY")
+            COVERED_OPERATIONS=$(jq '[.operations[] | select(.state != "EMPTY")] | length' "$JSON_FILE")
+            
+            echo "Total API Operations expected: $TOTAL_OPERATIONS"
+            echo "Covered API Operations: $COVERED_OPERATIONS"
+            
+            if [ "$TOTAL_OPERATIONS" -eq 0 ]; then
+              echo "❌ ERROR: Total operations count is 0. Check your swagger.json"
               exit 1
             fi
             
-            COVERAGE_INT=$(( TOTAL_COVERED * 100 / TOTAL_ALL ))
-            echo "Current API coverage is: $COVERAGE_INT%"
+            # 3. Вычисляем процент покрытия ручек
+            COVERAGE_INT=$(( COVERED_OPERATIONS * 100 / TOTAL_OPERATIONS ))
+            echo "Current API Operations Coverage is: $COVERAGE_INT%"
             
+            # 4. Проверяем условие лида (падает, если меньше 50%)
             if [ "$COVERAGE_INT" -lt 50 ]; then
-              echo "❌ QUALITY GATE FAILED: API Coverage ($COVERAGE_INT%) is below the required 50%!"
+              echo "❌ QUALITY GATE FAILED: API Operations Coverage ($COVERAGE_INT%) is below the required 50%!"
               exit 1
             else
-              echo "✅ QUALITY GATE PASSED: API Coverage ($COVERAGE_INT%) is sufficient."
+              echo "✅ QUALITY GATE PASSED: API Operations Coverage ($COVERAGE_INT%) is sufficient."
             fi
-          # === КОНЕЦ НОВОГО БЛОКА ===
 
       - name: Load test report history
         uses: actions/checkout@v4
