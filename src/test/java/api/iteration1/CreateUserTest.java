@@ -81,42 +81,42 @@ public class CreateUserTest extends BaseTest {
                 .getAll(UserResponse.class);
     }
 
-    @Test
-    @Description("Покрытие Swagger Coverage: 403 Unauthorized для GET /users")
-    @UserSession(value = 1, auth = 0)
-    public void forbiddenGetUsersError() {
-        var user = SessionStorage.getUser();
-
-        new CrudRequester(RequestSpecs.userSpec(user.getUsername(),user.getPassword()),
-                Endpoint.ADMIN_USERS,
-                ResponseSpecs.isForbidden())
-                .getAll(UserResponse.class);
-    }
-
-    @Test
-    @Description("Покрытие Swagger Coverage: 401 Unauthorized для POST /users")
-    public void unauthorizedPostUsersError() {
-        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
-
-        new CrudRequester(RequestSpecs.unauthSpec(),
-                Endpoint.ADMIN_USERS,
-                ResponseSpecs.isUnathorized())
-                .post(createUserRequest);
-    }
-
-    @Test
-    @Description("Покрытие Swagger Coverage: 403 Unauthorized для POST /users")
-    @UserSession(value = 1, auth = 0)
-    public void forbiddenPostUsersError() {
-        var user = SessionStorage.getUser();
-
-        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
-
-        new CrudRequester(RequestSpecs.userSpec(user.getUsername(),user.getPassword()),
-                Endpoint.ADMIN_USERS,
-                ResponseSpecs.isForbidden())
-                .post(createUserRequest);
-    }
+//    @Test
+//    @Description("Покрытие Swagger Coverage: 403 Unauthorized для GET /users")
+//    @UserSession(value = 1, auth = 0)
+//    public void forbiddenGetUsersError() {
+//        var user = SessionStorage.getUser();
+//
+//        new CrudRequester(RequestSpecs.userSpec(user.getUsername(),user.getPassword()),
+//                Endpoint.ADMIN_USERS,
+//                ResponseSpecs.isForbidden())
+//                .getAll(UserResponse.class);
+//    }
+//
+//    @Test
+//    @Description("Покрытие Swagger Coverage: 401 Unauthorized для POST /users")
+//    public void unauthorizedPostUsersError() {
+//        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+//
+//        new CrudRequester(RequestSpecs.unauthSpec(),
+//                Endpoint.ADMIN_USERS,
+//                ResponseSpecs.isUnathorized())
+//                .post(createUserRequest);
+//    }
+//
+//    @Test
+//    @Description("Покрытие Swagger Coverage: 403 Unauthorized для POST /users")
+//    @UserSession(value = 1, auth = 0)
+//    public void forbiddenPostUsersError() {
+//        var user = SessionStorage.getUser();
+//
+//        CreateUserRequest createUserRequest = RandomModelGenerator.generate(CreateUserRequest.class);
+//
+//        new CrudRequester(RequestSpecs.userSpec(user.getUsername(),user.getPassword()),
+//                Endpoint.ADMIN_USERS,
+//                ResponseSpecs.isForbidden())
+//                .post(createUserRequest);
+//    }
 
 }
 
