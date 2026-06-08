@@ -49,35 +49,35 @@ public class CreateAccountTest extends BaseTest {
         DaoAndModelAssertions.assertThat(foundAccount, accountDao).match();
     }
 
-//    @Test
-//    @Description("Покрытие Swagger Coverage: 401 Unauthorized для GET /accounts")
-//    public void unauthorizedAccountsError() {
-//        new CrudRequester
-//                (RequestSpecs.unauthSpec(),
-//                        Endpoint.ACCOUNTS,
-//                        ResponseSpecs.isUnathorized())
-//                .getAll(AccountResponse.class);
-//    }
-//
-//    @Test
-//    @Description("Покрытие Swagger Coverage: 401 Unauthorized для customer/accounts")
-//    public void unauthorizedCustomerAccountsError() {
-//        new CrudRequester
-//                (RequestSpecs.unauthSpec(),
-//                        Endpoint.CUSTOMER_ACCOUNTS,
-//                        ResponseSpecs.isUnathorized())
-//                .getAll(AccountResponse.class);
-//    }
-//    @Test
-//    @Description("Покрытие Swagger Coverage: 401 Unauthorized для POST /accounts")
-//    public void unauthorizedPostAccountsError() {
-//
-//        new CrudRequester
-//                (RequestSpecs.unauthSpec(),
-//                        Endpoint.ACCOUNTS,
-//                        ResponseSpecs.isUnathorized())
-//                .post(null);
-//    }
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для GET /accounts")
+    public void unauthorizedAccountsError() {
+        new CrudRequester
+                (RequestSpecs.unauthSpec(),
+                        Endpoint.ACCOUNTS,
+                        ResponseSpecs.isUnathorized())
+                .getAll(AccountResponse.class);
+    }
+
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для customer/accounts")
+    public void unauthorizedCustomerAccountsError() {
+        new CrudRequester
+                (RequestSpecs.unauthSpec(),
+                        Endpoint.CUSTOMER_ACCOUNTS,
+                        ResponseSpecs.isUnathorized())
+                .getAll(AccountResponse.class);
+    }
+    @Test
+    @Description("Покрытие Swagger Coverage: 401 Unauthorized для POST /accounts")
+    public void unauthorizedPostAccountsError() {
+
+        new CrudRequester
+                (RequestSpecs.unauthSpec(),
+                        Endpoint.ACCOUNTS,
+                        ResponseSpecs.isUnathorized())
+                .post(null);
+    }
 
 
 }
