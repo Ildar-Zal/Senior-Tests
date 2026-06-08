@@ -98,8 +98,7 @@ jobs: # Этапы работы пайплайна
             TOTAL_OPERATIONS=$(jq '.operations | length' "$JSON_FILE")
             
             # 2. Считаем количество покрытых ручек (все, у которых статус НЕ равен "EMPTY")
-            COVERED_OPERATIONS=$(jq '[.operations[] | select(.state != "EMPTY")] | length' "$JSON_FILE")
-            
+            COVERED_OPERATIONS=$(jq '[.operations[] | select(.state == "FULL")] | length' "$JSON_FILE")            
             echo "Total API Operations expected: $TOTAL_OPERATIONS"
             echo "Covered API Operations: $COVERED_OPERATIONS"
             
