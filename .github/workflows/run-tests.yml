@@ -41,24 +41,24 @@ jobs: # Этапы работы пайплайна
       - name: Verify
         run: ./mvnw verify -DskipTests
 
-#      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
-#        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
-#
-#      - name: Run tests # Запуск тестов с Maven
-#        env: # Теперь env стоит правильно — на одном уровне с run
-#          APIBASEURL: http://localhost:4111
-#          UIBASEURL: http://frontend:80
-#        run: |
-#          echo "Waiting for backend to be ready..."
-#          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
-#          timeout 180s bash -c '
-#          until curl -s http://localhost:4111 > /dev/null; do
-#          echo "Backend is still starting... waiting"
-#          sleep 5
-#          done
-#          '
-#          echo "Backend is UP! Running tests..."
-#          ./mvnw clean test -q
+      - name: Set up services # Настройка сервисов, например, запуск Docker контейнеров
+        run: cd infra/docker_compose && pwd && bash run-tests-with-docker-compose.sh && cd ../..
+
+      - name: Run tests # Запуск тестов с Maven
+        env: # Теперь env стоит правильно — на одном уровне с run
+          APIBASEURL: http://localhost:4111
+          UIBASEURL: http://frontend:80
+        run: |
+          echo "Waiting for backend to be ready..."
+          # Цикл будет каждые 5 секунд проверять, отвечает ли порт 4111
+          timeout 180s bash -c '
+          until curl -s http://localhost:4111 > /dev/null; do
+          echo "Backend is still starting... waiting"
+          sleep 5
+          done
+          '
+          echo "Backend is UP! Running tests..."
+          ./mvnw clean test -q
 
       - name: Dump Docker logs on failure
         if: always() # Этот шаг теперь гарантированно запустится, так как он отдельный
@@ -77,11 +77,42 @@ jobs: # Этапы работы пайплайна
           # Запускаем генерацию покрытия
           ./swagger-coverage/swagger-coverage-commandline-1.4.3/bin/swagger-coverage-commandline -s swagger.json -i swagger-coverage-output
 
-      - name: Debug Print Swagger JSON
+      - name: Check API Coverage Quality Gate
         if: always()
         run: |
-          echo "=== Printing swagger-coverage-results.json ==="
-          cat swagger-coverage-results.json || cat swagger-coverage-output/swagger-coverage-results.json || echo "File not found"
+            echo "=== Checking API Coverage Quality Gate ==="
+            
+            JSON_FILE="swagger-coverage-results.json"
+            if [ ! -f "$JSON_FILE" ]; then
+              JSON_FILE=$(find . -name "swagger-coverage-results.json" | head -n 1)
+            fi
+            
+            if [ -z "$JSON_FILE" ] || [ ! -f "$JSON_FILE" ]; then
+              echo "❌ ERROR: swagger-coverage-results.json not found! Cannot check quality gate."
+              exit 1
+            fi
+            
+            TOTAL_COVERED=$(jq '[.operations[].coveredConditionCount] | add' "$JSON_FILE")
+            TOTAL_ALL=$(jq '[.operations[].allConditionCount] | add' "$JSON_FILE")
+            
+            echo "Total conditions expected: $TOTAL_ALL"
+            echo "Total conditions covered: $TOTAL_COVERED"
+            
+            if [ "$TOTAL_ALL" -eq 0 ]; then
+              echo "❌ ERROR: Total conditions count is 0. Check your swagger.json"
+              exit 1
+            fi
+            
+            COVERAGE_INT=$(( TOTAL_COVERED * 100 / TOTAL_ALL ))
+            echo "Current API coverage is: $COVERAGE_INT%"
+            
+            if [ "$COVERAGE_INT" -lt 50 ]; then
+              echo "❌ QUALITY GATE FAILED: API Coverage ($COVERAGE_INT%) is below the required 50%!"
+              exit 1
+            else
+              echo "✅ QUALITY GATE PASSED: API Coverage ($COVERAGE_INT%) is sufficient."
+            fi
+          # === КОНЕЦ НОВОГО БЛОКА ===
 
       - name: Load test report history
         uses: actions/checkout@v4
