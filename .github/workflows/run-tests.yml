@@ -96,9 +96,9 @@ jobs: # Этапы работы пайплайна
         if: always()
         run: |
           # Создаем отдельную подпапку под Swagger внутри папки текущего билда, которую создал Allure
-          mkdir -p allure-history/${{ github.run_number }}/swagger-coverage
+          sudo mkdir -p allure-history/${{ github.run_number }}/swagger-coverage
           # Копируем отчет туда под именем index.html, чтобы он корректно открывался по ссылке
-          cp swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage/index.html
+          sudo cp swagger-coverage-report.html allure-history/${{ github.run_number }}/swagger-coverage/index.html
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
